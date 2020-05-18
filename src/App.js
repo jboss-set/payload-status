@@ -1,24 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
+import IssueSingleTable from './IssueSingleTable';
+import IssueSeparateTable from './IssueSeparateTables';
 import './App.css';
 
+let data = require('./data/7.3.2.json');
+
 function App() {
+  const [single, setSingle] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={()=>setSingle(!single)}>Switch to {single ? 'separate' : 'single'} view</button>
+      {single ?
+          <IssueSingleTable data={data} /> :
+          <IssueSeparateTable data={data} />
+      }
     </div>
   );
 }

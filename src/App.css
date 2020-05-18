@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+button {
+    font-family: inherit;
+    font-size: 1em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+table.list {
+    border-collapse: collapse;
+    margin: 10px auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+table.list caption {
+    font-size: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+table.list th {
+    text-align: left;
+    padding-left: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+table.list, table.list td {
+    border: 2px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+table.list td {
+    padding: 4px 20px;
+}
+
+table.list.single tbody tr:nth-child(2n+1) {
+    background-color: #eee;
+}
+
+table.list td.pr-status-ukn {
+    background-color: #ccc;
+}
+
+table.list td.pr-status-missing {
+    background: repeating-linear-gradient(
+        67.5deg, #666 0 10px, #ddd 10px 20px
+        )
+}
+
+table.list td.pr-status-multi {
+    background: repeating-linear-gradient(
+        67.5deg, darkgreen 0 10px, green 10px 20px
+        )
+}
+
+table.list td.mono {
+    font-family: DejaVu Sans Mono, mono;
+    padding: 4px 10px;
+}
+
+table.list.upgrades tbody tr.issue-upgrade {
+    background-color: lightgreen;
 }

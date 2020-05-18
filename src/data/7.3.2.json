@@ -20,6 +20,20 @@
   } ]
 }, {
   "type" : "BUG",
+  "number" : "JBEAP-19474",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19474",
+  "summary" : "[GSS](7.3.z) UNDERTOW-1419 - bumpTimeout method usage in InMemorySessionManager",
+  "incorporated" : [ "https://issues.redhat.com/browse/UNDERTOW-1419" ],
+  "pull-requests" : [ {
+    "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/21",
+    "status" : "Exception",
+    "upstream-required" : false,
+    "upstream-jira" : null,
+    "upstream-pull-request" : null
+  } ]
+}, {
+  "type" : "BUG",
   "number" : "JBEAP-19464",
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19464",
@@ -178,6 +192,14 @@
   "pull-requests" : [ ]
 }, {
   "type" : "BUG",
+  "number" : "JBEAP-19331",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19331",
+  "summary" : "(7.3.z) Session externalization tests are hanging with ATTRIBUTE granularity + EAP7.3+hotrod-session-management",
+  "incorporated" : [ ],
+  "pull-requests" : [ ]
+}, {
+  "type" : "BUG",
   "number" : "JBEAP-19328",
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19328",
@@ -190,6 +212,14 @@
     "upstream-jira" : null,
     "upstream-pull-request" : null
   } ]
+}, {
+  "type" : "UPGRADE",
+  "number" : "JBEAP-19325",
+  "priority" : "CRITICAL",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19325",
+  "summary" : "(7.3.z) Upgrade Infinispan from 9.4.18.Final-redhat-00001 to 9.4.19.Final-redhat-00001",
+  "incorporated" : [ ],
+  "pull-requests" : [ ]
 }, {
   "type" : "BUG",
   "number" : "JBEAP-19324",
@@ -325,19 +355,7 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19276",
   "summary" : "[GSS](7.3.z) WFCORE-4860 - Performance degradation with the LogContextSelector on Java 11 ",
   "incorporated" : [ ],
-  "pull-requests" : [ {
-    "url" : "https://github.com/jbossas/wildfly-core-eap/pull/855",
-    "status" : "Unknown",
-    "upstream-required" : true,
-    "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4860",
-    "upstream-pull-request" : {
-      "url" : "https://github.com/wildfly/wildfly-core/pull/4112",
-      "status" : "CLOSED",
-      "upstream-required" : false,
-      "upstream-jira" : null,
-      "upstream-pull-request" : null
-    }
-  } ]
+  "pull-requests" : [ ]
 }, {
   "type" : "UPGRADE",
   "number" : "JBEAP-19269",
@@ -375,16 +393,10 @@
     "upstream-pull-request" : null
   }, {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3495",
-    "status" : "Unknown",
-    "upstream-required" : true,
-    "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13392",
-    "upstream-pull-request" : {
-      "url" : "https://github.com/wildfly/wildfly/pull/13232",
-      "status" : "OPEN",
-      "upstream-required" : false,
-      "upstream-jira" : null,
-      "upstream-pull-request" : null
-    }
+    "status" : "Exception",
+    "upstream-required" : false,
+    "upstream-jira" : null,
+    "upstream-pull-request" : null
   } ]
 }, {
   "type" : "BUG",
@@ -489,6 +501,20 @@
       "upstream-jira" : null,
       "upstream-pull-request" : null
     }
+  } ]
+}, {
+  "type" : "BUG",
+  "number" : "JBEAP-19199",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19199",
+  "summary" : "(7.3.z)  HAL-1680 - Take a Tour needs is not loading RBAC pages properly",
+  "incorporated" : [ ],
+  "pull-requests" : [ {
+    "url" : "https://github.com/hal/console/pull/395",
+    "status" : "Unknown",
+    "upstream-required" : true,
+    "upstream-jira" : null,
+    "upstream-pull-request" : null
   } ]
 }, {
   "type" : "BUG",
@@ -670,7 +696,7 @@
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19077",
   "summary" : "[GSS] (7.3.z) Upgrade undertow from 2.0.30.SP3-redhat-00001 to 2.0.30.SP4-redhat-00001",
-  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-18954", "https://issues.redhat.com/browse/JBEAP-19245", "https://issues.redhat.com/browse/JBEAP-19264", "https://issues.redhat.com/browse/JBEAP-19328" ],
+  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-18954", "https://issues.redhat.com/browse/JBEAP-19245", "https://issues.redhat.com/browse/JBEAP-19264", "https://issues.redhat.com/browse/JBEAP-19328", "https://issues.redhat.com/browse/JBEAP-19474" ],
   "pull-requests" : [ ]
 }, {
   "type" : "BUG",

@@ -5,10 +5,10 @@ import {IssueTable, Issue} from './IssueCommon' ;
 function orderData(data) {
     let result = {};
 
-    let upgrades = data.filter(issue => issue.type == "UPGRADE");
+    let upgrades = data.filter(issue => issue.type === "UPGRADE");
     let rest = {};
 
-    data.filter(issue => issue.type != "UPGRADE").forEach(item => {
+    data.filter(issue => issue.type !== "UPGRADE").forEach(item => {
         rest[getKeyFromUrl(item.url)] = item;
     });
 
@@ -38,32 +38,31 @@ function orderData(data) {
 
 const IssueSeparateTable = ({data}) => {
     let issues = orderData(data);
-    console.log(issues);
 
     return (
         <div>
             <IssueTable caption="Component upgrades" className="upgrades">
               {issues.upgrades.map((issue,i) =>
-                  <>
-                  <Issue key={i} class="upgrade" {...issue} />
-                  <NestedIssues data={issue.nested} offset={i} />
-                  </>
+                  <React.Fragment key={getKeyFromUrl(issue.url)}>
+                    <Issue class="upgrade" {...issue} />
+                    <NestedIssues data={issue.nested} />
+                  </React.Fragment>
               )}
             </IssueTable>
             <IssueTable caption="Standalone issues" className="single">
               {issues.standalone.map((issue,i) =>
-                  <Issue key={i} {...issue} />
+                  <Issue key={getKeyFromUrl(issue.url)} {...issue} />
               )}
             </IssueTable>
         </div>
     )
 }
 
-const NestedIssues = ({data, offset}) => {
+const NestedIssues = ({data}) => {
     return (
         <>
         {data.map((nested, j) =>
-            <Issue key={offset+j} {...nested} />
+            <Issue key={getKeyFromUrl(nested.url)} {...nested} />
         )}
         </>
     )

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import IssueSingleTable from './IssueSingleTable';
 import IssueSeparateTable from './IssueSeparateTables';
 import './App.css';

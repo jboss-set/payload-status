@@ -16,7 +16,7 @@ function sortData(data) {
 }
 
 const IssueSingleTable = ({data}) => {
-    data = sortData(data);
+    //data = sortData(data);
 
     return (
         <IssueTable caption="All 7.3.2 issues" className="single">

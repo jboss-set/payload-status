@@ -82,7 +82,8 @@ const UpstreamPR = ({...upstream}) => {
 
     return (
         <td>
-          <a href={upstream['upstream-jira']}>{getKeyFromUrl(upstream['upstream-jira'])}</a><br/><PRText {...upstream['upstream-pull-request']} />
+          Issue: <a href={upstream['upstream-jira']}>{getKeyFromUrl(upstream['upstream-jira'])}</a><br/>
+          PR: <PRText {...upstream['upstream-pull-request']} />
         </td>
     )
 }

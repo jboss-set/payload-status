@@ -29,24 +29,13 @@ table.list.single tbody tr:nth-child(2n+1) {
     background-color: #eee;
 }
 
-table.list td.pr-status-ukn {
-    background-color: #ccc;
-}
-
-table.list td.pr-status-missing {
-    background: repeating-linear-gradient(
-        67.5deg, #666 0 10px, #ddd 10px 20px
-        )
-}
-
-table.list td.pr-status-multi {
-    background: repeating-linear-gradient(
-        67.5deg, darkgreen 0 10px, green 10px 20px
-        )
+table.list td.pr-status-Unknown,
+table.list td.pr-status-Exception {
+    background-color: orangered;
 }
 
 table.list td.mono {
-    font-family: DejaVu Sans Mono, mono;
+    font-family: mono, DejaVu Sans Mono;
     padding: 4px 10px;
 }
 

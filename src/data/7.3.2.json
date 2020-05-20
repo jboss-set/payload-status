@@ -1,4 +1,28 @@
 [ {
+  "type" : "UPGRADE",
+  "number" : "JBEAP-19516",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19516",
+  "summary" : "[GSS](7.3.z) Upgrade wildfly-transaction-client from 1.1.11 to 1.1.12",
+  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19515", "https://issues.redhat.com/browse/WFTC-83" ],
+  "pull-requests" : [ ]
+}, {
+  "type" : "BUG",
+  "number" : "JBEAP-19515",
+  "priority" : "CRITICAL",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19515",
+  "summary" : "[GSS](7.3.z) EJB XA Tx issue EAP 7.2 <-> EAP 6.4 - XidTransactionBeforeCompletionTask: don't throw an exception when subordinate transaction is not present",
+  "incorporated" : [ ],
+  "pull-requests" : [ ]
+}, {
+  "type" : "BUG",
+  "number" : "JBEAP-19511",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19511",
+  "summary" : "[GSS](7.3.z) UT000065: SSL must be specified to connect to a https URL when using ejb over https",
+  "incorporated" : [ ],
+  "pull-requests" : [ ]
+}, {
   "type" : "BUG",
   "number" : "JBEAP-19498",
   "priority" : "CRITICAL",
@@ -27,7 +51,7 @@
   "incorporated" : [ "https://issues.redhat.com/browse/UNDERTOW-1419" ],
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/21",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -85,7 +109,7 @@
     "upstream-pull-request" : null
   }, {
     "url" : "https://github.com/eclipse-ee4j/mojarra/pull/4633/commits",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -153,7 +177,7 @@
   "number" : "JBEAP-19337",
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19337",
-  "summary" : "(7.3.z) ELY-1954 - Submission for \"j_security_check\" login does not work if URL has no trailing slash",
+  "summary" : "[GSS](7.3.z) ELY-1954 - Submission for \"j_security_check\" login does not work if URL has no trailing slash",
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly-security/wildfly-elytron/pull/1391",
@@ -207,7 +231,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/20",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -355,7 +379,19 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19276",
   "summary" : "[GSS](7.3.z) WFCORE-4860 - Performance degradation with the LogContextSelector on Java 11 ",
   "incorporated" : [ ],
-  "pull-requests" : [ ]
+  "pull-requests" : [ {
+    "url" : "https://github.com/jbossas/wildfly-core-eap/pull/855",
+    "status" : "Unknown",
+    "upstream-required" : true,
+    "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4860",
+    "upstream-pull-request" : {
+      "url" : "https://github.com/wildfly/wildfly-core/pull/4112",
+      "status" : "CLOSED",
+      "upstream-required" : false,
+      "upstream-jira" : null,
+      "upstream-pull-request" : null
+    }
+  } ]
 }, {
   "type" : "UPGRADE",
   "number" : "JBEAP-19269",
@@ -387,16 +423,22 @@
   "incorporated" : [ "https://issues.redhat.com/browse/UNDERTOW-1703" ],
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/17",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null
   }, {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3495",
-    "status" : "Exception",
-    "upstream-required" : false,
-    "upstream-jira" : null,
-    "upstream-pull-request" : null
+    "status" : "Unknown",
+    "upstream-required" : true,
+    "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13392",
+    "upstream-pull-request" : {
+      "url" : "https://github.com/wildfly/wildfly/pull/13232",
+      "status" : "OPEN",
+      "upstream-required" : false,
+      "upstream-jira" : null,
+      "upstream-pull-request" : null
+    }
   } ]
 }, {
   "type" : "BUG",
@@ -437,7 +479,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/18",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -480,7 +522,7 @@
   "priority" : "CRITICAL",
   "url" : "https://issues.redhat.com/browse/JBEAP-19205",
   "summary" : "(7.3.z) Upgrade WildFly Core from 10.1.7.Final-redhat-00001 to 10.1.x",
-  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19375", "https://issues.redhat.com/browse/JBEAP-19336", "https://issues.redhat.com/browse/JBEAP-19203", "https://issues.redhat.com/browse/JBEAP-19269", "https://issues.redhat.com/browse/JBEAP-19276", "https://issues.redhat.com/browse/JBEAP-19322" ],
+  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19375", "https://issues.redhat.com/browse/JBEAP-19336", "https://issues.redhat.com/browse/JBEAP-19203", "https://issues.redhat.com/browse/JBEAP-19240", "https://issues.redhat.com/browse/JBEAP-19243", "https://issues.redhat.com/browse/JBEAP-19269", "https://issues.redhat.com/browse/JBEAP-19276", "https://issues.redhat.com/browse/JBEAP-19322" ],
   "pull-requests" : [ ]
 }, {
   "type" : "UNDEFINED",
@@ -755,7 +797,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/commit/70858107c4edbf06747f6632267406545b9e2bdb",
-    "status" : "Exception",
+    "status" : "Not found",
     "upstream-required" : false,
     "upstream-jira" : null,
     "upstream-pull-request" : null

@@ -29,8 +29,8 @@ table.list.single tbody tr:nth-child(2n+1) {
     background-color: #eee;
 }
 
-table.list td.pr-status-Unknown,
-table.list td.pr-status-Exception {
+table.list td.pr-status-unknown,
+table.list td.pr-status-not-found {
     background-color: orangered;
 }
 

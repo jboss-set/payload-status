@@ -1,5 +1,5 @@
 import React from 'react';
-import {getKeyFromUrl} from './Util';
+import {getKeyFromUrl, safeClassName} from './Util';
 
 export const IssueTableHead = () => {
     return (
@@ -18,7 +18,7 @@ export const IssueTableHead = () => {
 
 export const IssueTable = ({caption, className, ...props}) => {
     return (
-        <table className={className + " list"}>
+        <table className={safeClassName(className) + " list"}>
           <caption>{caption}</caption>
           <IssueTableHead />
           <tbody>
@@ -31,7 +31,7 @@ export const IssueTable = ({caption, className, ...props}) => {
 export const Issue = ({type, priority, url, summary, ...rest}) => {
     return (
         <>
-        <tr className={"issue-" + type.toLowerCase()}>
+        <tr className={safeClassName("issue-" + type)}>
             <td className="mono"><a href={url}>{getKeyFromUrl(url)}</a></td>
             <td>{priority}</td>
             <td>{summary}</td>
@@ -64,7 +64,7 @@ const PullRequest = ({url, status, ...rest}) => {
 const PRStatus = ({url, status}) => {
     let props = {url, status}
     return (
-        <td className={"pr-status-" + status}>
+        <td className={safeClassName("pr-status-" + status)}>
             <PRText {...props} />
         </td>
     )

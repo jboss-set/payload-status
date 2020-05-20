@@ -41,17 +41,17 @@ const IssueSeparateTable = ({data}) => {
 
     return (
         <div>
+            <IssueTable caption="Standalone issues" className="single">
+              {issues.standalone.map((issue,i) =>
+                  <Issue key={getKeyFromUrl(issue.url)} {...issue} />
+              )}
+            </IssueTable>
             <IssueTable caption="Component upgrades" className="upgrades">
               {issues.upgrades.map((issue,i) =>
                   <React.Fragment key={getKeyFromUrl(issue.url)}>
                     <Issue class="upgrade" {...issue} />
                     <NestedIssues data={issue.nested} />
                   </React.Fragment>
-              )}
-            </IssueTable>
-            <IssueTable caption="Standalone issues" className="single">
-              {issues.standalone.map((issue,i) =>
-                  <Issue key={getKeyFromUrl(issue.url)} {...issue} />
               )}
             </IssueTable>
         </div>

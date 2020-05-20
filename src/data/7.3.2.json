@@ -31,7 +31,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly-security/wildfly-elytron/pull/1398",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/ELY-1953",
     "upstream-pull-request" : {
@@ -97,13 +97,13 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jboss/mojarra/pull/42",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
   }, {
     "url" : "https://github.com/jboss/mojarra/pull/70",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -123,7 +123,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3501",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13381",
     "upstream-pull-request" : {
@@ -167,7 +167,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jboss-logging/jboss-logmanager/pull/301",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -181,7 +181,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly-security/wildfly-elytron/pull/1391",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -195,7 +195,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/861",
-    "status" : "Unknown",
+    "status" : "blocked",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4932",
     "upstream-pull-request" : {
@@ -253,7 +253,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/401",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -275,7 +275,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/xnio/xnio/pull/226",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -289,7 +289,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3500",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13413",
     "upstream-pull-request" : {
@@ -325,7 +325,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/858",
-    "status" : "Unknown",
+    "status" : "blocked",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4935",
     "upstream-pull-request" : {
@@ -361,7 +361,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3492",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13273",
     "upstream-pull-request" : {
@@ -381,7 +381,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/855",
-    "status" : "Unknown",
+    "status" : "blocked",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4860",
     "upstream-pull-request" : {
@@ -409,7 +409,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jboss-logging/jboss-logmanager/pull/295",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -429,7 +429,7 @@
     "upstream-pull-request" : null
   }, {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3495",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13392",
     "upstream-pull-request" : {
@@ -449,7 +449,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/396",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -533,7 +533,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/811",
-    "status" : "Unknown",
+    "status" : "blocked",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFCORE-4850",
     "upstream-pull-request" : {
@@ -553,7 +553,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/395",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -567,7 +567,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/ironjacamar/ironjacamar/pull/703",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -597,7 +597,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3374",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13098",
     "upstream-pull-request" : {
@@ -617,7 +617,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jboss/mojarra/pull/68",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -671,7 +671,7 @@
   "incorporated" : [ "https://issues.redhat.com/browse/WFLY-13297" ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3469",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13297",
     "upstream-pull-request" : {
@@ -691,7 +691,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/netty/netty/pull/9924",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -721,7 +721,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3482",
-    "status" : "Unknown",
+    "status" : "clean",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13293",
     "upstream-pull-request" : {
@@ -749,7 +749,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3498",
-    "status" : "Unknown",
+    "status" : "unstable",
     "upstream-required" : true,
     "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13375",
     "upstream-pull-request" : {
@@ -769,7 +769,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/389",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -783,7 +783,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/ironjacamar/ironjacamar/pull/701",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null
@@ -811,7 +811,7 @@
   "incorporated" : [ ],
   "pull-requests" : [ {
     "url" : "https://github.com/hibernate/hibernate-orm/pull/3382",
-    "status" : "Unknown",
+    "status" : "unknown",
     "upstream-required" : true,
     "upstream-jira" : null,
     "upstream-pull-request" : null

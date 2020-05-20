@@ -43,8 +43,8 @@ export const Issue = ({type, priority, url, summary, ...rest}) => {
 }
 
 const PullRequestInfo = ({data}) => {
-    if (data.length === 0) return (<><td>No PR</td><td/></>);
-    if (data.length > 1) return (<><td>Many PRs</td><td/></>);
+    if (data.length === 0) return (<><td className="pr">No PR</td><td className="up"/></>);
+    if (data.length > 1) return (<><td className="pr">Many PRs</td><td className="up"/></>);
 
     return (
         <PullRequest {...data[0]} />
@@ -64,7 +64,7 @@ const PullRequest = ({url, status, ...rest}) => {
 const PRStatus = ({url, status}) => {
     let props = {url, status}
     return (
-        <td className={safeClassName("pr-status-" + status)}>
+        <td className={"pr " + safeClassName("pr-status-" + status)}>
             <PRText {...props} />
         </td>
     )
@@ -77,11 +77,11 @@ const PRText = ({url, status}) => {
 }
 
 const UpstreamPR = ({...upstream}) => {
-    if (upstream['upstream-required'] && !upstream['upstream-jira']) {return (<td className="up-miss">Missing</td>)}
-    else if (!upstream['upstream-required']) {return (<td className="up-not">Not required</td>)}
+    if (upstream['upstream-required'] && !upstream['upstream-jira']) {return (<td className="up up-miss">Missing</td>)}
+    else if (!upstream['upstream-required']) {return (<td className="up up-not">Not required</td>)}
 
     return (
-        <td>
+        <td className="up">
           Issue: <a href={upstream['upstream-jira']}>{getKeyFromUrl(upstream['upstream-jira'])}</a><br/>
           PR: <PRText {...upstream['upstream-pull-request']} />
         </td>

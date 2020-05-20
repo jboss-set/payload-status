@@ -25,13 +25,30 @@ table.list td {
     padding: 4px 20px;
 }
 
+table.list td.pr,
+table.list td.up {
+    background-color: white;
+}
+
 table.list.single tbody tr:nth-child(2n+1) {
     background-color: #eee;
 }
 
 table.list td.pr-status-unknown,
-table.list td.pr-status-not-found {
+table.list td.pr-status-unstable,
+table.list td.pr-status-blocked {
     background-color: orangered;
+}
+
+table.list td.pr-status-clean {
+    background-color: forestgreen;
+}
+
+td.pr-status-unknown > a,
+td.pr-status-unstable > a,
+td.pr-status-blocked > a,
+td.pr-status-clean > a {
+    color: black;
 }
 
 table.list td.mono {

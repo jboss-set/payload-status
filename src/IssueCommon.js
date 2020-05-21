@@ -7,6 +7,7 @@ export const IssueTableHead = () => {
           <tr>
             <th>Number</th>
             <th>Priority</th>
+            <th>Status</th>
             <th>Name</th>
             <th>Type</th>
             <th>PR Status</th>
@@ -28,14 +29,15 @@ export const IssueTable = ({caption, className, ...props}) => {
     )
 }
 
-export const Issue = ({type, priority, url, summary, ...rest}) => {
+export const Issue = ({type, priority, status, url, summary, ...rest}) => {
     return (
         <>
         <tr className={safeClassName("issue-" + type)}>
-            <td className="mono"><a href={url}>{getKeyFromUrl(url)}</a></td>
-            <td>{priority}</td>
-            <td>{summary}</td>
-            <td>{type}</td>
+            <td className="url mono"><a href={url}>{getKeyFromUrl(url)}</a></td>
+            <td className="priority">{priority}</td>
+            <td className="status">{status}</td>
+            <td className="summary">{summary}</td>
+            <td className="type">{type}</td>
             <PullRequestInfo data={rest['pull-requests']} />
         </tr>
         </>

@@ -6,6 +6,7 @@ button {
 table.list {
     border-collapse: collapse;
     margin: 10px auto;
+    width: 90%
 }
 
 table.list caption {
@@ -58,4 +59,37 @@ table.list td.mono {
 
 table.list.upgrades tbody tr.issue-upgrade {
     background-color: lightgreen;
+}
+
+/* column widths */
+
+table.list td.url {
+    width: 8%;
+}
+
+table.list td.priority {
+    width: 5%;
+}
+
+table.list td.status {
+    width: 5%;
+}
+
+table.list td.summary {
+    max-width: 800px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+table.list td.type {
+    width: 7%;
+}
+
+table.list td.pr {
+    width: 10%;
+}
+
+table.list td.up {
+    width: 12%;
 }

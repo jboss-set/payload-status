@@ -5,10 +5,10 @@ import {IssueTable, Issue} from './IssueCommon' ;
 function orderData(data) {
     let result = {};
 
-    let upgrades = data.filter(issue => issue.type === "UPGRADE");
+    let upgrades = data.filter(issue => issue.type.toLowerCase() === "component upgrade");
     let rest = {};
 
-    data.filter(issue => issue.type !== "UPGRADE").forEach(item => {
+    data.filter(issue => issue.type.toLowerCase() !== "component upgrade").forEach(item => {
         rest[getKeyFromUrl(item.url)] = item;
     });
 

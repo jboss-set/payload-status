@@ -57,14 +57,17 @@ table.list td.mono {
     padding: 4px 10px;
 }
 
-table.list.upgrades tbody tr.issue-upgrade {
+table.list.upgrades tbody tr.issue-component-upgrade {
     background-color: lightgreen;
 }
 
 /* column widths */
+table.list.single td.url {
+    width: 8%;
+}
 
 table.list td.url {
-    width: 8%;
+    width: 12%;
 }
 
 table.list td.priority {
@@ -72,7 +75,7 @@ table.list td.priority {
 }
 
 table.list td.status {
-    width: 5%;
+    width: 10%;
 }
 
 table.list td.summary {
@@ -90,6 +93,16 @@ table.list td.pr {
     width: 10%;
 }
 
-table.list td.up {
+table.list.single td.up {
     width: 12%;
+}
+
+table.list td.up {
+    width: 18%;
+}
+
+
+table.single td.type,
+table.single th.type {
+    display: none;
 }

@@ -9,7 +9,7 @@ export const IssueTableHead = () => {
             <th>Priority</th>
             <th>Status</th>
             <th>Name</th>
-            <th>Type</th>
+            <th className="type">Type</th>
             <th>PR Status</th>
             <th>Upstream</th>
           </tr>

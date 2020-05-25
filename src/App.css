@@ -23,9 +23,10 @@ table.list, table.list td {
 }
 
 table.list td {
-    padding: 4px 20px;
+    padding: 4px 16px;
 }
 
+table.list td.acks,
 table.list td.pr,
 table.list td.up {
     background-color: white;
@@ -41,6 +42,7 @@ table.list td.pr-status-blocked {
     background-color: orangered;
 }
 
+table.list td.all-acks,
 table.list td.pr-status-clean {
     background-color: forestgreen;
 }
@@ -62,22 +64,6 @@ table.list.upgrades tbody tr.issue-component-upgrade {
 }
 
 /* column widths */
-table.list.single td.url {
-    width: 8%;
-}
-
-table.list td.url {
-    width: 12%;
-}
-
-table.list td.priority {
-    width: 5%;
-}
-
-table.list td.status {
-    width: 10%;
-}
-
 table.list td.summary {
     max-width: 800px;
     text-overflow: ellipsis;
@@ -85,24 +71,62 @@ table.list td.summary {
     white-space: nowrap;
 }
 
-table.list td.type {
+table.list.single td.url {
+    width: 8%;
+}
+
+table.list.single td.priority {
+    width: 5%;
+}
+
+table.list.single td.status {
+    width: 6%;
+}
+
+table.list.single td.type {
     width: 7%;
 }
 
-table.list td.pr {
-    width: 10%;
+table.list.single td.acks {
+    width: 8%;
+}
+
+table.list.single td.pr {
+    width: 7%;
 }
 
 table.list.single td.up {
     width: 12%;
 }
 
-table.list td.up {
-    width: 18%;
-}
-
-
 table.single td.type,
 table.single th.type {
     display: none;
+}
+
+/*--*/
+table.list td.url {
+    width: 12%;
+}
+
+table.list td.priority,
+table.list td.status,
+table.list td.acks {
+    padding: 4px 10px;
+}
+
+table.list td.type {
+    width: 7%;
+}
+
+table.list td.acks {
+    width: 12%;
+}
+
+table.list td.pr {
+    width: 7%;
+}
+
+table.list td.up {
+    width: 18%;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getKeyFromUrl, safeClassName} from './Util';
+import {getKeyFromUrl, safeClassName, shortStatus} from './Util';
 
 export const IssueTableHead = () => {
     return (
@@ -10,6 +10,7 @@ export const IssueTableHead = () => {
             <th>Status</th>
             <th>Name</th>
             <th className="type">Type</th>
+            <th>Acks</th>
             <th>PR Status</th>
             <th>Upstream</th>
           </tr>
@@ -29,18 +30,37 @@ export const IssueTable = ({caption, className, ...props}) => {
     )
 }
 
-export const Issue = ({type, priority, status, url, summary, ...rest}) => {
+export const Issue = ({url, priority, status, summary, type, acks, ...rest}) => {
     return (
         <>
         <tr className={safeClassName("issue-" + type)}>
             <td className="url mono"><a href={url}>{getKeyFromUrl(url)}</a></td>
             <td className="priority">{priority}</td>
-            <td className="status">{status}</td>
+            <td className="status">{shortStatus(status)}</td>
             <td className="summary">{summary}</td>
             <td className="type">{type}</td>
+            <Acks data={acks} />
             <PullRequestInfo data={rest['pull-requests']} />
         </tr>
         </>
+    )
+}
+
+const Acks = ({data}) => {
+    let flags = [];
+    for (let flag in data) {
+        if (data[flag] !== 'ACCEPTED') {
+            flags.push(flag + (data[flag] === 'SET' ? '?' : '-'));
+        }
+    }
+
+    if (!flags.length) {
+        return (
+            <td className="acks all-acks">All clear</td>
+        )
+    }
+    return (
+        <td className="acks">{flags.join(' ')}</td>
     )
 }
 

@@ -1,10 +1,40 @@
 [ {
   "type" : "Bug",
+  "status" : "Pull Request Sent",
+  "priority" : "MAJOR",
+  "url" : "https://issues.redhat.com/browse/JBEAP-19539",
+  "summary" : "[GSS](7.3.z) Hung process instances and associated server.log WARN \"Failed to reinstate timer 'kie-server.kie-server.EJBTimerScheduler' \"",
+  "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
+  "pull-requests" : [ {
+    "url" : "https://github.com/jbossas/jboss-eap7/pull/3529",
+    "status" : "unstable",
+    "upstream-required" : true,
+    "upstream-jira" : "https://issues.redhat.com/browse/WFLY-13386",
+    "upstream-pull-request" : {
+      "url" : "https://github.com/wildfly/wildfly/pull/13285",
+      "status" : "CLOSED",
+      "upstream-required" : true,
+      "upstream-jira" : null,
+      "upstream-pull-request" : null
+    }
+  } ]
+}, {
+  "type" : "Bug",
   "status" : "Open",
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19531",
   "summary" : "[GSS](7.3.z) WFCORE-4976 - Where ModelControllerClient is initialised in process with CBH AuthenticationConfiguration takes priority.",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Enhancement",
@@ -13,6 +43,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19529",
   "summary" : "(7.3.z) Update PR template to include PR-processor hints.",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3525",
     "status" : "unstable",
@@ -27,6 +62,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19516",
   "summary" : "[GSS](7.3.z) Upgrade wildfly-transaction-client from 1.1.11 to 1.1.12",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19515", "https://issues.redhat.com/browse/WFTC-83" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -35,6 +75,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19515",
   "summary" : "[GSS](7.3.z) EJB XA Tx issue EAP 7.2 <-> EAP 6.4 - XidTransactionBeforeCompletionTask: don't throw an exception when subordinate transaction is not present",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "SET"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly/wildfly-transaction-client/pull/105",
     "status" : "unknown",
@@ -49,6 +94,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19511",
   "summary" : "[GSS](7.3.z) UT000065: SSL must be specified to connect to a https URL when using ejb over https",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -57,6 +107,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19498",
   "summary" : "(7.3.z) ELY-1953 - Elytron tool command execution fails with java.nio.file.NoSuchFileException ",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly-security/wildfly-elytron/pull/1398",
     "status" : "clean",
@@ -77,6 +132,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19474",
   "summary" : "[GSS](7.3.z) UNDERTOW-1419 - bumpTimeout method usage in InMemorySessionManager",
   "incorporated" : [ "https://issues.redhat.com/browse/UNDERTOW-1419" ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/21",
     "status" : "Not found",
@@ -86,11 +146,16 @@
   } ]
 }, {
   "type" : "Bug",
-  "status" : "New",
+  "status" : "Open",
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19464",
   "summary" : "[GSS](7.3.z) Applying <vault-expression-sensitivity requires-write=\"false\"></vault> fails to start EAP server",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Release",
@@ -99,6 +164,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19411",
   "summary" : "Tracker bug for the EAP 7.3.2 release for RHEL-8",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "NO_SET",
+    "QE" : "NO_SET",
+    "PM" : "NO_SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Release",
@@ -107,6 +177,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19410",
   "summary" : "Tracker bug for the EAP 7.3.2 release for RHEL-7",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "NO_SET",
+    "QE" : "NO_SET",
+    "PM" : "NO_SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Release",
@@ -115,6 +190,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19409",
   "summary" : "Tracker bug for the EAP 7.3.2 release for RHEL-6",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "NO_SET",
+    "QE" : "NO_SET",
+    "PM" : "NO_SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -123,6 +203,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19407",
   "summary" : "[GSS](7.3.z) Memory leak in FlashScope - expired elements are not cleared",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jboss/mojarra/pull/42",
     "status" : "unknown",
@@ -149,6 +234,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19398",
   "summary" : "[GSS](7.3.z)  WFLY-13381- Unable to disable security on EJB over Http endpoint",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3501",
     "status" : "unstable",
@@ -169,6 +259,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19397",
   "summary" : "(7.3.z) Upgrade JSF based on Mojarra 2.3.9.SP09-redhat-00001 to 2.3.9.SP10-redhat-00001",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19407", "https://issues.redhat.com/browse/JBEAP-19161" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -177,6 +272,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19377",
   "summary" : "(7.3.z) Upgrade hibernate-validator from 6.0.18 to 6.0.20",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-16113", "https://issues.redhat.com/browse/JBEAP-19087" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -185,6 +285,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19375",
   "summary" : "(7.3.z) WFCORE-4950 - Regression: Legacy Ldap Realm securing EJB with JDK8 not working",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -193,6 +298,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19339",
   "summary" : "(7.3.z) LOGMGR-209 - NoSuchAlgorithmException in SocketHandlerTests on IBM JDK",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jboss-logging/jboss-logmanager/pull/301",
     "status" : "unknown",
@@ -207,6 +317,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19337",
   "summary" : "[GSS](7.3.z) ELY-1954 - Submission for \"j_security_check\" login does not work if URL has no trailing slash",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/wildfly-security/wildfly-elytron/pull/1391",
     "status" : "unstable",
@@ -221,6 +336,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19336",
   "summary" : "(7.3.z) WFCORE-4932 - Reading of identity from security domain causes NPE",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/861",
     "status" : "blocked",
@@ -241,6 +361,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19333",
   "summary" : "(7.3.z) HHH-13960 - Add SAXReader sec features to match the defaults",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -249,6 +374,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19331",
   "summary" : "(7.3.z) Session externalization tests are hanging with ATTRIBUTE granularity + EAP7.3+hotrod-session-management",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -257,6 +387,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19328",
   "summary" : "[GSS](7.3.z) UNDERTOW-1197 - Response not reused when processing async request",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/20",
     "status" : "Not found",
@@ -271,6 +406,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19325",
   "summary" : "(7.3.z) Upgrade Infinispan from 9.4.18.Final-redhat-00001 to 9.4.19.Final-redhat-00001",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -279,6 +419,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19324",
   "summary" : "[GSS](7.3.z)  HAL-1684 - java.lang.IllegalArgumentException when adding JVM Options with ${} expressions ",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/401",
     "status" : "unknown",
@@ -292,7 +437,12 @@
   "priority" : "MAJOR",
   "url" : "https://issues.redhat.com/browse/JBEAP-19322",
   "summary" : "(7.3.z) Upgrade XNIO from 3.7.7 to 3.7.8",
-  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19321" ],
+  "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19321", "https://issues.redhat.com/browse/JBEAP-19542" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -301,6 +451,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19321",
   "summary" : "[GSS](7.3.z) XNIO-372 - NPE happens on ByteBufferSlicePool.clean() for non-direct buffers",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/xnio/xnio/pull/226",
     "status" : "unknown",
@@ -315,6 +470,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19319",
   "summary" : "[GSS](7.3.z) Multiple Undertow mod-cluster filters fails",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3500",
     "status" : "unstable",
@@ -335,6 +495,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19314",
   "summary" : "[GSS](7.3.z) Websphere MQ Resource Adapter Configuration Does Not Take Effect Until Reboot",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -343,6 +508,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19304",
   "summary" : "(7.3.z) WFCORE - Upgrade FasterXML from 2.10.3 to 2.10.4",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -351,6 +521,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19302",
   "summary" : "[GSS](7.3.z) When server is started at suspend mode, :shutdown does not trigger a shutdown",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/858",
     "status" : "blocked",
@@ -371,6 +546,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19293",
   "summary" : "CVE-2020-10714 wildfly-elytron: session fixation when using FORM authentication [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -379,6 +559,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19282",
   "summary" : "CVE-2020-10673 jackson-databind: mishandles the interaction between serialization gadgets and typing which could result in remote command execution [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Task",
@@ -387,6 +572,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19277",
   "summary" : "(7.3.z) WFLY-13273 - Create tests for WFCORE-4860",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3492",
     "status" : "unstable",
@@ -407,6 +597,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19276",
   "summary" : "[GSS](7.3.z) WFCORE-4860 - Performance degradation with the LogContextSelector on Java 11 ",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/855",
     "status" : "blocked",
@@ -427,6 +622,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19269",
   "summary" : "[GSS](7.3.z) Upgrade jboss-logmanager from 2.1.14.Final to 2.1.15.Final",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19267" ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -435,6 +635,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19267",
   "summary" : "[GSS](7.3.z) LOGMGR-263 - Logger Lookup is much slower as with JDK 8",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jboss-logging/jboss-logmanager/pull/295",
     "status" : "unknown",
@@ -449,6 +654,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19264",
   "summary" : "[GSS](7.3.z) WFLY-13392 - WFSM000001: Permission check failed ... FilePermission when Security Manager enabled and Web App tries to forward to jsp",
   "incorporated" : [ "https://issues.redhat.com/browse/UNDERTOW-1703" ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/17",
     "status" : "Not found",
@@ -475,6 +685,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19262",
   "summary" : "[GSS](7.3.z) HAL-1682 Webconsole failed to move messages from queue1 to queue2",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/396",
     "status" : "unknown",
@@ -489,6 +704,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19259",
   "summary" : "CVE-2020-1954 cxf-core: cxf: JMX integration is vulnerable to a MITM attack [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -497,6 +717,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19248",
   "summary" : "(7.3.z) Upgrade dom4j from 2.1.1 to 2.1.3",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19238" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -505,6 +730,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19245",
   "summary" : "[GSS](7.3.z) UNDERTOW-1683 - UT000146 is improperly thrown",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/merge_requests/18",
     "status" : "Not found",
@@ -519,6 +749,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19243",
   "summary" : "(7.3.z) Upgrade WildFly Elytron Web from 1.6.1.Final-redhat-00001 to 1.6.2.Final-redhat-00001",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19293" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -527,6 +762,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19240",
   "summary" : "(7.3.z) Upgrade WildFly Elytron from 1.10.6.Final-redhat-00001 to 1.10.7.Final-redhat-00001",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19498", "https://issues.redhat.com/browse/JBEAP-19337", "https://issues.redhat.com/browse/JBEAP-19293" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -535,6 +775,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19238",
   "summary" : "CVE-2020-10683 dom4j: XML External Entity vulnerability in default SAX parser [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -543,6 +788,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19221",
   "summary" : "(7.3.z) WFLY-13358 - Tests for WFCORE-4950 - Regression: Legacy Ldap Realm securing EJB with JDK8 not working",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -551,6 +801,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19205",
   "summary" : "(7.3.z) Upgrade WildFly Core from 10.1.7.Final-redhat-00001 to 10.1.x",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19375", "https://issues.redhat.com/browse/JBEAP-19531", "https://issues.redhat.com/browse/JBEAP-19336", "https://issues.redhat.com/browse/JBEAP-19203", "https://issues.redhat.com/browse/JBEAP-19240", "https://issues.redhat.com/browse/JBEAP-19243", "https://issues.redhat.com/browse/JBEAP-19269", "https://issues.redhat.com/browse/JBEAP-19276", "https://issues.redhat.com/browse/JBEAP-19322" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Task",
@@ -559,6 +814,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19203",
   "summary" : "(7.3.z) WFCORE-4850 - Updating mockserver to 5.9.0. Exclusion of dependency from xom.io7m",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/wildfly-core-eap/pull/811",
     "status" : "blocked",
@@ -579,6 +839,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19199",
   "summary" : "(7.3.z)  HAL-1680 - Take a Tour needs is not loading RBAC pages properly",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/395",
     "status" : "unknown",
@@ -593,6 +858,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19193",
   "summary" : "(7.3.z)  JBJCA-1407 - Exception in thread \"ConnectionValidator\" java.lang.IllegalMonitorStateException in server shutdown",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/ironjacamar/ironjacamar/pull/703",
     "status" : "unknown",
@@ -607,6 +877,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19185",
   "summary" : "(7.3.z) Upgrade IronJacamar from 1.4.20.Final to 1.4.22.Final",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19193", "https://issues.redhat.com/browse/JBEAP-18960" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -615,6 +890,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19183",
   "summary" : "(7.3.z) Upgrade netty from 4.1.45.Final to 4.1.x",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19103" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -623,6 +903,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19182",
   "summary" : "(7.3.z) WFLY-13098 - Excluding a test scoped dependency from io7m.xom ...",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3374",
     "status" : "clean",
@@ -643,6 +928,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19161",
   "summary" : "[GSS](7.3.z) JSF trying to load DTD over the network",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jboss/mojarra/pull/68",
     "status" : "clean",
@@ -657,6 +947,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19160",
   "summary" : "(7.3.z) Add com.github.tomakehurst.wiremock version 2.20.0.redhat-00001",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -665,6 +960,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19158",
   "summary" : "(7.3.z) Add org.jboss.weld.se.weld-se-core version 3.0.5.Final.redhat-00001",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Task",
@@ -673,6 +973,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19157",
   "summary" : "(7.3.z) WFLY-12709 - Add MP REST Client TCK to WildFly testsuite",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -681,6 +986,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19134",
   "summary" : "(7.3.z) Upgrade HAL from 3.2.8.Final-redhat-00001 to 3.2.9.Final",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19051", "https://issues.redhat.com/browse/JBEAP-19199", "https://issues.redhat.com/browse/JBEAP-19262", "https://issues.redhat.com/browse/JBEAP-19324" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Component Upgrade",
@@ -689,6 +999,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19131",
   "summary" : "[GSS](7.3.z) Upgrade FasterXML from 2.10.3 to 2.10.4",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-19282" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -697,6 +1012,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19108",
   "summary" : "[GSS](7.3.z) WFLY-13297 - Weld @Resource injection does not handle expressions in the annotation attributes",
   "incorporated" : [ "https://issues.redhat.com/browse/WFLY-13297" ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3469",
     "status" : "clean",
@@ -717,6 +1037,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19103",
   "summary" : "netty: compression/decompression codecs don't enforce limits on buffer allocation sizes [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/netty/netty/pull/9924",
     "status" : "unknown",
@@ -731,6 +1056,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19095",
   "summary" : "[GSS](7.3.z) Upgrade wildfly-http-client from 1.0.20 to 1.0.21",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-18605" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -739,6 +1069,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19087",
   "summary" : "CVE-2020-10693 hibernate-validator: Improper input validation in the interpolation of constraint error messages [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -747,6 +1082,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19086",
   "summary" : "[GSS] (7.3.z) WFLY-13293 - When deploying \"ROOT.war\" in EAP7.x, the context root value output through jboss-cli is not valid",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3482",
     "status" : "clean",
@@ -767,6 +1107,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19077",
   "summary" : "[GSS] (7.3.z) Upgrade undertow from 2.0.30.SP3-redhat-00001 to 2.0.30.SP4-redhat-00001",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-18954", "https://issues.redhat.com/browse/JBEAP-19245", "https://issues.redhat.com/browse/JBEAP-19264", "https://issues.redhat.com/browse/JBEAP-19328", "https://issues.redhat.com/browse/JBEAP-19474" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -775,6 +1120,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19064",
   "summary" : "[QE](7.3.z) WFLY-13375 - JNDI view does not show implementation classes for connection factories and destinations  registered by 3rd party resource adapters",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/jbossas/jboss-eap7/pull/3498",
     "status" : "unstable",
@@ -795,6 +1145,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-19051",
   "summary" : "[GSS](7.3.z) HAL-1677 - Broken 'domain.xml' after migration of <host-scoped-roles> leading to 'Boostrap error' in HAL",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/hal/console/pull/389",
     "status" : "unknown",
@@ -809,6 +1164,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18960",
   "summary" : "[GSS](7.3.z) JBJCA-1404 - Race condition involving Pool.fillTo",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/ironjacamar/ironjacamar/pull/701",
     "status" : "unknown",
@@ -823,6 +1183,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18954",
   "summary" : "CVE-2020-10687 wildfly-undertow: Undertow: Incomplete fix for CVE-2017-2666 due to permitting invalid characters in HTTP requests [eap-7.3.z]",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "ACCEPTED",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://gitlab.cee.redhat.com/undertow-io/undertow/commit/70858107c4edbf06747f6632267406545b9e2bdb",
     "status" : "Not found",
@@ -837,6 +1202,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18825",
   "summary" : "(7.3.z) HHH-13695 - DDL export forgets to close a Statement",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "ACCEPTED",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ {
     "url" : "https://github.com/hibernate/hibernate-orm/pull/3382",
     "status" : "unknown",
@@ -851,6 +1221,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18793",
   "summary" : "[GSS](7.3.z) Upgrade Hibernate ORM from 5.3.16 to 5.3.17",
   "incorporated" : [ "https://issues.redhat.com/browse/JBEAP-18825", "https://issues.redhat.com/browse/JBEAP-19333", "https://issues.redhat.com/browse/JBEAP-19238" ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "SET"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -859,6 +1234,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18772",
   "summary" : "[GSS](7.3.z) WFLY-13132 - Wrong/Incomplete CLUSTER_TOPOLOGY update sent to EJB client",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -867,6 +1247,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18605",
   "summary" : "[GSS](7.3.z) WEJBHTTP-30 - Thousand of unauthorized requests in between balancer and backend if backend is running in a cluster\t",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -875,6 +1260,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18349",
   "summary" : "[QE](7.3.z) WFLY-12889 - Clustering: java.lang.ClassCastException when SYBASE is used as invalidation-cache",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -883,6 +1273,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18343",
   "summary" : "[QA](7.3.z) WFLY-12887 - Clustering: com.ibm.db2.jcc.am.SqlSyntaxErrorException when DB2 is used as invalidation-cache",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -891,6 +1286,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18333",
   "summary" : "[GSS](7.3.z) WFLY-12765 - Webservice deployment fails",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -899,6 +1299,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18332",
   "summary" : "[GSS](7.3.z) WFLY-11833 - Stateful Session Bean affinity URI instead of cluster",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -907,6 +1312,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18331",
   "summary" : "[GSS](7.3.z) shutdown can indefinitely stall with a hung request",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -915,6 +1325,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18324",
   "summary" : "(7.3.z) ENTMQBR-2049 - Sometimes Artemis cluster with JGroups discovery is not formed after restart",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -923,6 +1338,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18321",
   "summary" : "[GSS](7.3.z) EJBCLIENT-356 - EJB client API blocks invocation until all configured connections are established/discovered",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -931,6 +1351,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-18310",
   "summary" : "[GSS](7.3.z) EJB Recovery unable to authenticate when restarted server is trying to recover ejb xa transactions",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -939,6 +1364,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-17990",
   "summary" : "[GSS](7.3.z) WFLY-12778 - EAR deployed on colocated master/slave servers does not wait for the embedded JMS services to startup properly",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -947,6 +1377,11 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-16113",
   "summary" : "[QA] (7.3.z) WFLY-11566 - ConstraintDeclarationException on JAX-RS/EJB Methods with List/Set query parameter",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 }, {
   "type" : "Bug",
@@ -955,5 +1390,10 @@
   "url" : "https://issues.redhat.com/browse/JBEAP-6465",
   "summary" : "(7.3.z) Security domain defined for web is used also for EJB even when for EJB is defined different one",
   "incorporated" : [ ],
+  "acks" : {
+    "DEV" : "SET",
+    "QE" : "SET",
+    "PM" : "ACCEPTED"
+  },
   "pull-requests" : [ ]
 } ]

@@ -1,20 +1,14 @@
-import React, {useState} from 'react';
-import IssueSingleTable from './IssueSingleTable';
+import React from 'react';
 import IssueSeparateTable from './IssueSeparateTables';
+import '@patternfly/react-core/dist/styles/base.css'
 import './App.css';
 
 let data = require('./data/7.3.2.json');
 
 function App() {
-  const [single, setSingle] = useState(true);
-
   return (
     <div className="App">
-      <button onClick={()=>setSingle(!single)}>Switch to {single ? 'separate' : 'single'} view</button>
-      {single ?
-          <IssueSingleTable data={data} /> :
-          <IssueSeparateTable data={data} />
-      }
+      <IssueSeparateTable data={data} />
     </div>
   );
 }

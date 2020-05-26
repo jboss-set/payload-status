@@ -1,70 +1,40 @@
 import React from 'react';
-import {getKeyFromUrl} from './Util';
-import {IssueTable, Issue} from './IssueCommon' ;
+import {orderData, tablify} from './Util';
+import {IssueTable} from './IssueCommon' ;
+import {sortable, classNames} from '@patternfly/react-table';
 
-function orderData(data) {
-    let result = {};
+const columns = [
+    { title: "Number", transforms: [sortable] },
+    { title: "Priority", transforms: [sortable] },
+    { title: "Status", transforms: [sortable] },
+    { title: "Name", columnTransforms: [classNames('issue-name')] },
+    { title: "Type", columnTransforms: [classNames('issue-type')] },
+    { title: "Acks" },
+    { title: "PR Status", transforms: [sortable] },
+    { title: "Upstream" }
+];
 
-    let upgrades = data.filter(issue => issue.type.toLowerCase() === "component upgrade");
-    let rest = {};
-
-    data.filter(issue => issue.type.toLowerCase() !== "component upgrade").forEach(item => {
-        rest[getKeyFromUrl(item.url)] = item;
-    });
-
-    upgrades.forEach(upgrade => {
-        upgrade.nested = [];
-        upgrade.incorporated.forEach(inc => {
-            let name = getKeyFromUrl(inc);
-            let issue = rest[name];
-            if (issue) {
-                upgrade.nested.push(issue);
-                delete rest[name];
-            }
-        });
-    });
-
-    let standalone = [];
-
-    for (let r in rest) {
-        standalone.push(rest[r]);
-    }
-
-    result.upgrades = upgrades;
-    result.standalone = standalone;
-
-    return result;
-}
+const columns2 = [
+    { title: "Number" },
+    { title: "Priority" },
+    { title: "Status" },
+    { title: "Name", columnTransforms: [classNames('issue-name')] },
+    { title: "Type", columnTransforms: [classNames('issue-type')] },
+    { title: "Acks" },
+    { title: "PR Status" },
+    { title: "Upstream" }
+];
 
 const IssueSeparateTable = ({data}) => {
-    let issues = orderData(data);
+    let issues = orderData(data),
+        single = tablify(issues.standalone, false),
+        upgrades = tablify(issues.upgrades, true);
 
     return (
         <div>
-            <IssueTable caption="Standalone issues" className="single">
-              {issues.standalone.map((issue,i) =>
-                  <Issue key={getKeyFromUrl(issue.url)} {...issue} />
-              )}
-            </IssueTable>
-            <IssueTable caption="Component upgrades" className="upgrades">
-              {issues.upgrades.map((issue,i) =>
-                  <React.Fragment key={getKeyFromUrl(issue.url)}>
-                    <Issue class="upgrade" {...issue} />
-                    <NestedIssues data={issue.nested} />
-                  </React.Fragment>
-              )}
-            </IssueTable>
+            <IssueTable caption="Standalone issues" className="standalone" columns={columns} rows={single} />
+            <IssueTable caption="Component upgrades" className="upgrades" columns={columns2} rows={upgrades} />
         </div>
-    )
-}
-
-const NestedIssues = ({data}) => {
-    return (
-        <>
-        {data.map((nested, j) =>
-            <Issue key={getKeyFromUrl(nested.url)} {...nested} />
-        )}
-        </>
     )
 }
 

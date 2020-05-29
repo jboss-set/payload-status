@@ -2,6 +2,7 @@ import React from 'react';
 import {orderData, tablify} from './Util';
 import {IssueTable} from './IssueCommon' ;
 import {sortable, classNames} from '@patternfly/react-table';
+import {Title} from '@patternfly/react-core'
 
 const columns = [
     { title: "Number", transforms: [sortable] },
@@ -26,14 +27,17 @@ const columns2 = [
 ];
 
 const IssueSeparateTable = ({data}) => {
-    let issues = orderData(data),
+    let issues = orderData(data.issues),
         single = tablify(issues.standalone, false),
         upgrades = tablify(issues.upgrades, true);
 
+    const updated = new Date(data.updated);
+
     return (
         <div>
-            <IssueTable caption="Standalone issues" className="standalone" columns={columns} rows={single} />
-            <IssueTable caption="Component upgrades" className="upgrades" columns={columns2} rows={upgrades} />
+            <Title headingLevel="h1" size="xl">{`${data.issues.length} issues in payload, last updated ${updated.toLocaleDateString('en-US')}`}</Title>
+            <IssueTable caption={`${single.length} Standalone issues`} className="standalone" columns={columns} rows={single} />
+            <IssueTable caption={`${issues.upgrades.length} Component upgrades, ${upgrades.length} issues total`} className="upgrades" columns={columns2} rows={upgrades} />
         </div>
     )
 }

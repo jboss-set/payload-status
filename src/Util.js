@@ -9,10 +9,10 @@ export function safeClassName(name) {
 }
 
 export function shortName(name) {
-  switch (name) {
-    case 'Coding In Progress': return 'Coding …';
-    case 'Pull Request Sent': return 'PR Sent';
-    case 'Component Upgrade': return 'Upgrade';
+  switch (name.toLowerCase()) {
+    case 'coding in progress': return 'Coding …';
+    case 'pull request sent': return 'PR SENT';
+    case 'component upgrade': return 'UPGRADE';
     default: return name;
   }
 }

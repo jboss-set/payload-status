@@ -9,6 +9,7 @@ export function safeClassName(name) {
 }
 
 export function shortName(name) {
+  if (name == null) return "null";
   switch (name.toLowerCase()) {
     case 'coding in progress': return 'Coding …';
     case 'pull request sent': return 'PR SENT';
@@ -28,14 +29,16 @@ export function orderData(data) {
 
   upgrades.forEach(upgrade => {
     upgrade.nested = [];
-    upgrade.incorporated.forEach(inc => {
-      let name = getKeyFromUrl(inc),
-          issue = bugs[name];
-      if (issue) {
-        upgrade.nested.push(issue);
-        delete bugs[name];
-      }
-    });
+    if (upgrade.linkedIncorporatesIssues) {
+      upgrade.linkedIncorporatesIssues.forEach(inc => {
+        let name = getKeyFromUrl(inc),
+            issue = bugs[name];
+        if (issue) {
+          upgrade.nested.push(issue);
+          delete bugs[name];
+        }
+      });
+    }
   });
 
   let standalone = [];
@@ -50,7 +53,9 @@ export function orderData(data) {
   return result;
 }
 
-export const Link = ({url}) => <a href={url}>{getKeyFromUrl(url)}</a>
+export const Link = ({url, text}) => url ? <a href={url}>{text}</a> : <span>Not Found</span>
+
+export const IssueLink = ({url}) => <Link url={url} text={getKeyFromUrl(url)}/>
 
 export function tablify(issues, processNested) {
   let result = [];
@@ -78,14 +83,14 @@ function issueToRow({url, priority, status, summary, type, acks, ...rest}) {
   let row = {};
 
   row.cells = [
-    makeCell(<Link url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
+    makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
     makeCell(shortName(status)),
     makeCell(summary),
     makeCell(shortName(type)),
     ackCell(acks),
-    prCell(rest['pull-requests']),
-    upstreamCell(rest['pull-requests'])
+    prCell(rest.pullRequest),
+    upstreamCell(rest.pullRequest)
   ]
 
   return row;
@@ -121,7 +126,8 @@ function prCell(prs) {
   if (!prs || prs.length === 0) return makeCell('No PR');
 
   let list = prs.map((item) => (
-      makeCell(<a href={item.url}>{item.status}</a>, item.status, item.status === 'clean' ? 'issue-success' : 'issue-fail')
+    makeCell(<a href={item.link}>{item.mergeStatus ? item.mergeStatus : "unknown"}</a>,
+      item.mergeStatus, item.mergeStatus === 'clean' ? 'issue-success' : 'issue-fail')
     )
   );
 
@@ -175,14 +181,14 @@ function upstreamCell(prs) {
 }
 
 function upstream(pr) {
-  if (pr['upstream-required'] && !pr['upstream-jira']) return makeCell("Missing", 'missing');
-  else if (!pr['upstream-required']) return makeCell("Not required", 'not-required', 'issue-success');
+  if (!pr.noUpstreamRequired && !pr.upstreamIssueFromPRDesc) return makeCell("Missing", 'missing');
+  else if (pr.noUpstreamRequired) return makeCell("Not required", 'not-required', 'issue-success');
 
   let title =
     <>
-      {"Issue: "}<Link url={getKeyFromUrl(pr['upstream-jira'])}/><br/>
-      {"PR: " + pr['upstream-pull-request'].status}
+      {"Issue: "}<IssueLink url={pr.upstreamIssueFromPRDesc}/><br/>
+      {"PR: "}<Link url={pr.upstreamPullRequestFromPRDesc} text={pr.upstreamPatchState}/>
     </>;
 
-  return makeCell(title, '', pr['upstream-pull-request'].status === 'CLOSED' ? 'issue-success' : '');
+  return makeCell(title, '', pr.upstreamPatchState === 'CLOSED' ? 'issue-success' : '');
 }

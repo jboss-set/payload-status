@@ -1,10 +1,11 @@
 import React from 'react';
-import {orderData, tablify} from './Util';
-import {IssueTable} from './IssueCommon' ;
-import {sortable, classNames} from '@patternfly/react-table';
-import {Title} from '@patternfly/react-core'
 
-const columns = [
+import MessageBar from './MessageBar';
+import IssueTable from './IssueTable';
+import { sortable, classNames } from '@patternfly/react-table';
+import { Title } from '@patternfly/react-core';
+
+const standaloneColumns = [
     { title: "Number", transforms: [sortable] },
     { title: "Priority", transforms: [sortable] },
     { title: "Status", transforms: [sortable] },
@@ -15,7 +16,7 @@ const columns = [
     { title: "Upstream" }
 ];
 
-const columns2 = [
+const upgradeColumns = [
     { title: "Number" },
     { title: "Priority" },
     { title: "Status" },
@@ -26,18 +27,38 @@ const columns2 = [
     { title: "Upstream" }
 ];
 
-const IssueSeparateTable = ({data}) => {
-    let issues = orderData(data.issues),
-        single = tablify(issues.standalone, false),
-        upgrades = tablify(issues.upgrades, true);
+const IssueSeparateTable = ({data,setRows}) => {
+    if (data.error != null || data.upgradesTotal === 0) {
+        return <MessageBar error={data.error} />
+    }
 
-    const updated = new Date(data.updated);
+    const updateStandaloneRows = (standalone) => {
+        setRows(prevState => ({
+            ...prevState,
+            standalone: {
+              rows: standalone.rows,
+              sortBy: standalone.sortBy
+            }
+        }))
+    };
 
     return (
         <div>
-            <Title headingLevel="h1" size="xl">{`${data.issues.length} issues in payload, last updated ${updated.toLocaleDateString('en-US')}`}</Title>
-            <IssueTable caption={`${single.length} Standalone issues`} className="standalone" columns={columns} rows={single} />
-            <IssueTable caption={`${issues.upgrades.length} Component upgrades, ${upgrades.length} issues total`} className="upgrades" columns={columns2} rows={upgrades} />
+            <Title headingLevel="h1" size="xl">{`${data.standalone.rows.length + data.upgrades.rows.length} issues in payload`}</Title>
+            <IssueTable
+                caption={`${data.standalone.rows.length} Standalone issues`}
+                className="standalone"
+                columns={standaloneColumns}
+                rows={data.standalone.rows}
+                sortBy={data.standalone.sortBy}
+                updateRows={updateStandaloneRows}
+            />
+            <IssueTable
+                caption={`${data.upgradesTotal} Component upgrades, ${data.upgrades.rows.length} issues total`}
+                className="upgrades"
+                columns={upgradeColumns}
+                rows={data.upgrades.rows}
+            />
         </div>
     )
 }

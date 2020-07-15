@@ -14,7 +14,7 @@ td.issue-name {
 }
 
 td.issue-success {
-    background-color: var(--pf-global--success-color--100);
+    background-color: var(--pf-global--palette--light-green-400);
 }
 
 td.issue-fail {

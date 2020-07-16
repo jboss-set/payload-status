@@ -82,9 +82,11 @@ function issueToRow({url, priority, status, summary, type, acks, ...rest}) {
     makeCell(priority),
     makeCell(shortName(status)),
     makeCell(summary),
-    makeCell(shortName(type))
-  ].concat(ackCell(acks))
-  .concat(tablifyPR(rest['pull-requests']));
+    makeCell(shortName(type)),
+    ackCell(acks),
+    prCell(rest['pull-requests']),
+    upstreamCell(rest['pull-requests'])
+  ]
 
   return row;
 }
@@ -115,29 +117,72 @@ function ackCell(acks) {
   return makeCell(flags.join(' '));
 }
 
-function tablifyPR(pr) {
-  if (pr.length === 0) return [ makeCell('No PR'), "" ];
-  if (pr.length > 1) return [ makeCell('Many PRs') , "" ];
+function prCell(prs) {
+  if (!prs || prs.length === 0) return makeCell('No PR');
 
-  return [
-    makeCell(<a href={pr[0].url}>{pr[0].status}</a>, pr[0].status, pr[0].status === 'clean' ? 'issue-success' : 'issue-fail'),
-    upstream(pr[0])
-  ];
+  let list = prs.map((item) => (
+      makeCell(<a href={item.url}>{item.status}</a>, item.status, item.status === 'clean' ? 'issue-success' : 'issue-fail')
+    )
+  );
+
+  let titles = [],
+      sortKey = list[0].sortKey,
+      className = '',
+      css = { 'issue-success': 0, 'issue-fail': 0 }
+
+  list.forEach((item, key) => {
+    titles.push(<span key={key}>{item.title}<br/></span>);
+
+    if (item.props) {
+      css[item.props.className] += 1;
+    }
+  })
+
+  if (css['issue-success'] > 0 && css['issue-fail'] > 0) {
+      className = 'issue-success-fail';
+  } else if (css['issue-success'] > 0) {
+      className = 'issue-success';
+  } else if (css['issue-fail'] > 0) {
+      className = 'issue-fail';
+  }
+
+  return makeCell(titles, sortKey, className);
+}
+
+function upstreamCell(prs) {
+  if (!prs || prs.length === 0) return "";
+
+  let list = prs.map(upstream);
+
+  let titles = [],
+      sortKey = list[0].sortKey,
+      className = '',
+      css = { 'issue-success': 0 }
+
+  list.forEach((item, key) => {
+    titles.push(<span key={key}>{item.title}<br/></span>);
+
+    if (item.props) {
+      css[item.props.className] += 1;
+    }
+  })
+
+  if (css['issue-success'] > 0) {
+    className = 'issue-success';
+  }
+
+  return makeCell(titles, sortKey, className);
 }
 
 function upstream(pr) {
-  if (pr['upstream-required'] && !pr['upstream-jira']) return makeCell('Missing');
-  else if (!pr['upstream-required']) return makeCell('Not required', 'not-required', 'issue-success');
+  if (pr['upstream-required'] && !pr['upstream-jira']) return makeCell("Missing", 'missing');
+  else if (!pr['upstream-required']) return makeCell("Not required", 'not-required', 'issue-success');
 
   let title =
     <>
-      <span>{"Issue: "}<Link url={getKeyFromUrl(pr['upstream-jira'])}/></span><br/>
-      <span>{"PR: " + pr['upstream-pull-request'].status}</span>
+      {"Issue: "}<Link url={getKeyFromUrl(pr['upstream-jira'])}/><br/>
+      {"PR: " + pr['upstream-pull-request'].status}
     </>;
 
   return makeCell(title, '', pr['upstream-pull-request'].status === 'CLOSED' ? 'issue-success' : '');
-}
-
-export function shortStatus(status) {
-    return status === 'Pull Request Sent' ? 'PR Sent' : status;
 }

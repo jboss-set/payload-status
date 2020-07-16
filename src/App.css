@@ -20,3 +20,13 @@ td.issue-success {
 td.issue-fail {
     background-color: var(--pf-global--warning-color--100);
 }
+
+td.issue-success-fail {
+    background: repeating-linear-gradient(
+        45deg,
+        var(--pf-global--palette--light-green-400),
+        var(--pf-global--palette--light-green-400) 20px,
+        var(--pf-global--warning-color--100) 20px,
+        var(--pf-global--warning-color--100) 40px
+    );
+}

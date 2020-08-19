@@ -1,23 +1,34 @@
-## Available branches
+## Experimental branch
 
-* master (this one) - an "offline" version of the app, the data are read from a local file, [deployed on OpenShift](http://payload-status-viewer-mpetrov-project.int.open.paas.redhat.com/)
-* [json-fetching](https://gitlab.cee.redhat.com/mpetrov/payload-status-app/-/tree/json-fetching) - "live" version reading data from prbz-overview
+This branch is taking advantage of the new REST API available in PRBZ-overview.
 
-## How to run
+## Pre-requisites
 
-1. Install `yarn` (a dependency manager for JavaScript projects)
-2. Run `yarn install && yarn start`
+### Wildfly settings
 
-## Scripts
+Add a filter to Undertow settings to enable CORS
 
-### `yarn install`
+```
+<subsystem xmlns="urn:jboss:domain:undertow:11.0" … >
+    < … />
+    <server name="default-server">
+        < … />
+        <host name="default-host" alias="localhost">
+            < … />
+            <filter-ref name="Access-Control-Allow-Origin"/>
+        </host>
+    </server>
+    < … />
+    <filters>
+        <response-header name="Access-Control-Allow-Origin" header-name="Access-Control-Allow-Origin" header-value="http://localhost:3000"/>
+    </filters>
+</subsystem>
+```
 
-Installs dependencies, needs to be run only once unless dependencies have changed (`package.json`)
+### PRBZ-overview
 
-### `yarn start`
+Deploy [prbz-overview](https://github.com/jboss-set/prbz-overview/) locally (and wait for everything to load)
 
-Starts a local server and opens a browser, in case nothing happens go to [http://localhost:3000/]([http://localhost:3000/]).
+## Running the app
 
-### `yarn build`
-
-Builds the app, to deploy it copy the contents of the `build` folder.
+Run as usual with `yarn start`.

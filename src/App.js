@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '@patternfly/react-core/dist/styles/base.css'
 
 import {orderData, tablify} from './Util';
+import UpgradeReport from './UpgradeReport';
 import IssueSeparateTable from './IssueSeparateTables';
 import PayloadPicker from './PayloadPicker';
 
-import './App.css'; // !needs to be after component import
+import './App.css'; // !has to be after component import
 
 function App() {
   const [payloadsData, setPayloadsData] = useState({
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <div className="App">
+      <UpgradeReport />
       <PayloadPicker onSelect={setPayload} data={payloadsData} />
       {data.payload != null && <IssueSeparateTable data={data} setRows={setData} />}
     </div>

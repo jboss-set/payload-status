@@ -19,19 +19,16 @@ const PayloadPicker = ({onSelect, data}) => {
 
     const flatList = flattenList(data.list);
 
-    const items = <React.Fragment>
+    const items = (
       <ToolbarItem>
         <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
         {flatList.map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}
         </Select>
-      </ToolbarItem>
-    </React.Fragment>;
+      </ToolbarItem>);
 
     return <Toolbar id="toolbar"><ToolbarContent>{items}</ToolbarContent></Toolbar>;
-
-
 }
 
 const flattenList = (list) => {

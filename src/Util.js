@@ -122,13 +122,22 @@ function ackCell(acks) {
   return makeCell(flags.join(' '));
 }
 
+const cleanMergeStates = {
+    'clean': 1,
+    'merged': 2
+}
+
 function prCell(prs) {
   if (!prs || prs.length === 0) return makeCell('No PR');
 
-  let list = prs.map((item) => (
-    makeCell(<a href={item.link}>{item.mergeStatus ? item.mergeStatus : "unknown"}</a>,
-      item.mergeStatus, item.mergeStatus === 'clean' ? 'issue-success' : 'issue-fail')
-    )
+  let list = prs.map((item) => {
+    let status = item.mergeStatus.toLowerCase();
+    if (status === 'unknown' && item.patchState.toLowerCase() === 'closed') {
+        status = 'merged';
+    }
+    return makeCell(<a href={item.link}>{status}</a>,
+      status, status in cleanMergeStates ? 'issue-success' : 'issue-fail')
+    }
   );
 
   let titles = [],

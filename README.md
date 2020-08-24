@@ -27,7 +27,12 @@ Add a filter to Undertow settings to enable CORS
 
 ### PRBZ-overview
 
-Deploy [prbz-overview](https://github.com/jboss-set/prbz-overview/) locally (and wait for everything to load)
+This branch is a little ahead of the current of version of PRBZ-overview, to see the latest features use these forks:
+
+* Aphrodite - [branch 7.10.MP](https://github.com/michpetrov/aphrodite/tree/7.10.MP)
+* PRBZ-overview - [branch payload-viewer](https://github.com/michpetrov/prbz-overview/tree/payload-viewer)
+
+Deploy PRBZ-overview to WildFly and wait for everything to load (takes a few minutes)
 
 ## Running the app
 

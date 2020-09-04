@@ -18,14 +18,19 @@ function App() {
       standalone: {},
       upgrades: {},
       payload: null,
-      error: null
+      error: null,
+      loading: false
   });
 
   const setPayload = (payload) => {
-      setData(prevState => ({...prevState, payload: payload}));
+      setData(prevState => ({...prevState, payload: payload, loading: true}));
       fetch(`http://localhost:8080/prbz-overview/rest/api/payload/${payload}`)
         .then(response => response.json())
         .then(json => {
+            if (!json.length) {
+                setData(prevState => ({...prevState, error: "Empty payload", loading: false}))
+                return;
+            }
             let issues = orderData(json),
                 standalone = tablify(issues.standalone, false),
                 upgrades = tablify(issues.upgrades, true);
@@ -38,10 +43,11 @@ function App() {
                 },
                 upgrades: {
                     rows: upgrades
-                }
+                },
+                loading: false
             }))
         })
-//        .catch(error => setData(prevState => ({...prevState, error: error})));
+        .catch(error => setData(prevState => ({...prevState, error: error, loading: false})));
   }
 
   useEffect(() => {

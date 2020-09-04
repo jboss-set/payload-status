@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Table, TableHeader, TableBody, TableVariant  } from '@patternfly/react-table';
 import { Toolbar, ToolbarItem, ToolbarContent, Button } from '@patternfly/react-core';
 import { Select, SelectOption } from '@patternfly/react-core';
+import { Spinner } from '@patternfly/react-core';
+import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 
 const repos = {
   'EAP': {
@@ -42,7 +44,7 @@ const RepoSelect = ({onSelect}) => {
   )
 }
 
-const UpgradeSelects = ({loadTags, loadReport, data}) => {
+const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
   const [isOpenLeft, setOpenLeft] = useState(false);
   const [isOpenRight, setOpenRight] = useState(false);
 
@@ -80,6 +82,8 @@ const UpgradeSelects = ({loadTags, loadReport, data}) => {
             selectedLeft={selectedLeft} selectLeft={selectLeft}
             selectedRight={selectedRight} selectRight={selectRight}
           />}
+        {data.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}
+        {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
       </ToolbarContent>
     </Toolbar>
   )
@@ -128,10 +132,12 @@ const UpgradeReport = () => {
     repo: null,
     'jbossas-jboss-eap7': null,
     'jbossas-wildfly-core-eap': null,
-    upgrades: null
+    upgrades: null,
+    loading: false
   })
 
   const loadTags = (repoName) => {
+    setData(prevState => ({...prevState, loading: true}))
     let repoId = repos[repoName].id;
     if (!data[repoId]) {
       fetch(tagURL(repoId))
@@ -142,26 +148,29 @@ const UpgradeReport = () => {
             newState[repoId] = repos[repoName].filter(json);
             newState['repo'] = repoId;
             newState['upgrades'] = null;
+            newState['loading'] = false;
             return newState;
           });
         })
     } else {
-      setData(prevState => ({...prevState, repo: repoId, upgrades: null}));
+      setData(prevState => ({...prevState, repo: repoId, upgrades: null, loading: false}));
     }
   }
 
   const loadReport = (tag1, tag2) => {
+    setData(prevState => ({...prevState, loading: true}))
     fetch(compareURL(data.repo, tag1, tag2))
       .then(response => response.json())
       .then(json => {
-        console.log(tablify(json));
-        setData(prevState => ({...prevState, upgrades: tablify(json)}))
+        setData(prevState => ({...prevState, upgrades: tablify(json), loading: false}))
       })
   }
 
+  const unload = () => setData(prevState => ({...prevState, upgrades: null}))
+
   return (
     <div>
-      <UpgradeSelects loadTags={loadTags} loadReport={loadReport} data={data} />
+      <UpgradeSelects loadTags={loadTags} loadReport={loadReport} unload={unload} data={data} />
       {data.upgrades && <ReportTable data={data.upgrades} />}
     </div>
   )

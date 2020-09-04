@@ -7,8 +7,8 @@ const PayloadPicker = ({onSelect, data}) => {
     const [isOpen, setOpen] = useState(false);
     const [selected, setSelected] = useState(null);
 
-    if (data.error != null || data.list == null) {
-        return <MessageBar error={data.error} />
+    if (data.error != null || data.list == null || Object.keys(data.list).length === 0) {
+        return <MessageBar error={data.error || "No payloads loaded"} />
     }
 
     const select = (e, value) => {
@@ -20,13 +20,18 @@ const PayloadPicker = ({onSelect, data}) => {
     const flatList = flattenList(data.list);
 
     const items = (
-      <ToolbarItem>
-        <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
-        {flatList.map((item, index) => (
-          <SelectOption key={index} value={item} />
-        ))}
-        </Select>
-      </ToolbarItem>);
+      <>
+        <ToolbarItem variant="label">Payload Overview</ToolbarItem>
+        <ToolbarItem>
+          <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
+          {flatList.map((item, index) => (
+            <SelectOption key={index} value={item} />
+          ))}
+          </Select>
+        </ToolbarItem>
+      </>);
+
+    console.log(items);
 
     return <Toolbar id="toolbar"><ToolbarContent>{items}</ToolbarContent></Toolbar>;
 }

@@ -4,6 +4,7 @@ import MessageBar from './MessageBar';
 import IssueTable from './IssueTable';
 import { sortable, classNames } from '@patternfly/react-table';
 import { Title } from '@patternfly/react-core';
+import { Spinner } from '@patternfly/react-core';
 
 const standaloneColumns = [
     { title: "Number", transforms: [sortable] },
@@ -28,6 +29,9 @@ const upgradeColumns = [
 ];
 
 const IssueSeparateTable = ({data,setRows}) => {
+    if (data.loading) {
+        return <Spinner />
+    }
     if (data.error != null || data.upgradesTotal === 0) {
         return <MessageBar error={data.error} />
     }

@@ -26,16 +26,21 @@ const RepoSelect = ({onSelect}) => {
   const [isOpen, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
 
-  const select = (e, value) => {
-    onSelect(value);
-    setSelected(value);
+  const select = (e, value, isPlaceholder) => {
+    if (isPlaceholder) {
+      onSelect("");
+      setSelected("");
+    } else {
+      onSelect(value);
+      setSelected(value);
+    }
     setOpen(!isOpen);
   }
 
   return (
     <ToolbarItem>
       <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
-        <SelectOption key={0} value="" isPlaceholder={true} />
+        <SelectOption key={0} value="Choose…" isPlaceholder={true} />
         {Object.keys(repos).map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}
@@ -45,25 +50,32 @@ const RepoSelect = ({onSelect}) => {
 }
 
 const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
-  const [isOpenLeft, setOpenLeft] = useState(false);
-  const [isOpenRight, setOpenRight] = useState(false);
+  const [isOpen, setOpen] = useState({left: false, right: false});
 
-  const [selectedLeft, setSelectedLeft] = useState(null);
-  const [selectedRight, setSelectedRight] = useState(null);
+  const [selected, setSelected] = useState({left: "", right: ""});
 
-  const selectLeft = (e, value) => {
-    setSelectedLeft(value);
-    setOpenLeft(!isOpenLeft);
+  const openLeft = (open) => {
+    setOpen(prev => ({...prev, left: open}));
   }
 
-  const selectRight = (e, value) => {
-    setSelectedRight(value);
-    setOpenRight(!isOpenRight);
+  const openRight = (open) => {
+    setOpen(prev => ({...prev, right: open}));
+  }
+
+  const selectLeft = (e, val, isPlaceholder) => {
+    let value = isPlaceholder ? "" : val;
+    setSelected(prev => ({...prev, left: value}));
+    openLeft(!isOpen.left);
+  }
+
+  const selectRight = (e, val, isPlaceholder) => {
+    let value = isPlaceholder ? "" : val;
+    setSelected(prev => ({...prev, right: value}));
+    openRight(!isOpen.right);
   }
 
   const clearAll = () => {
-    setSelectedLeft(null);
-    setSelectedRight(null);
+    setSelected({left: "", right: ""});
   }
 
   const onRepoSelect = (repo) => {
@@ -77,10 +89,10 @@ const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
         <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
         <RepoSelect onSelect={onRepoSelect} />
         {data.repo && <CompareSelector data={data[data.repo]} report={loadReport}
-            isOpenLeft={isOpenLeft} setOpenLeft={setOpenLeft}
-            isOpenRight={isOpenRight} setOpenRight={setOpenRight}
-            selectedLeft={selectedLeft} selectLeft={selectLeft}
-            selectedRight={selectedRight} selectRight={selectRight}
+            isOpenLeft={isOpen.left} setOpenLeft={openLeft}
+            isOpenRight={isOpen.right} setOpenRight={openRight}
+            selectedLeft={selected.left} selectLeft={selectLeft}
+            selectedRight={selected.right} selectRight={selectRight}
           />}
         {data.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}
         {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
@@ -103,7 +115,7 @@ const CompareSelector = ({isOpenLeft, setOpenLeft, isOpenRight, setOpenRight,
       <TagSelect onSelect={selectLeft} onToggle={setOpenLeft} isOpen={isOpenLeft} selections={selectedLeft} data={data} />
       <TagSelect onSelect={selectRight} onToggle={setOpenRight} isOpen={isOpenRight} selections={selectedRight} data={data} />
       <ToolbarItem>
-        <Button onClick={click}>Generate</Button>
+        <Button onClick={click} isDisabled={!selectedLeft || !selectedRight}>Generate</Button>
       </ToolbarItem>
     </>
   )
@@ -112,7 +124,7 @@ const CompareSelector = ({isOpenLeft, setOpenLeft, isOpenRight, setOpenRight,
 const TagSelect = ({onSelect, onToggle, isOpen, selections, data}) => (
   <ToolbarItem>
     <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections}>
-      <SelectOption key={0} value="" isPlaceholder={true} />
+      <SelectOption key={0} value="Choose…" isPlaceholder={true} />
       {data.map((item, index) => (
         <SelectOption key={index} value={item} />
       ))}
@@ -137,6 +149,10 @@ const UpgradeReport = ({url}) => {
   })
 
   const loadTags = (repoName) => {
+    if (!repoName) {
+        setData(prevState => ({...prevState, repo: null}));
+        return;
+    }
     setData(prevState => ({...prevState, loading: true}))
     let repoId = repos[repoName].id;
     if (!data[repoId]) {

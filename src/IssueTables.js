@@ -32,7 +32,7 @@ const IssueTables = ({data,setRows}) => {
   if (data.loading) {
     return <Spinner />
   }
-  if (data.error != null || data.upgradesTotal === 0) {
+  if (data.error != null || (!data.standalone.rows || !data.upgrades.rows)) {
     return <MessageBar error={data.error} />
   }
 

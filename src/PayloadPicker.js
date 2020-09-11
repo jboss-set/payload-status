@@ -11,7 +11,8 @@ const PayloadPicker = ({onSelect, data}) => {
     return <MessageBar error={data.error || "No payloads loaded"} />
   }
 
-  const select = (e, value) => {
+  const select = (e, val, isPlaceholder) => {
+    let value = isPlaceholder ? "" : val;
     onSelect(value);
     setSelected(value);
     setOpen(!isOpen);
@@ -24,6 +25,7 @@ const PayloadPicker = ({onSelect, data}) => {
       <ToolbarItem variant="label">Payload Overview</ToolbarItem>
       <ToolbarItem>
         <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
+          <SelectOption key={0} value="Choose…" isPlaceholder={true} />
         {flatList.map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}

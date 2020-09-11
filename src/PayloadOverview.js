@@ -4,7 +4,7 @@ import {orderData, tablify} from './Util';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
 
-const payloadUrl = ({url, payload}) => `${url}payload/${payload}`;
+const payloadUrl = (url, payload) => `${url}payload/${payload}`;
 
 const PayloadOverview = ({url}) => {
   const [payloadsData, setPayloadsData] = useState({
@@ -21,6 +21,10 @@ const PayloadOverview = ({url}) => {
   });
 
   const setPayload = (payload) => {
+    if (!payload) {
+      setData(prevState => ({...prevState, payload: null}));
+      return;
+    }
     setData(prevState => ({...prevState, payload: payload, loading: true}));
     fetch(payloadUrl(url, payload))
       .then(response => response.json())

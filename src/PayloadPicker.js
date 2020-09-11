@@ -31,8 +31,6 @@ const PayloadPicker = ({onSelect, data}) => {
         </ToolbarItem>
       </>);
 
-    console.log(items);
-
     return <Toolbar id="toolbar"><ToolbarContent>{items}</ToolbarContent></Toolbar>;
 }
 

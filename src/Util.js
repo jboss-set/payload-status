@@ -21,9 +21,9 @@ export function shortName(name) {
 export function orderData(data) {
   let result = {},
       bugs = {},
-      upgrades = data.filter(issue => issue.type.toLowerCase() === "component upgrade");
+      upgrades = data.filter(issue => issue.rawType.toLowerCase() === "component upgrade");
 
-  data.filter(issue => issue.type.toLowerCase() !== "component upgrade").forEach(item => {
+  data.filter(issue => issue.rawType.toLowerCase() !== "component upgrade").forEach(item => {
     bugs[getKeyFromUrl(item.url)] = item;
   });
 
@@ -79,15 +79,15 @@ export function tablify(issues, processNested) {
   return result;
 }
 
-function issueToRow({url, priority, status, summary, type, acks, ...rest}) {
+function issueToRow({url, priority, rawStatus, summary, rawType, acks, ...rest}) {
   let row = {};
 
   row.cells = [
     makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
-    makeCell(shortName(status)),
+    makeCell(shortName(rawStatus).toUpperCase()),
     makeCell(summary),
-    makeCell(shortName(type)),
+    makeCell(shortName(rawType).toUpperCase()),
     ackCell(acks),
     prCell(rest.pullRequest),
     upstreamCell(rest.pullRequest)

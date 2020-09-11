@@ -28,7 +28,7 @@ const upgradeColumns = [
     { title: "Upstream" }
 ];
 
-const IssueSeparateTable = ({data,setRows}) => {
+const IssueTables = ({data,setRows}) => {
     if (data.loading) {
         return <Spinner />
     }
@@ -67,4 +67,4 @@ const IssueSeparateTable = ({data,setRows}) => {
     )
 }
 
-export default IssueSeparateTable
+export default IssueTables

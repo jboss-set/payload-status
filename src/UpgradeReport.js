@@ -17,8 +17,8 @@ const repos = {
   }
 }
 
-const tagURL = (repo) => `http://localhost:8080/prbz-overview/rest/api/tags/${repo}`;
-const compareURL = (repo, tag1, tag2) => `http://localhost:8080/prbz-overview/rest/api/upgrades/${repo}/${tag1}/${tag2}`;
+const tagURL = (url, repo) => `${url}tags/${repo}`;
+const compareURL = (url, repo, tag1, tag2) => `${url}upgrades/${repo}/${tag1}/${tag2}`;
 
 const tablify = (upgrades) => upgrades.map(u => [u.componentId, u.oldVersion, u.newVersion]);
 
@@ -127,7 +127,7 @@ const ReportTable = ({data}) => (
   </Table>
 );
 
-const UpgradeReport = () => {
+const UpgradeReport = ({url}) => {
   const [data, setData] = useState({
     repo: null,
     'jbossas-jboss-eap7': null,
@@ -140,7 +140,7 @@ const UpgradeReport = () => {
     setData(prevState => ({...prevState, loading: true}))
     let repoId = repos[repoName].id;
     if (!data[repoId]) {
-      fetch(tagURL(repoId))
+      fetch(tagURL(url, repoId))
         .then(response => response.json())
         .then(json => {
           setData(prevState => {
@@ -159,7 +159,7 @@ const UpgradeReport = () => {
 
   const loadReport = (tag1, tag2) => {
     setData(prevState => ({...prevState, loading: true}))
-    fetch(compareURL(data.repo, tag1, tag2))
+    fetch(compareURL(url, data.repo, tag1, tag2))
       .then(response => response.json())
       .then(json => {
         setData(prevState => ({...prevState, upgrades: tablify(json), loading: false}))

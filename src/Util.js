@@ -175,7 +175,7 @@ function upstreamCell(prs) {
       css = { 'issue-success': 0 }
 
   list.forEach((item, key) => {
-    titles.push(<span key={key}>{item.title}<br/></span>);
+    titles.push(<div className="upstream-issues" key={key}>{item.title}</div>);
 
     if (item.props) {
       css[item.props.className] += 1;

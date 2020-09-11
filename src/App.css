@@ -34,3 +34,7 @@ td.issue-success-fail {
         var(--pf-global--warning-color--100) 40px
     );
 }
+
+td div.upstream-issues:nth-of-type(2n) {
+    background-color: rgba(3,3,3,0.15)
+}

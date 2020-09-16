@@ -40,7 +40,7 @@ const RepoSelect = ({onSelect}) => {
   return (
     <ToolbarItem>
       <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
-        <SelectOption key={0} value="Choose…" isPlaceholder={true} />
+        {defaultOption}
         {Object.keys(repos).map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}
@@ -124,7 +124,7 @@ const CompareSelector = ({isOpenLeft, setOpenLeft, isOpenRight, setOpenRight,
 const TagSelect = ({onSelect, onToggle, isOpen, selections, data}) => (
   <ToolbarItem>
     <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections}>
-      <SelectOption key={0} value="Choose…" isPlaceholder={true} />
+      {defaultOption}
       {data.map((item, index) => (
         <SelectOption key={index} value={item} />
       ))}

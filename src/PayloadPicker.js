@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MessageBar from './MessageBar';
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 import { Select, SelectOption } from '@patternfly/react-core';
+import { defaultOption } from './Util';
 
 const PayloadPicker = ({onSelect, data}) => {
   const [isOpen, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const PayloadPicker = ({onSelect, data}) => {
       <ToolbarItem variant="label">Payload Overview</ToolbarItem>
       <ToolbarItem>
         <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
-          <SelectOption key={0} value="Choose…" isPlaceholder={true} />
+          {defaultOption}
         {flatList.map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}

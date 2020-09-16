@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SelectOption } from '@patternfly/react-core';
+
 export function getKeyFromUrl(url) {
   return url.substr(url.lastIndexOf('/')+1);
 }
@@ -56,6 +58,8 @@ export function orderData(data) {
 export const Link = ({url, text}) => url ? <a href={url}>{text}</a> : <span>Not Found</span>
 
 export const IssueLink = ({url}) => <Link url={url} text={getKeyFromUrl(url)}/>
+
+export const defaultOption = <SelectOption key={0} value="Choose…" isPlaceholder={true} />
 
 export function tablify(issues, processNested) {
   let result = [];

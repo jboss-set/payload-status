@@ -30,7 +30,7 @@ const PayloadOverview = ({url}) => {
       .then(response => response.json())
       .then(json => {
         if (!json.length) {
-          setData(prevState => ({...prevState, error: "Empty payload", loading: false}))
+          setData(prevState => ({...prevState, error: "Empty payload (prbz still loading?)", loading: false}))
           return;
         }
         let issues = orderData(json),

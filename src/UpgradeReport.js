@@ -5,14 +5,15 @@ import { Toolbar, ToolbarItem, ToolbarContent, Button } from '@patternfly/react-
 import { Select, SelectOption } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
+import { defaultOption } from './Util';
 
 const repos = {
   'EAP': {
-    id: 'jbossas-jboss-eap7',
+    id: 'wildfly-wildfly',
     filter: (tags) => tags.filter(tag => tag.includes("EAP_7.")).slice(0,20).concat(tags.filter(tag => tag.includes(".x")).slice(0,10))
   },
   'EAP Core': {
-    id: 'jbossas-wildfly-core-eap',
+    id: 'wildfly-wildfly-core',
     filter: (tags) => tags.slice(0,20)
   }
 }

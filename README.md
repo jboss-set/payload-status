@@ -4,7 +4,7 @@ This branch is taking advantage of the new REST API available in PRBZ-overview.
 
 ## Pre-requisites
 
-### Wildfly settings
+### Wildfly/EAP settings
 
 Add a filter to Undertow settings to enable CORS
 
@@ -27,12 +27,9 @@ Add a filter to Undertow settings to enable CORS
 
 ### PRBZ-overview
 
-This branch is a little ahead of the current of version of PRBZ-overview, to see the latest features use these forks:
+Use the [latest SNAPSHOT](https://github.com/jboss-set/prbz-overview)
 
-* Aphrodite - [branch 7.10.MP](https://github.com/michpetrov/aphrodite/tree/7.10.MP)
-* PRBZ-overview - [branch payload-viewer](https://github.com/michpetrov/prbz-overview/tree/payload-viewer)
-
-Deploy PRBZ-overview to WildFly and wait for everything to load (takes a few minutes)
+Deploy PRBZ-overview and wait for everything to load (~30 mins)
 
 ## Running the app
 

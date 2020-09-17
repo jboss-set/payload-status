@@ -1,10 +1,8 @@
 import React from 'react';
 
-import MessageBar from './MessageBar';
 import IssueTable from './IssueTable';
 import { sortable, classNames } from '@patternfly/react-table';
 import { Title } from '@patternfly/react-core';
-import { Spinner } from '@patternfly/react-core';
 
 const standaloneColumns = [
   { title: "Number", transforms: [sortable] },
@@ -29,12 +27,6 @@ const upgradeColumns = [
 ];
 
 const IssueTables = ({data,setRows}) => {
-  if (data.loading) {
-    return <Spinner />
-  }
-  if (data.error != null || (!data.standalone.rows || !data.upgrades.rows)) {
-    return <MessageBar error={data.error} />
-  }
 
   const updateStandaloneRows = (standalone) => {
     setRows(prevState => ({

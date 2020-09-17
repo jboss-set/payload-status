@@ -38,3 +38,7 @@ td.issue-success-fail {
 td div.upstream-issues:nth-of-type(2n) {
     background-color: rgba(3,3,3,0.15)
 }
+
+.message-bar {
+    max-width: 300px;
+}

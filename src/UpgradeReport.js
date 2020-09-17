@@ -6,6 +6,7 @@ import { Select, SelectOption } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 import { defaultOption } from './Util';
+import MessageBar from './MessageBar';
 
 const repos = {
   'EAP': {
@@ -85,20 +86,17 @@ const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
   }
 
   return (
-    <Toolbar id="cu-toolbar">
-      <ToolbarContent>
-        <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
-        <RepoSelect onSelect={onRepoSelect} />
-        {data.repo && <CompareSelector data={data[data.repo]} report={loadReport}
-            isOpenLeft={isOpen.left} setOpenLeft={openLeft}
-            isOpenRight={isOpen.right} setOpenRight={openRight}
-            selectedLeft={selected.left} selectLeft={selectLeft}
-            selectedRight={selected.right} selectRight={selectRight}
-          />}
-        {data.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}
-        {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
-      </ToolbarContent>
-    </Toolbar>
+    <>
+      <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
+      <RepoSelect onSelect={onRepoSelect} />
+      {data.repo && <CompareSelector data={data[data.repo]} report={loadReport}
+          isOpenLeft={isOpen.left} setOpenLeft={openLeft}
+          isOpenRight={isOpen.right} setOpenRight={openRight}
+          selectedLeft={selected.left} selectLeft={selectLeft}
+          selectedRight={selected.right} selectRight={selectRight}
+        />}
+      {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
+    </>
   )
 }
 
@@ -145,16 +143,20 @@ const UpgradeReport = ({url}) => {
     repo: null,
     'jbossas-jboss-eap7': null,
     'jbossas-wildfly-core-eap': null,
-    upgrades: null,
-    loading: false
-  })
+    upgrades: null
+  });
+
+  const [status, setStatus] = useState({
+      loading: false,
+      error: null
+  });
 
   const loadTags = (repoName) => {
     if (!repoName) {
         setData(prevState => ({...prevState, repo: null}));
         return;
     }
-    setData(prevState => ({...prevState, loading: true}))
+    setStatus({loading: true});
     let repoId = repos[repoName].id;
     if (!data[repoId]) {
       fetch(tagURL(url, repoId))
@@ -165,29 +167,49 @@ const UpgradeReport = ({url}) => {
             newState[repoId] = repos[repoName].filter(json);
             newState['repo'] = repoId;
             newState['upgrades'] = null;
-            newState['loading'] = false;
             return newState;
           });
+          setStatus({loading: false});
         })
+        .catch(error => setStatus({error: handleError(error), loading: false}))
     } else {
-      setData(prevState => ({...prevState, repo: repoId, upgrades: null, loading: false}));
+      setData(prevState => ({...prevState, repo: repoId, upgrades: null}));
+      setStatus({loading: false});
     }
   }
 
   const loadReport = (tag1, tag2) => {
-    setData(prevState => ({...prevState, loading: true}))
+    setStatus({loading: true});
     fetch(compareURL(url, data.repo, tag1, tag2))
       .then(response => response.json())
       .then(json => {
-        setData(prevState => ({...prevState, upgrades: tablify(json), loading: false}))
+        setData(prevState => ({...prevState, upgrades: tablify(json)}));
+        setStatus({loading: false});
       })
+      .catch(error => setStatus({error: handleError(error), loading: false}))
   }
 
   const unload = () => setData(prevState => ({...prevState, upgrades: null}))
 
+  const handleError = (error) => {
+      if (error.message === "Failed to fetch") {
+          return {
+              name: "Error",
+              message: "Cannot fetch tags (PRBZ down?)"
+          };
+      }
+      return error;
+  }
+
   return (
     <div>
-      <UpgradeSelects loadTags={loadTags} loadReport={loadReport} unload={unload} data={data} />
+      <Toolbar id="cu-toolbar">
+        <ToolbarContent>
+          <UpgradeSelects loadTags={loadTags} loadReport={loadReport} unload={unload} data={data} />
+          {status.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}
+        </ToolbarContent>
+      </Toolbar>
+      {status.error && <MessageBar error={status.error} />}
       {data.upgrades && <ReportTable data={data.upgrades} />}
     </div>
   )

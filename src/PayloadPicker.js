@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import MessageBar from './MessageBar';
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 import { Select, SelectOption } from '@patternfly/react-core';
 import { defaultOption } from './Util';
@@ -7,10 +6,6 @@ import { defaultOption } from './Util';
 const PayloadPicker = ({onSelect, data}) => {
   const [isOpen, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-
-  if (data.error != null || data.list == null || Object.keys(data.list).length === 0) {
-    return <MessageBar error={data.error || "No payloads loaded"} />
-  }
 
   const select = (e, val, isPlaceholder) => {
     let value = isPlaceholder ? "" : val;

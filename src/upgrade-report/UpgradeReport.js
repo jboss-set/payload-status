@@ -6,6 +6,7 @@ import { Select, SelectOption, Spinner } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 import { defaultOption } from '../common/Util';
 import MessageBar from '../common/MessageBar';
+import { errors } from '../common/Errors'
 
 const repos = {
   'EAP': {
@@ -191,10 +192,7 @@ const UpgradeReport = ({url}) => {
 
   const handleError = (error) => {
     if (error.message === "Failed to fetch") {
-      return {
-        name: "Error",
-        message: "Cannot fetch tags (PRBZ down?)"
-      };
+      return errors["tag-fetch-fail"];
     }
     return error;
   }

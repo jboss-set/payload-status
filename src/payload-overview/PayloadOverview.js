@@ -5,6 +5,7 @@ import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
 import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
+import { errors } from '../common/Errors';
 
 const payloadUrl = (url, payload) => `${url}payload/${payload}`;
 
@@ -34,7 +35,7 @@ const PayloadOverview = ({url}) => {
       .then(json => {
         if (!json.length) {
           setData(prevState => ({...prevState, payload: null}));
-          setStatus({error: {name: "Error", message: "Empty payload (PRBZ still loading?)"}, loading: false});
+          setStatus({error: errors["empty-payload"], loading: false});
           return;
         }
         let issues = orderData(json),
@@ -59,13 +60,10 @@ const PayloadOverview = ({url}) => {
   }
 
   const handleError = (error) => {
-      if (error.message === "Failed to fetch") {
-          return {
-              name: "Error",
-              message: "Cannot fetch payloads (PRBZ down?)"
-          };
-      }
-      return error;
+    if (error.message === "Failed to fetch") {
+      return errors["payload-fetch-fail"];
+    }
+    return error;
   }
 
   useEffect(() => {

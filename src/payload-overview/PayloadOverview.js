@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import {orderData, tablify} from './Util';
+import { orderData, tablify } from '../common/Util';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
-import MessageBar from './MessageBar';
+import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
 
 const payloadUrl = (url, payload) => `${url}payload/${payload}`;

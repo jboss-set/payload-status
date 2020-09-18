@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 import { Select, SelectOption } from '@patternfly/react-core';
-import { defaultOption } from './Util';
+import { defaultOption } from '../common/Util';
 
 const PayloadPicker = ({onSelect, data}) => {
   const [isOpen, setOpen] = useState(false);

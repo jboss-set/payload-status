@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 
 import { Table, TableHeader, TableBody, TableVariant  } from '@patternfly/react-table';
 import { Toolbar, ToolbarItem, ToolbarContent, Button } from '@patternfly/react-core';
-import { Select, SelectOption } from '@patternfly/react-core';
-import { Spinner } from '@patternfly/react-core';
+import { Select, SelectOption, Spinner } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
-import { defaultOption } from './Util';
-import MessageBar from './MessageBar';
+import { defaultOption } from '../common/Util';
+import MessageBar from '../common/MessageBar';
 
 const repos = {
   'EAP': {
@@ -53,7 +52,6 @@ const RepoSelect = ({onSelect}) => {
 
 const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
   const [isOpen, setOpen] = useState({left: false, right: false});
-
   const [selected, setSelected] = useState({left: "", right: ""});
 
   const openLeft = (open) => {
@@ -147,14 +145,14 @@ const UpgradeReport = ({url}) => {
   });
 
   const [status, setStatus] = useState({
-      loading: false,
-      error: null
+    loading: false,
+    error: null
   });
 
   const loadTags = (repoName) => {
     if (!repoName) {
-        setData(prevState => ({...prevState, repo: null}));
-        return;
+      setData(prevState => ({...prevState, repo: null}));
+      return;
     }
     setStatus({loading: true});
     let repoId = repos[repoName].id;
@@ -192,13 +190,13 @@ const UpgradeReport = ({url}) => {
   const unload = () => setData(prevState => ({...prevState, upgrades: null}))
 
   const handleError = (error) => {
-      if (error.message === "Failed to fetch") {
-          return {
-              name: "Error",
-              message: "Cannot fetch tags (PRBZ down?)"
-          };
-      }
-      return error;
+    if (error.message === "Failed to fetch") {
+      return {
+        name: "Error",
+        message: "Cannot fetch tags (PRBZ down?)"
+      };
+    }
+    return error;
   }
 
   return (

@@ -20,6 +20,10 @@ export function shortName(name) {
   }
 }
 
+const unescape = function(summary) {
+  return summary.replaceAll("&quot;",'"');
+}
+
 export function orderData(data) {
   let result = {},
       bugs = {},
@@ -90,7 +94,7 @@ function issueToRow({url, priority, rawStatus, summary, rawType, acks, ...rest})
     makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
     makeCell(shortName(rawStatus).toUpperCase()),
-    makeCell(summary),
+    makeCell(unescape(summary)),
     makeCell(shortName(rawType).toUpperCase()),
     ackCell(acks),
     prCell(rest.pullRequest),

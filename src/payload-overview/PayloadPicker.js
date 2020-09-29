@@ -20,7 +20,7 @@ const PayloadPicker = ({onSelect, data}) => {
     <>
       <ToolbarItem variant="label">Payload Overview</ToolbarItem>
       <ToolbarItem>
-        <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
+        <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected} maxHeight="400px">
           {defaultOption}
         {flatList.map((item, index) => (
           <SelectOption key={index} value={item} />

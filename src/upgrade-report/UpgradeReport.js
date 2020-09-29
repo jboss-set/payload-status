@@ -121,7 +121,7 @@ const CompareSelector = ({isOpenLeft, setOpenLeft, isOpenRight, setOpenRight,
 
 const TagSelect = ({onSelect, onToggle, isOpen, selections, data}) => (
   <ToolbarItem>
-    <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections}>
+    <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections} maxHeight="400px">
       {defaultOption}
       {data.map((item, index) => (
         <SelectOption key={index} value={item} />

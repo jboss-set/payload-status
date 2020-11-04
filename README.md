@@ -1,8 +1,4 @@
-## Experimental branch
-
-This branch is taking advantage of the new REST API available in PRBZ-overview.
-
-## Pre-requisites
+## Pre-requisites for running locally
 
 ### Wildfly/EAP settings
 
@@ -31,6 +27,21 @@ Use the [latest SNAPSHOT](https://github.com/jboss-set/prbz-overview)
 
 Deploy PRBZ-overview and wait for everything to load (~30 mins)
 
-## Running the app
+## How to run
 
-Run as usual with `yarn start`.
+1. Install `yarn` (a dependency manager for JavaScript projects)
+2. Run `yarn install && yarn start`
+
+## Scripts
+
+### `yarn install`
+
+Installs dependencies, needs to be run only once unless dependencies have changed (`package.json`)
+
+### `yarn start`
+
+Starts a local server and opens a browser, in case nothing happens go to [http://localhost:3000/]([http://localhost:3000/]).
+
+### `yarn build`
+
+Builds the app, to deploy it copy the contents of the `build` folder.

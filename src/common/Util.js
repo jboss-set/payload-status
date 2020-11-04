@@ -131,8 +131,13 @@ function ackCell(acks) {
 }
 
 const cleanMergeStates = {
-    'clean': 1,
-    'merged': 2
+  'clean': 1,
+  'merged': 2
+}
+
+function getStateCSS(status) {
+
+
 }
 
 function prCell(prs) {
@@ -141,17 +146,25 @@ function prCell(prs) {
   let list = prs.map((item) => {
     let status = item.mergeStatus.toLowerCase();
     if (status === 'unknown' && item.patchState.toLowerCase() === 'closed') {
-        status = 'merged';
+      status = 'merged';
+    } else if (status === 'unknown' && item.codebase === '') {
+      status = 'failed to read'
     }
-    return makeCell(<a href={item.link}>{status}</a>,
-      status, status in cleanMergeStates ? 'issue-success' : 'issue-fail')
+    let className;
+    if (status in cleanMergeStates) {
+      className = 'issue-success';
+    } else if (status === 'failed to read') {
+      className = 'issue-dnf';
+    } else {
+      className = 'issue-fail';
     }
-  );
+    return makeCell(<a href={item.link}>{status}</a>, status, className)
+  });
 
   let titles = [],
       sortKey = list[0].sortKey,
       className = '',
-      css = { 'issue-success': 0, 'issue-fail': 0 }
+      css = { 'issue-success': 0, 'issue-fail': 0, 'issue-dnf': 0 }
 
   list.forEach((item, key) => {
     titles.push(<span key={key}>{item.title}<br/></span>);
@@ -161,12 +174,10 @@ function prCell(prs) {
     }
   })
 
-  if (css['issue-success'] > 0 && css['issue-fail'] > 0) {
-      className = 'issue-success-fail';
-  } else if (css['issue-success'] > 0) {
-      className = 'issue-success';
-  } else if (css['issue-fail'] > 0) {
-      className = 'issue-fail';
+  for (let c in css) {
+    if (css[c]) {
+        className += c + " ";
+    }
   }
 
   return makeCell(titles, sortKey, className);

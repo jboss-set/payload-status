@@ -6,12 +6,12 @@ import PayloadOverview from './payload-overview/PayloadOverview';
 
 import './App.css'; // !has to be after component import
 
-const PRBZ_URL = "http://localhost:8080/prbz-overview/rest/api/";
+const { REACT_APP_PRBZ_URL } = process.env;
 
 const App = () => (
   <div className="App">
-    <UpgradeReport url={PRBZ_URL} />
-    <PayloadOverview url={PRBZ_URL} />
+    <UpgradeReport url={REACT_APP_PRBZ_URL} />
+    <PayloadOverview url={REACT_APP_PRBZ_URL} />
   </div>
 );
 

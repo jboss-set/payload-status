@@ -1,8 +1,7 @@
 {
-  "name": "payload-status-app",
+  "name": "payload-status-viewer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "prbz-overview/build",
   "dependencies": {
     "@patternfly/react-table": "^4.8.0",
     "react": "^16.13.1",

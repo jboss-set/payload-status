@@ -1,5 +1,9 @@
 ## Pre-requisites for running locally
 
+### .env
+
+Create a file named `.env` in the root folder with `REACT_APP_PRBZ_URL=http://localhost:8080/prbz-overview/rest/api/` (this will be ignored by git).
+
 ### Wildfly/EAP settings
 
 Add a filter to Undertow settings to enable CORS
@@ -23,7 +27,7 @@ Add a filter to Undertow settings to enable CORS
 
 ### PRBZ-overview
 
-Use the [latest SNAPSHOT](https://github.com/jboss-set/prbz-overview)
+Get [here](https://github.com/jboss-set/prbz-overview)
 
 Deploy PRBZ-overview and wait for everything to load (~30 mins)
 

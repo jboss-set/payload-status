@@ -148,7 +148,7 @@ function prCell(prs) {
     if (status === 'unknown' && item.patchState.toLowerCase() === 'closed') {
       status = 'merged';
     } else if (status === 'unknown' && item.codebase === '') {
-      status = 'failed to read'
+      status = 'failed to read';
     }
     let className;
     if (status in cleanMergeStates) {
@@ -157,6 +157,9 @@ function prCell(prs) {
       className = 'issue-dnf';
     } else {
       className = 'issue-fail';
+    }
+    if (status === 'merged' && item.mergedInFuture) {
+        status = 'merged in future';
     }
     return makeCell(<a href={item.link}>{status}</a>, status, className)
   });

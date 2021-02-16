@@ -2,6 +2,28 @@
     padding: 0 10px;
 }
 
+.top {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-button {
+    margin: 2px;
+}
+
+div.info {
+    padding-left: 4px;
+    margin-bottom: 4px;
+}
+
+div.info-news {
+    background-color: var(--pf-global--palette--green-100)
+}
+
+.info-issues {
+    background-color: var(--pf-global--warning-color--100)
+}
+
 .standalone .issue-type {
     display: none;
 }

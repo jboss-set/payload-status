@@ -1,0 +1,9 @@
+{
+  "new": [
+    "This drawer",
+    "Charts for pull request statuses"
+  ],
+  "known-issues": [
+    "Not all merged PRs show up as merged (especially for GitLab)"
+  ]
+}

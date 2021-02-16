@@ -1,14 +1,15 @@
 import React from 'react';
 import { ChartDonut, ChartLegend } from '@patternfly/react-charts';
+import { getMergeStatus, translateMergeStatus } from './TableUtil'
 
 const colors = {
-  "merged_in_future": "light-green-300",
-  "merged": "light-green-400",
-  "no_pr": "black-300",
-  "unstable": "orange-400",
-  "unknown": "orange-200",
-  "clean": "green-500",
-  "blocked": "red-300"
+  "merged (work branch)": "light-green-300",
+  "merged (full)": "light-green-400",
+  "no pr": "black-300",
+  "open (unstable)": "orange-400",
+  "open (unknown)": "orange-200",
+  "open (clean)": "green-500",
+  "open (blocked)": "red-300"
 }
 
 const getColor = (name) => {
@@ -41,7 +42,7 @@ const prStats = (data) => {
   };
 
   const toChartData = (data) => {
-    return Object.keys(data).map(item => {
+    return Object.keys(data).sort().map(item => {
       return { 'x': item, 'y': data[item], 'color': getColor(item)};
     })
   };
@@ -52,20 +53,10 @@ const prStats = (data) => {
   const processIssue = (type) => {
     return ((issue) => {
       if (!issue.pullRequest.length) {
-        update(type, 'no_pr');
+        update(type, 'no pr');
       }
       issue.pullRequest.forEach((pr, i) => {
-        let status = pr.merged && pr.merged.toLowerCase();
-        if (!status && pr.mergedInFuture) {
-          status = 'merged_in_future'
-        }
-        if (!status || status === 'unmerged') {
-          status = pr.mergeStatus.toLowerCase();
-        }
-        if (status === 'unknown' && pr.patchState.toLowerCase() === 'closed') {
-          status = 'merged'
-        }
-
+        let status = translateMergeStatus(getMergeStatus(pr));
         update(type, status);
       });
     });
@@ -97,7 +88,7 @@ const Donut = ({chartData}) => {
   };
 
   return (
-    <div style={{ height: '230px', width: '400px' }}>
+    <div style={{ height: '230px', width: '500px' }}>
       <ChartDonut
         ariaDesc="Pull request statuses"
         ariaTitle="Pull requests"
@@ -126,8 +117,8 @@ const Stats = ({data}) => {
   const donutData = prStats(data);
   return (
     <div style={{ display: 'flex' }}>
-      {Object.keys(prTypes).map(type =>
-        <Donut chartData={donutData[type]} />
+      {Object.keys(prTypes).map((type, i) =>
+        <Donut chartData={donutData[type]} key={i} />
       )}
     </div>
   )

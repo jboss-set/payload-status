@@ -43,15 +43,19 @@ td.issue-name {
     background-color: var(--pf-global--palette--light-green-200);
 }
 
-td.issue-success {
+td.pr-merged {
     background-color: var(--pf-global--palette--light-green-400);
 }
 
-td.issue-fail {
+td.pr-clean {
+    background-color: var(--pf-global--palette--light-green-300);
+}
+
+td.pr-fail {
     background-color: var(--pf-global--warning-color--100);
 }
 
-td.issue-dnf {
+td.pr-dnf {
     background-color: var(--pf-global--palette--orange-400);
 }
 

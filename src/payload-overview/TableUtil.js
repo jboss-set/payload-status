@@ -141,39 +141,57 @@ function ackCell(acks) {
   return makeCell(flags.join(' '));
 };
 
-const cleanMergeStates = {
-  'clean': 1,
-  'merged': 2
+const getPRClassName = (status) => {
+  switch(status) {
+    case 'merged':
+    case 'work branch':
+      return 'pr-merged'
+    case 'clean':
+      return 'pr-clean';
+    case 'failed to read':
+      return 'pr-dnf';
+    default:
+      return 'pr-fail';
+  }
+};
+
+export const translateMergeStatus = (status) => {
+  switch(status) {
+    case 'merged':
+      return 'merged (full)'
+    case 'work branch':
+      return 'merged (work branch)'
+    case 'failed to read':
+      return status;
+    default:
+      return `open (${status})`;
+  }
+};
+
+export const getMergeStatus = (pullRequest) => {
+  let mergeStatus = pullRequest.mergeStatus.toLowerCase(),
+      merged = pullRequest.merged.replaceAll('_', ' ').toLowerCase(),
+      status = merged !== 'unmerged' ? merged : mergeStatus;
+
+  if (status === 'unknown' && pullRequest.codebase === '') {
+    status = 'failed to read';
+  }
+  return status;
 };
 
 function prCell(prs) {
   if (!prs || prs.length === 0) return makeCell('No PR');
 
   let list = prs.map((item) => {
-    let status = item.mergeStatus.toLowerCase();
-    if (status === 'unknown' && item.patchState.toLowerCase() === 'closed') {
-      status = 'merged';
-    } else if (status === 'unknown' && item.codebase === '') {
-      status = 'failed to read';
-    }
-    let className;
-    if (status in cleanMergeStates) {
-      className = 'issue-success';
-    } else if (status === 'failed to read') {
-      className = 'issue-dnf';
-    } else {
-      className = 'issue-fail';
-    }
-    if (status === 'merged' && item.mergedInFuture) {
-        status = 'merged in future';
-    }
-    return makeCell(<Link url={item.link} text={status} />, status, className)
+    let status = getMergeStatus(item);
+    let className = getPRClassName(status);
+    return makeCell(<a href={item.link}>{translateMergeStatus(status)}</a>, status, className)
   });
 
   let titles = [],
       sortKey = list[0].sortKey,
       className = '',
-      css = { 'issue-success': 0, 'issue-fail': 0, 'issue-dnf': 0 }
+      css = { 'pr-merged': 0, 'pr-clean': 0, 'pr-fail': 0, 'pr-dnf': 0 }
 
   list.forEach((item, key) => {
     titles.push(<span key={key}>{item.title}<br/></span>);
@@ -190,7 +208,7 @@ function prCell(prs) {
   }
 
   return makeCell(titles, sortKey, className);
-}
+};
 
 function upstreamCell(prs) {
   if (!prs || prs.length === 0) return "";

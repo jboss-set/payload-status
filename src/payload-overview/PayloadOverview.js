@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { orderData, tablify } from '../common/Util';
+import Stats from './Stats';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
 import MessageBar from '../common/MessageBar';
@@ -14,6 +15,7 @@ const PayloadOverview = ({url}) => {
       list: null
   });
   const [data, setData] = useState({
+      issues: null,
       upgradesTotal: 0,
       standalone: {},
       upgrades: {},
@@ -44,6 +46,7 @@ const PayloadOverview = ({url}) => {
         setData(prevState => (
             {
             ...prevState,
+            issues: issues,
             payload: payload,
             upgradesTotal: issues.upgrades.length,
             standalone: {
@@ -82,6 +85,7 @@ const PayloadOverview = ({url}) => {
       <PayloadPicker onSelect={setPayload} data={payloadsData} />
       {status.loading && <Spinner />}
       {status.error && <MessageBar error={status.error} />}
+      {data.payload != null && <Stats data={data.issues} />}
       {data.payload != null && <IssueTables data={data} setRows={setData} />}
     </div>
   );

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@patternfly/react-charts": "^6.10.0",
     "@patternfly/react-table": "^4.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

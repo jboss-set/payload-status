@@ -16,10 +16,7 @@ const PayloadPicker = ({onSelect, data}) => {
     setOpen(!isOpen);
   }
 
-  let flatList = flattenList(data.list).sort().reverse();
-  if (isLatestOnly) {
-    flatList = flatList.filter(item => item.includes("7.3")).slice(0,2).concat(flatList.filter(item => item.includes("7.2")).slice(0,2));
-  }
+  let payloadList = processList(data.list, isLatestOnly);
 
   const items = (
     <>
@@ -27,7 +24,7 @@ const PayloadPicker = ({onSelect, data}) => {
       <ToolbarItem>
         <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected} maxHeight="400px">
           {defaultOption}
-        {flatList.map((item, index) => (
+        {payloadList.map((item, index) => (
           <SelectOption key={index} value={item} />
         ))}
         </Select>
@@ -41,12 +38,39 @@ const PayloadPicker = ({onSelect, data}) => {
   return <Toolbar id="toolbar"><ToolbarContent>{items}</ToolbarContent></Toolbar>;
 }
 
-const flattenList = (list) => {
-  let flatList = [];
+const processList = (list, short) => {
+  let result = [];
   for (let key in list) {
-    list[key].forEach(item => flatList.push(`${key}/${item}`));
+    let flatList = [];
+    list[key].forEach(item => flatList.push(item));
+    flatList = flatList.sort(sortMicroVersions);
+    if (short) {
+      flatList = flatList.slice(0,2);
+    }
+    result.push(flatList);
   }
-  return flatList;
+  result = result.sort(sortMinorVersions).flat();
+  if (short) {
+    result = result.slice(0,4);
+  }
+  return result;
+}
+
+const minorMatcher = /\d+\.(\d+)\.\d+/;
+const microMatcher = /\d+\.\d+\.(\d+)/;
+
+const sortMinorVersions = (a,b) => {
+  let aa = a[0].match(minorMatcher)[1],
+      bb = b[0].match(minorMatcher)[1];
+
+  return bb - aa;
+}
+
+const sortMicroVersions = (a,b) => {
+  let aa = a.match(microMatcher)[1],
+      bb = b.match(microMatcher)[1];
+
+  return bb - aa;
 }
 
 export default PayloadPicker;

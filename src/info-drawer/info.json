@@ -1,7 +1,8 @@
 {
   "new": [
     "This drawer",
-    "Charts for pull request statuses"
+    "Charts for pull request statuses",
+    "Payloads are bookmarkable"
   ],
   "known-issues": [
     "Not all merged PRs show up as merged (especially for GitLab)"

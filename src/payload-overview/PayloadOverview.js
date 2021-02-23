@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
 
-import { orderData, tablify } from '../common/Util';
+import { orderData, tablify, fullPayloadName } from '../common/Util';
 import Stats from './Stats';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
@@ -8,9 +9,12 @@ import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
 import { errors } from '../common/Errors';
 
-const payloadUrl = (url, payload) => `${url}payload/${payload}`;
+const payloadUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
 
 const PayloadOverview = ({url}) => {
+  const history = useHistory();
+  const location = useLocation();
+  const payloadKey = new URLSearchParams(location.search).get("payload");
   const [payloadsData, setPayloadsData] = useState({
       list: null
   });
@@ -19,8 +23,9 @@ const PayloadOverview = ({url}) => {
       upgradesTotal: 0,
       standalone: {},
       upgrades: {},
-      payload: null
+      payload: payloadKey
   });
+
   const [status, setStatus] = useState({
       loading: false,
       error: null
@@ -31,35 +36,11 @@ const PayloadOverview = ({url}) => {
       setData(prevState => ({...prevState, payload: null}));
       return;
     }
-    setStatus({loading: true});
-    fetch(payloadUrl(url, payload))
-      .then(response => response.json())
-      .then(json => {
-        if (!json.length) {
-          setData(prevState => ({...prevState, payload: null}));
-          setStatus({error: errors["empty-payload"], loading: false});
-          return;
-        }
-        let issues = orderData(json),
-            standalone = tablify(issues.standalone, false),
-            upgrades = tablify(issues.upgrades, true);
-        setData(prevState => (
-            {
-            ...prevState,
-            issues: issues,
-            payload: payload,
-            upgradesTotal: issues.upgrades.length,
-            standalone: {
-              rows: standalone,
-              sortBy: {}
-            },
-            upgrades: {
-              rows: upgrades
-            }
-        }));
-        setStatus({loading: false});
-      })
-      .catch(error => setStatus({error: handleError(error), loading: false}));
+    history.push({
+      "pathname": "/",
+      "search": `?payload=${payload}`
+    });
+    setData(prevState => ({...prevState, payload: payload}));
   }
 
   const handleError = (error) => {
@@ -80,13 +61,46 @@ const PayloadOverview = ({url}) => {
       .catch(error => setStatus({error: handleError(error), loading: false}));
   },[1]);
 
+  useEffect(() => {
+    if (data.payload) {
+        setStatus({loading: true});
+        fetch(payloadUrl(url, data.payload))
+          .then(response => response.json())
+          .then(json => {
+            if (!json.length) {
+              setData(prevState => ({...prevState, payload: null}));
+              setStatus({error: errors["empty-payload"], loading: false});
+              return;
+            }
+            let issues = orderData(json),
+                standalone = tablify(issues.standalone, false),
+                upgrades = tablify(issues.upgrades, true);
+            setData(prevState => (
+                {
+                ...prevState,
+                issues: issues,
+                upgradesTotal: issues.upgrades.length,
+                standalone: {
+                  rows: standalone,
+                  sortBy: {}
+                },
+                upgrades: {
+                  rows: upgrades
+                }
+            }));
+            setStatus({loading: false});
+          })
+          .catch(error => setStatus({error: handleError(error), loading: false}));
+      }
+  },[data.payload]);
+
   return (
     <div className="payload-overview">
       <PayloadPicker onSelect={setPayload} data={payloadsData} />
       {status.loading && <Spinner />}
       {status.error && <MessageBar error={status.error} />}
-      {data.payload != null && <Stats data={data.issues} />}
-      {data.payload != null && <IssueTables data={data} setRows={setData} />}
+      {data.issues != null && <Stats data={data.issues} />}
+      {data.issues != null && <IssueTables data={data} setRows={setData} />}
     </div>
   );
 }

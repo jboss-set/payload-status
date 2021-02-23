@@ -10,6 +10,11 @@ export function safeClassName(name) {
   return name.replace(' ', '-').toLowerCase();
 }
 
+export function fullPayloadName(name) {
+  let majorMinor = name.match(/\d+\.\d+/)[0];
+  return `jboss-eap-${majorMinor}.z/${name}`
+}
+
 export function shortName(name) {
   if (name == null) return "null";
   switch (name.toLowerCase()) {

@@ -64,7 +64,7 @@ const InfoDrawer = ({pageContent}) => {
         <GithubIcon />
       </Button>
       </div>
-      <Drawer isExpanded={isExpanded}>
+      <Drawer isExpanded={isExpanded} className="info-drawer">
         <DrawerContent panelContent={panelContent}>
           <DrawerContentBody>{pageContent}</DrawerContentBody>
         </DrawerContent>

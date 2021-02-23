@@ -11,12 +11,16 @@
     margin: 2px;
 }
 
+.info-drawer {
+    min-height: 70vh;
+}
+
 div.info {
     padding-left: 4px;
     margin-bottom: 4px;
 }
 
-div.info-news {
+.info-news {
     background-color: var(--pf-global--palette--green-100)
 }
 

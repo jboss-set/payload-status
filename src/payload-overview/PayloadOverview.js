@@ -37,7 +37,6 @@ const PayloadOverview = ({url}) => {
       return;
     }
     history.push({
-      "pathname": "/",
       "search": `?payload=${payload}`
     });
     setData(prevState => ({...prevState, payload: payload}));

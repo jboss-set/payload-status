@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useLocation } from "react-router-dom";
+
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 import { Select, SelectOption } from '@patternfly/react-core';
 import { Checkbox } from '@patternfly/react-core';
 import { defaultOption } from '../common/Util';
 
 const PayloadPicker = ({onSelect, data}) => {
+  const location = useLocation();
+  const payloadKey = new URLSearchParams(location.search).get("payload");
   const [isOpen, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(payloadKey);
   const [isLatestOnly, setLatestOnly] = useState(true);
 
   const select = (e, val, isPlaceholder) => {

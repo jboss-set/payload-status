@@ -8,13 +8,15 @@ import PayloadPicker from './PayloadPicker';
 import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
 import { errors } from '../common/Errors';
+import { conf } from '../common/Conf';
 
 const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
 
 const payloadPageUrl = (url, payload) =>
   `${url.replace('/api/','/')}streampayload/${fullPayloadName(payload).replace('/','/payload/')}`;
 
-const PayloadOverview = ({url}) => {
+const PayloadOverview = () => {
+  const url = conf.url;
   const history = useHistory();
   const location = useLocation();
   const payloadKey = new URLSearchParams(location.search).get("payload");
@@ -61,7 +63,7 @@ const PayloadOverview = ({url}) => {
           setStatus({loading: false});
       })
       .catch(error => setStatus({error: handleError(error), loading: false}));
-  },[1]);
+  },[url]);
 
   useEffect(() => {
     if (data.payload) {
@@ -94,7 +96,7 @@ const PayloadOverview = ({url}) => {
           })
           .catch(error => setStatus({error: handleError(error), loading: false}));
       }
-  },[data.payload]);
+  },[data.payload, url]);
 
   return (
     <div className="payload-overview">

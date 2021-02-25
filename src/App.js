@@ -11,13 +11,11 @@ import PayloadOverview from './payload-overview/PayloadOverview';
 
 import './App.css'; // !has to be after component import
 
-const { REACT_APP_PRBZ_URL } = process.env;
-
 const drawerContent = (
   <>
-    <UpgradeReport url={REACT_APP_PRBZ_URL} />
+    <UpgradeReport />
     <Router>
-      <PayloadOverview url={REACT_APP_PRBZ_URL} />
+      <PayloadOverview />
     </Router>
   </>
 );

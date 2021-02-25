@@ -7,6 +7,7 @@ import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 import { defaultOption } from '../common/Util';
 import MessageBar from '../common/MessageBar';
 import { errors } from '../common/Errors'
+import { conf } from '../common/Conf';
 
 const repos = {
   'EAP': {
@@ -137,7 +138,8 @@ const ReportTable = ({data}) => (
   </Table>
 );
 
-const UpgradeReport = ({url}) => {
+const UpgradeReport = () => {
+  const url = conf.url;
   const [data, setData] = useState({
     repo: null,
     'jbossas-jboss-eap7': null,

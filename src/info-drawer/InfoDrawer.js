@@ -11,13 +11,12 @@ import {
 
 import { List, ListItem } from '@patternfly/react-core';
 import { Button, Title } from '@patternfly/react-core';
+import { conf } from '../common/Conf';
 
 import InfoCircleIcon from '@patternfly/react-icons/dist/js/icons/info-circle-icon';
 import GithubIcon from '@patternfly/react-icons/dist/js/icons/github-icon';
 
 import info from './info.json';
-
-const { REACT_APP_VERSION } = process.env;
 
 const InfoDrawer = ({pageContent}) => {
   const [isExpanded, setExpanded] = useState(false);
@@ -37,7 +36,7 @@ const InfoDrawer = ({pageContent}) => {
   const panelContent = (
     <DrawerPanelContent>
       <DrawerHead>
-        <Title headingLevel="h1">Payload status viewer v{REACT_APP_VERSION}</Title>
+        <Title headingLevel="h1">Payload status viewer v{conf.version}</Title>
       </DrawerHead>
       <DrawerPanelBody>
       {newsList.length &&

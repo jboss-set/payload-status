@@ -2,7 +2,7 @@ import React from 'react';
 
 import IssueTable from './IssueTable';
 import { sortable, classNames } from '@patternfly/react-table';
-import { Title } from '@patternfly/react-core';
+import { Title, Button } from '@patternfly/react-core';
 
 const standaloneColumns = [
   { title: "Number", transforms: [sortable] },
@@ -26,7 +26,7 @@ const upgradeColumns = [
   { title: "Upstream" }
 ];
 
-const IssueTables = ({data,setRows}) => {
+const IssueTables = ({link,data,setRows}) => {
 
   const updateStandaloneRows = (standalone) => {
     setRows(prevState => ({
@@ -40,7 +40,10 @@ const IssueTables = ({data,setRows}) => {
 
   return (
     <div>
-      <Title headingLevel="h1" size="xl">{`${data.standalone.rows.length + data.upgrades.rows.length} issues in payload`}</Title>
+      <Title headingLevel="h1" size="xl">
+        {`${data.standalone.rows.length + data.upgrades.rows.length} issues in payload`}
+        <Button component="a" href={link} target="_blank" variant="link">View in PRBZ</Button>
+      </Title>
       <IssueTable
         caption={`${data.standalone.rows.length} Standalone issues`}
         className="standalone"

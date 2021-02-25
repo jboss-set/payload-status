@@ -9,7 +9,10 @@ import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
 import { errors } from '../common/Errors';
 
-const payloadUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
+const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
+
+const payloadPageUrl = (url, payload) =>
+  `${url.replace('/api/','/')}streampayload/${fullPayloadName(payload).replace('/','/payload/')}`;
 
 const PayloadOverview = ({url}) => {
   const history = useHistory();
@@ -63,7 +66,7 @@ const PayloadOverview = ({url}) => {
   useEffect(() => {
     if (data.payload) {
         setStatus({loading: true});
-        fetch(payloadUrl(url, data.payload))
+        fetch(payloadDataUrl(url, data.payload))
           .then(response => response.json())
           .then(json => {
             if (!json.length) {
@@ -99,7 +102,7 @@ const PayloadOverview = ({url}) => {
       {status.loading && <Spinner />}
       {status.error && <MessageBar error={status.error} />}
       {data.issues != null && <Stats data={data.issues} />}
-      {data.issues != null && <IssueTables data={data} setRows={setData} />}
+      {data.issues != null && <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} />}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { Select, SelectOption, Spinner } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 import { defaultOption } from '../common/Util';
 import MessageBar from '../common/MessageBar';
-import { errors } from '../common/Errors'
+import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
 
 const repos = {
@@ -161,7 +161,7 @@ const UpgradeReport = () => {
     let repoId = repos[repoName].id;
     if (!data[repoId]) {
       fetch(tagURL(url, repoId))
-        .then(response => response.json())
+        .then(handleResponse)
         .then(json => {
           setData(prevState => {
             let newState = {...prevState};
@@ -181,8 +181,8 @@ const UpgradeReport = () => {
 
   const loadReport = (tag1, tag2) => {
     setStatus({loading: true});
-    fetch(compareURL(url, data.repo, tag1, tag2))
-      .then(response => response.json())
+    fetch(compareURL(url, data.selectedRepo, tag1, tag2))
+      .then(handleResponse)
       .then(json => {
         setData(prevState => ({...prevState, upgrades: tablify(json)}));
         setStatus({loading: false});
@@ -190,14 +190,7 @@ const UpgradeReport = () => {
       .catch(error => setStatus({error: handleError(error), loading: false}))
   }
 
-  const unload = () => setData(prevState => ({...prevState, upgrades: null}))
-
-  const handleError = (error) => {
-    if (error.message === "Failed to fetch") {
-      return errors["tag-fetch-fail"];
-    }
-    return error;
-  }
+  const unload = () => setData(prevState => ({...prevState, upgrades: null}));
 
   return (
     <div>

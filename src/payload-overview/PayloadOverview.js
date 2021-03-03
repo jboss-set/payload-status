@@ -7,7 +7,7 @@ import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
 import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
-import { errors } from '../common/Errors';
+import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
 
 const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
@@ -47,17 +47,10 @@ const PayloadOverview = () => {
     setData(prevState => ({...prevState, payload: payload}));
   }
 
-  const handleError = (error) => {
-    if (error.message === "Failed to fetch") {
-      return errors["payload-fetch-fail"];
-    }
-    return error;
-  }
-
   useEffect(() => {
     setStatus({loading: true});
     fetch(`${url}payloads/`)
-      .then(response => response.json())
+      .then(handleResponse)
       .then(json => {
           setPayloadsData(prevState => ({...prevState, list: json}))
           setStatus({loading: false});
@@ -69,11 +62,11 @@ const PayloadOverview = () => {
     if (data.payload) {
         setStatus({loading: true});
         fetch(payloadDataUrl(url, data.payload))
-          .then(response => response.json())
+          .then(handleResponse)
           .then(json => {
             if (!json.length) {
               setData(prevState => ({...prevState, payload: null}));
-              setStatus({error: errors["empty-payload"], loading: false});
+              setStatus({error: handleError("Empty Payload"), loading: false});
               return;
             }
             let issues = orderData(json),

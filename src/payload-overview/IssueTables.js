@@ -1,30 +1,9 @@
 import React from 'react';
 
 import IssueTable from './IssueTable';
-import { sortable, classNames } from '@patternfly/react-table';
-import { Title, Button } from '@patternfly/react-core';
-
-const standaloneColumns = [
-  { title: "Number", transforms: [sortable] },
-  { title: "Priority", transforms: [sortable] },
-  { title: "Status", transforms: [sortable] },
-  { title: "Name", columnTransforms: [classNames('issue-name')] },
-  { title: "Type", columnTransforms: [classNames('issue-type')] },
-  { title: "Acks" },
-  { title: "PR Status", transforms: [sortable] },
-  { title: "Upstream" }
-];
-
-const upgradeColumns = [
-  { title: "Number" },
-  { title: "Priority" },
-  { title: "Status" },
-  { title: "Name", columnTransforms: [classNames('issue-name')] },
-  { title: "Type", columnTransforms: [classNames('issue-type')] },
-  { title: "Acks" },
-  { title: "PR Status" },
-  { title: "Upstream" }
-];
+import { standaloneColumns, upgradeColumns } from './TableUtil';
+import { Link } from '../common/Util';
+import { Title } from '@patternfly/react-core';
 
 const IssueTables = ({link,data,setRows}) => {
 
@@ -42,7 +21,7 @@ const IssueTables = ({link,data,setRows}) => {
     <div>
       <Title headingLevel="h1" size="xl">
         {`${data.standalone.rows.length + data.upgrades.rows.length} issues in payload`}
-        <Button component="a" href={link} target="_blank" variant="link">View in PRBZ</Button>
+        <Link url={link} text="View in PRBZ" />
       </Title>
       <IssueTable
         caption={`${data.standalone.rows.length} Standalone issues`}

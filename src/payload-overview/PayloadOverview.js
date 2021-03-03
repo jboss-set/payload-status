@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 
-import { orderData, tablify, fullPayloadName } from '../common/Util';
+import { orderData, tablify } from './TableUtil';
 import Stats from './Stats';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
@@ -10,10 +10,15 @@ import { Spinner } from '@patternfly/react-core';
 import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
 
-const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payload)}`;
+const fullPayloadName = (name, separator) => {
+  let majorMinor = name.match(/(\d+\.\d+)\.\d+/)[1];
+  return `jboss-eap-${majorMinor}.z${separator}${name}`;
+};
+
+const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payload,'/')}`;
 
 const payloadPageUrl = (url, payload) =>
-  `${url.replace('/api/','/')}streampayload/${fullPayloadName(payload).replace('/','/payload/')}`;
+  `${url.replace('/api/','/')}streampayload/${fullPayloadName(payload,'/payload/')}`;
 
 const PayloadOverview = () => {
   const url = conf.url;
@@ -70,8 +75,7 @@ const PayloadOverview = () => {
               return;
             }
             let issues = orderData(json),
-                standalone = tablify(issues.standalone, false),
-                upgrades = tablify(issues.upgrades, true);
+                [standalone, upgrades] = tablify(issues);
             setData(prevState => (
                 {
                 ...prevState,
@@ -100,6 +104,6 @@ const PayloadOverview = () => {
       {data.issues != null && <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} />}
     </div>
   );
-}
+};
 
-export default PayloadOverview
+export default PayloadOverview;

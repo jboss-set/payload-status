@@ -9,9 +9,9 @@ import {
   DrawerHead
 } from '@patternfly/react-core';
 
-import { List, ListItem } from '@patternfly/react-core';
-import { Button, Title } from '@patternfly/react-core';
+import { List, ListItem, Title, Button } from '@patternfly/react-core';
 import { conf } from '../common/Conf';
+import { Link } from '../common/Util';
 
 import InfoCircleIcon from '@patternfly/react-icons/dist/js/icons/info-circle-icon';
 import GithubIcon from '@patternfly/react-icons/dist/js/icons/github-icon';
@@ -25,13 +25,10 @@ const InfoDrawer = ({pageContent}) => {
     setExpanded(!isExpanded);
   }
 
-  let newsList = info['new'].map(item =>
-    <ListItem>{item}</ListItem>
-  );
+  const listItem = (item) => <ListItem>{item}</ListItem>
 
-  let issueList = info['known-issues'].map(item =>
-    <ListItem>{item}</ListItem>
-  );
+  let newsList = info['new'].map(listItem),
+      issueList = info['known-issues'].map(listItem);
 
   const panelContent = (
     <DrawerPanelContent>
@@ -58,10 +55,8 @@ const InfoDrawer = ({pageContent}) => {
   return (
     <React.Fragment>
       <div className="top">
-      <Button aria-expanded={isExpanded} onClick={toggle} icon={<InfoCircleIcon/>} variant="link" className="top-button" />
-      <Button component="a" href="https://github.com/jboss-set/payload-status" className="top-button" variant="plain" target="_blank">
-        <GithubIcon />
-      </Button>
+        <Button aria-expanded={isExpanded} onClick={toggle} icon={<InfoCircleIcon/>} variant="link" className="top-button" />
+        <Link url="https://github.com/jboss-set/payload-status" className="top-button" text={<GithubIcon />} />
       </div>
       <Drawer isExpanded={isExpanded} className="info-drawer">
         <DrawerContent panelContent={panelContent}>

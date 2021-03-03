@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { Table, TableHeader, TableBody, TableVariant  } from '@patternfly/react-table';
 import { Toolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
-import { Spinner, Button, Select, SelectOption } from '@patternfly/react-core';
+import { Spinner, Button } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
-import { defaultOption } from '../common/Util';
+import { ToolbarSelect } from '../common/Util';
 import MessageBar from '../common/MessageBar';
 import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
@@ -25,33 +25,6 @@ const tagURL = (url, repo) => `${url}tags/${repo}`;
 const compareURL = (url, repo, tag1, tag2) => `${url}upgrades/${repo}/${tag1}/${tag2}`;
 
 const tablify = (upgrades) => upgrades.map(u => [u.componentId, u.oldVersion, u.newVersion]);
-
-const RepoSelect = ({onSelectCallback}) => {
-  const [isOpen, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
-
-  const onSelect = (e, value, isPlaceholder) => {
-    if (isPlaceholder) {
-      onSelectCallback("");
-      setSelected("");
-    } else {
-      onSelectCallback(value);
-      setSelected(value);
-    }
-    setOpen(!isOpen);
-  }
-
-  return (
-    <ToolbarItem>
-      <Select onSelect={onSelect} onToggle={setOpen} isOpen={isOpen} selections={selected}>
-        {defaultOption}
-        {Object.keys(repos).map((item, index) => (
-          <SelectOption key={index} value={item} />
-        ))}
-      </Select>
-    </ToolbarItem>
-  )
-};
 
 const ReportTable = ({data}) => (
   <Table aria-label="Simple Table" cells={["Component", "Old", "New"]} rows={data} variant={TableVariant.compact}>
@@ -111,7 +84,9 @@ const UpgradeReport = () => {
       <Toolbar id="cu-toolbar">
         <ToolbarContent>
           <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
-          <RepoSelect onSelectCallback={loadTags}/>
+          <ToolbarItem>
+            <ToolbarSelect data={repos} onSelectCallback={loadTags} />
+          </ToolbarItem>
           <UpgradeSelects reportCallback={loadReport} repos={repos} data={data} />
           {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
           {status.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}

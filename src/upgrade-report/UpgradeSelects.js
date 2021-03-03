@@ -1,31 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { ToolbarItem, Button, Select, SelectOption } from '@patternfly/react-core';
-import { defaultOption } from '../common/Util';
-
-const TagSelect = ({onSelect, onToggle, isOpen, selections, data}) => (
-  <ToolbarItem>
-    <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections} maxHeight="400px">
-      {defaultOption}
-      {data.map((item, index) => (
-        <SelectOption key={index} value={item} />
-      ))}
-    </Select>
-  </ToolbarItem>
-);
+import { ToolbarItem, Button } from '@patternfly/react-core';
+import { ToolbarSelect } from '../common/Util';
 
 const UpgradeSelects = ({reportCallback, data}) => {
-  const [isOpen, setOpen] = useState({left: false, right: false});
   const [selected, setSelected] = useState({left: "", right: ""});
 
-  const toggle = (kind) => (() => {
-    setOpen(prev => ({...prev, [kind]: !prev[kind]}));
-  });
+  useEffect(() => {
+    setSelected({left: "", right: ""});
+  },[data.selectedRepo]);
 
-  const select = (kind) => ((e, val, isPlaceholder) => {
-    let value = isPlaceholder ? "" : val;
+  const select = (kind) => ((value) => {
     setSelected(prev => ({...prev, [kind]: value}));
-    toggle(kind)();
   });
 
   const onClick = () => {
@@ -34,7 +20,7 @@ const UpgradeSelects = ({reportCallback, data}) => {
     }
   }
 
-  const [left, right] = ['left', 'right'];
+  const keys = ['left', 'right'];
 
   if (!data.selectedRepo) {
     return null;
@@ -42,10 +28,13 @@ const UpgradeSelects = ({reportCallback, data}) => {
 
   return (
     <>
-      <TagSelect onSelect={select(left)} onToggle={toggle(left)} isOpen={isOpen[left]} selections={selected[left]} data={data} />
-      <TagSelect onSelect={select(right)} onToggle={toggle(right)} isOpen={isOpen[right]} selections={selected[right]} data={data} />
+      {keys.map((key, i) => (
+        <ToolbarItem key={i}>
+          <ToolbarSelect onSelectCallback={select(key)} data={data[data.selectedRepo]} maxHeight="400px" />
+        </ToolbarItem>
+      ))}
       <ToolbarItem>
-        <Button onClick={onClick} isDisabled={!selected[left] || !selected[right]}>Generate</Button>
+        <Button onClick={onClick} isDisabled={!selected.left || !selected.right}>Generate</Button>
       </ToolbarItem>
     </>
   )

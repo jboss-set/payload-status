@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 import { Table, TableHeader, TableBody, TableVariant  } from '@patternfly/react-table';
-import { Toolbar, ToolbarItem, ToolbarContent, Button } from '@patternfly/react-core';
-import { Select, SelectOption, Spinner } from '@patternfly/react-core';
+import { Toolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
+import { Spinner, Button, Select, SelectOption } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
 import { defaultOption } from '../common/Util';
 import MessageBar from '../common/MessageBar';
 import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
+import UpgradeSelects from './UpgradeSelects';
 
 const repos = {
   'EAP': {
@@ -18,23 +19,23 @@ const repos = {
     id: 'wildfly-wildfly-core',
     filter: (tags) => tags.slice(0,20)
   }
-}
+};
 
 const tagURL = (url, repo) => `${url}tags/${repo}`;
 const compareURL = (url, repo, tag1, tag2) => `${url}upgrades/${repo}/${tag1}/${tag2}`;
 
 const tablify = (upgrades) => upgrades.map(u => [u.componentId, u.oldVersion, u.newVersion]);
 
-const RepoSelect = ({onSelect}) => {
+const RepoSelect = ({onSelectCallback}) => {
   const [isOpen, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
 
-  const select = (e, value, isPlaceholder) => {
+  const onSelect = (e, value, isPlaceholder) => {
     if (isPlaceholder) {
-      onSelect("");
+      onSelectCallback("");
       setSelected("");
     } else {
-      onSelect(value);
+      onSelectCallback(value);
       setSelected(value);
     }
     setOpen(!isOpen);
@@ -42,7 +43,7 @@ const RepoSelect = ({onSelect}) => {
 
   return (
     <ToolbarItem>
-      <Select onSelect={select} onToggle={setOpen} isOpen={isOpen} selections={selected}>
+      <Select onSelect={onSelect} onToggle={setOpen} isOpen={isOpen} selections={selected}>
         {defaultOption}
         {Object.keys(repos).map((item, index) => (
           <SelectOption key={index} value={item} />
@@ -50,86 +51,7 @@ const RepoSelect = ({onSelect}) => {
       </Select>
     </ToolbarItem>
   )
-}
-
-const UpgradeSelects = ({loadTags, loadReport, unload, data}) => {
-  const [isOpen, setOpen] = useState({left: false, right: false});
-  const [selected, setSelected] = useState({left: "", right: ""});
-
-  const openLeft = (open) => {
-    setOpen(prev => ({...prev, left: open}));
-  }
-
-  const openRight = (open) => {
-    setOpen(prev => ({...prev, right: open}));
-  }
-
-  const selectLeft = (e, val, isPlaceholder) => {
-    let value = isPlaceholder ? "" : val;
-    setSelected(prev => ({...prev, left: value}));
-    openLeft(!isOpen.left);
-  }
-
-  const selectRight = (e, val, isPlaceholder) => {
-    let value = isPlaceholder ? "" : val;
-    setSelected(prev => ({...prev, right: value}));
-    openRight(!isOpen.right);
-  }
-
-  const clearAll = () => {
-    setSelected({left: "", right: ""});
-  }
-
-  const onRepoSelect = (repo) => {
-    loadTags(repo);
-    clearAll();
-  }
-
-  return (
-    <>
-      <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
-      <RepoSelect onSelect={onRepoSelect} />
-      {data.repo && <CompareSelector data={data[data.repo]} report={loadReport}
-          isOpenLeft={isOpen.left} setOpenLeft={openLeft}
-          isOpenRight={isOpen.right} setOpenRight={openRight}
-          selectedLeft={selected.left} selectLeft={selectLeft}
-          selectedRight={selected.right} selectRight={selectRight}
-        />}
-      {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
-    </>
-  )
-}
-
-const CompareSelector = ({isOpenLeft, setOpenLeft, isOpenRight, setOpenRight,
-                        selectedLeft, selectLeft, selectedRight, selectRight, data, report}) => {
-
-  const click = () => {
-    if (selectedLeft && selectedRight) {
-      report(selectedLeft, selectedRight);
-    }
-  }
-
-  return (
-    <>
-      <TagSelect onSelect={selectLeft} onToggle={setOpenLeft} isOpen={isOpenLeft} selections={selectedLeft} data={data} />
-      <TagSelect onSelect={selectRight} onToggle={setOpenRight} isOpen={isOpenRight} selections={selectedRight} data={data} />
-      <ToolbarItem>
-        <Button onClick={click} isDisabled={!selectedLeft || !selectedRight}>Generate</Button>
-      </ToolbarItem>
-    </>
-  )
-}
-
-const TagSelect = ({onSelect, onToggle, isOpen, selections, data}) => (
-  <ToolbarItem>
-    <Select onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selections} maxHeight="400px">
-      {defaultOption}
-      {data.map((item, index) => (
-        <SelectOption key={index} value={item} />
-      ))}
-    </Select>
-  </ToolbarItem>
-)
+};
 
 const ReportTable = ({data}) => (
   <Table aria-label="Simple Table" cells={["Component", "Old", "New"]} rows={data} variant={TableVariant.compact}>
@@ -141,9 +63,7 @@ const ReportTable = ({data}) => (
 const UpgradeReport = () => {
   const url = conf.url;
   const [data, setData] = useState({
-    repo: null,
-    'jbossas-jboss-eap7': null,
-    'jbossas-wildfly-core-eap': null,
+    selectedRepo: null,
     upgrades: null
   });
 
@@ -158,23 +78,17 @@ const UpgradeReport = () => {
       return;
     }
     setStatus({loading: true});
-    let repoId = repos[repoName].id;
-    if (!data[repoId]) {
-      fetch(tagURL(url, repoId))
+    let selected = repos[repoName].id;
+    if (!data[selected]) {
+      fetch(tagURL(url, selected))
         .then(handleResponse)
         .then(json => {
-          setData(prevState => {
-            let newState = {...prevState};
-            newState[repoId] = repos[repoName].filter(json);
-            newState['repo'] = repoId;
-            newState['upgrades'] = null;
-            return newState;
-          });
+          setData(prevState => ({...prevState, [selected]: repos[repoName].filter(json), selectedRepo: selected, upgrades: null}));
           setStatus({loading: false});
         })
-        .catch(error => setStatus({error: handleError(error), loading: false}))
+        .catch(error => setStatus({error: handleError(error), loading: false}));
     } else {
-      setData(prevState => ({...prevState, repo: repoId, upgrades: null}));
+      setData(prevState => ({...prevState, selectedRepo: selected, upgrades: null}));
       setStatus({loading: false});
     }
   }
@@ -196,7 +110,10 @@ const UpgradeReport = () => {
     <div>
       <Toolbar id="cu-toolbar">
         <ToolbarContent>
-          <UpgradeSelects loadTags={loadTags} loadReport={loadReport} unload={unload} data={data} />
+          <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
+          <RepoSelect onSelectCallback={loadTags}/>
+          <UpgradeSelects reportCallback={loadReport} repos={repos} data={data} />
+          {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
           {status.loading && <ToolbarItem><Spinner size="lg"/></ToolbarItem>}
         </ToolbarContent>
       </Toolbar>
@@ -204,6 +121,6 @@ const UpgradeReport = () => {
       {data.upgrades && <ReportTable data={data.upgrades} />}
     </div>
   )
-}
+};
 
 export default UpgradeReport;

@@ -36,13 +36,13 @@ const InfoDrawer = ({pageContent}) => {
         <Title headingLevel="h1">Payload status viewer v{conf.version}</Title>
       </DrawerHead>
       <DrawerPanelBody>
-      {newsList.length &&
+      {!!newsList.length &&
         <div className="info info-news">
           <Title headingLevel="h3">New</Title>
           <List>{newsList}</List>
         </div>
       }
-      {issueList.length &&
+      {!!issueList.length &&
         <div className="info info-issues">
           <Title headingLevel="h3">Known issues</Title>
           <List>{issueList}</List>

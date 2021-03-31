@@ -32,11 +32,18 @@ div.info {
     display: none;
 }
 
+td.issue-assignee {
+    max-width: 130px;
+}
+
 td.issue-name {
     max-width: 800px;
+}
+
+td.issue-assignee, td.issue-name {
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .row-upgrade {

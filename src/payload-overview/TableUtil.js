@@ -9,6 +9,7 @@ export const standaloneColumns = [
   { title: "Number", transforms: [sortable] },
   { title: "Priority", transforms: [sortable] },
   { title: "Status", transforms: [sortable] },
+  { title: "Assignee", transforms: [sortable], columnTransforms: [classNames('issue-assignee')] },
   { title: "Name", columnTransforms: [classNames('issue-name')] },
   { title: "Type", columnTransforms: [classNames('issue-type')] },
   { title: "Acks" },
@@ -20,6 +21,7 @@ export const upgradeColumns = [
   { title: "Number" },
   { title: "Priority" },
   { title: "Status" },
+  { title: "Assignee" },
   { title: "Name", columnTransforms: [classNames('issue-name')] },
   { title: "Type", columnTransforms: [classNames('issue-type')] },
   { title: "Acks" },
@@ -98,13 +100,14 @@ function toTableData(issues, processNested) {
   return result;
 };
 
-function issueToRow({url, priority, rawStatus, summary, rawType, acks, pullRequest, ...rest}) {
+function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks, pullRequest, ...rest}) {
   let row = {};
 
   row.cells = [
     makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
     makeCell(shortName(rawStatus).toUpperCase()),
+    makeCell(assignee),
     makeCell(unescape(summary)),
     makeCell(shortName(rawType).toUpperCase()),
     ackCell(acks),

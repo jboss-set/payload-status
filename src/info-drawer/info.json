@@ -1,8 +1,5 @@
 {
   "new": [
-    "Charts for pull request statuses",
-    "Payloads are bookmarkable",
-    "Assignee column (empty until PRBZ update)"
   ],
   "known-issues": [
   ]

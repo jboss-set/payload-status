@@ -12,7 +12,7 @@ export const ToolbarSelect = ({data, onSelectCallback, initialSelection, typeAhe
 
   useEffect(() => {
     setSelected(initialSelection);
-  },[data]);
+  },[data, initialSelection]);
 
   const onSelect = (e, val, isPlaceholder) => {
     let value = isPlaceholder ? "" : val;

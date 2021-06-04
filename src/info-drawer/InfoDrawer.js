@@ -25,7 +25,7 @@ const InfoDrawer = ({pageContent}) => {
     setExpanded(!isExpanded);
   }
 
-  const listItem = (item) => <ListItem>{item}</ListItem>
+  const listItem = (item, i) => <ListItem key={i}>{item}</ListItem>
 
   let newsList = info['new'].map(listItem),
       issueList = info['known-issues'].map(listItem);

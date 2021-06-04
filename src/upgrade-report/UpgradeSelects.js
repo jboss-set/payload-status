@@ -30,7 +30,7 @@ const UpgradeSelects = ({reportCallback, data}) => {
     <>
       {keys.map((key, i) => (
         <ToolbarItem key={i}>
-          <ToolbarSelect onSelectCallback={select(key)} data={data[data.selectedRepo]} maxHeight="400px" />
+          <ToolbarSelect typeAhead={true} onSelectCallback={select(key)} data={data[data.selectedRepo]} maxHeight="360px" />
         </ToolbarItem>
       ))}
       <ToolbarItem>

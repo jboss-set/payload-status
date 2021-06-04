@@ -13,11 +13,11 @@ import UpgradeSelects from './UpgradeSelects';
 const repos = {
   'EAP': {
     id: 'wildfly-wildfly',
-    filter: (tags) => tags.filter(tag => tag.includes("EAP_7.")).slice(0,20).concat(tags.filter(tag => tag.includes(".x")).slice(0,10))
+    filter: (tags) => tags.filter(tag => tag.includes("EAP_7.")).concat(tags.filter(tag => tag.includes(".x")))
   },
   'EAP Core': {
     id: 'wildfly-wildfly-core',
-    filter: (tags) => tags.slice(0,20)
+    filter: (tags) => tags.filter(tag => tag.match(/^1\d\./))
   }
 };
 

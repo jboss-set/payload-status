@@ -50,7 +50,7 @@ td.issue-assignee, td.issue-name {
     background-color: var(--pf-global--palette--light-green-200);
 }
 
-td.pr-merged {
+td.issue-success, td.pr-merged {
     background-color: var(--pf-global--palette--light-green-400);
 }
 
@@ -75,8 +75,6 @@ td.issue-success.issue-fail {
         var(--pf-global--warning-color--100) 40px
     );
 }
-
-
 
 td div.upstream-issues:nth-of-type(2n) {
     background-color: rgba(3,3,3,0.15)

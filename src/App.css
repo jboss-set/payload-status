@@ -28,19 +28,19 @@ div.info {
     background-color: var(--pf-global--warning-color--100)
 }
 
-.standalone .issue-type {
+.standalone .column-type {
     display: none;
 }
 
-td.issue-assignee {
+td.column-assignee {
     max-width: 130px;
 }
 
-td.issue-name {
+td.column-name {
     max-width: 800px;
 }
 
-td.issue-assignee, td.issue-name {
+td.column-assignee, td.column-name {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

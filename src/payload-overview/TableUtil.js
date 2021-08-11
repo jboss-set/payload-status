@@ -9,9 +9,9 @@ export const standaloneColumns = [
   { title: "Number", sortable: true },
   { title: "Priority", sortable: true },
   { title: "Status", sortable: true },
-  { title: "Assignee", sortable: true, className: 'issue-assignee' },
-  { title: "Name", className: 'issue-name' },
-  { title: "Type", className: 'issue-type' },
+  { title: "Assignee", sortable: true, className: 'column-assignee' },
+  { title: "Name", className: 'column-name' },
+  { title: "Type", className: 'column-type' },
   { title: "Acks" },
   { title: "PR Status", sortable: true },
   { title: "Upstream" }
@@ -22,8 +22,8 @@ export const upgradeColumns = [
   { title: "Priority" },
   { title: "Status" },
   { title: "Assignee" },
-  { title: "Name", className: 'issue-name' },
-  { title: "Type", className: 'issue-type' },
+  { title: "Name", className: 'column-name' },
+  { title: "Type", className: 'column-type' },
   { title: "Acks" },
   { title: "PR Status" },
   { title: "Upstream" }

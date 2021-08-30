@@ -1,4 +1,4 @@
-import { sortable, classNames } from '@patternfly/react-table';
+import classnames from 'classnames';
 
 const getKeyFromUrl = (url) => url.substr(url.lastIndexOf('/')+1);
 
@@ -6,14 +6,14 @@ const Link = ({url, text}) => <a href={url} target="_blank" rel="noopener norefe
 const IssueLink = ({url}) => <Link url={url} text={getKeyFromUrl(url)}/>;
 
 export const standaloneColumns = [
-  { title: "Number", transforms: [sortable] },
-  { title: "Priority", transforms: [sortable] },
-  { title: "Status", transforms: [sortable] },
-  { title: "Assignee", transforms: [sortable], columnTransforms: [classNames('issue-assignee')] },
-  { title: "Name", columnTransforms: [classNames('issue-name')] },
-  { title: "Type", columnTransforms: [classNames('issue-type')] },
+  { title: "Number", sortable: true },
+  { title: "Priority", sortable: true },
+  { title: "Status", sortable: true },
+  { title: "Assignee", sortable: true, className: 'issue-assignee' },
+  { title: "Name", className: 'issue-name' },
+  { title: "Type", className: 'issue-type' },
   { title: "Acks" },
-  { title: "PR Status", transforms: [sortable] },
+  { title: "PR Status", sortable: true },
   { title: "Upstream" }
 ];
 
@@ -22,8 +22,8 @@ export const upgradeColumns = [
   { title: "Priority" },
   { title: "Status" },
   { title: "Assignee" },
-  { title: "Name", columnTransforms: [classNames('issue-name')] },
-  { title: "Type", columnTransforms: [classNames('issue-type')] },
+  { title: "Name", className: 'issue-name' },
+  { title: "Type", className: 'issue-type' },
   { title: "Acks" },
   { title: "PR Status" },
   { title: "Upstream" }
@@ -75,24 +75,24 @@ export function orderData(data) {
   return result;
 };
 
-export const tablify = (data) => [toTableData(data.standalone, false), toTableData(data.upgrades, true)];
+export const tablify = (data) => [toTableData(data.standalone, standaloneColumns, false), toTableData(data.upgrades, upgradeColumns, true)];
 
 // turn JSON into table data
-function toTableData(issues, processNested) {
+function toTableData(issues, columns, processNested) {
   let result = [];
 
   issues.forEach((issue) => {
-    let row = issueToRow(issue);
+    let row = issueToRow(issue, columns);
 
     result.push(row);
 
     if (processNested) {
       for (let i = 0; i < 5; i++) {
-        row.cells[i].props = { className: 'row-upgrade' };
+        row.cells[i].className = classnames(row.cells[i].className, 'row-upgrade');
       }
 
       issue.nested.forEach((bug) => {
-        result.push(issueToRow(bug));
+        result.push(issueToRow(bug, columns));
       })
     }
   });
@@ -100,10 +100,11 @@ function toTableData(issues, processNested) {
   return result;
 };
 
-function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks, pullRequest, ...rest}) {
-  let row = {};
+function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks, pullRequest, ...rest}, columns) {
+  let row = {},
+      cells = [];
 
-  row.cells = [
+  cells = [
     makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
     makeCell(shortName(rawStatus).toUpperCase()),
@@ -115,16 +116,25 @@ function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks,
     upstreamCell(pullRequest)
   ];
 
+  cells.map((cell, i) => {
+    if (columns[i].sortable) {
+      cell.sortKey = cell.sortKey ? cell.sortKey : cell.title;
+    }
+    cell.className = classnames(cell.className, columns[i].className);
+    return cell;
+  });
+
+  row.cells = cells;
   return row;
 };
 
 function makeCell(title, sortKey, className) {
-  let cell = { title: title, sortKey: title };
+  let cell = { title: title };
   if (sortKey) {
     cell.sortKey = sortKey;
   }
   if (className) {
-    cell.props = { className: className };
+    cell.className = className;
   }
   return cell;
 };
@@ -199,22 +209,18 @@ function prCell(prs) {
   list.forEach((item, key) => {
     titles.push(<span key={key}>{item.title}<br/></span>);
 
-    if (item.props) {
-      css[item.props.className] += 1;
+    if (item.className) {
+      css[item.className] += 1;
     }
   });
 
-  for (let c in css) {
-    if (css[c]) {
-      className += c + " ";
-    }
-  }
+  className = classnames({...css});
 
   return makeCell(titles, sortKey, className);
 };
 
 function upstreamCell(prs) {
-  if (!prs || prs.length === 0) return "";
+  if (!prs || prs.length === 0) return makeCell("");
 
   let list = prs.map(upstreamIssues);
 
@@ -226,8 +232,8 @@ function upstreamCell(prs) {
   list.forEach((item, key) => {
     titles.push(<div className="upstream-issues" key={key}>{item.title}</div>);
 
-    if (item.props) {
-      css[item.props.className] += 1;
+    if (item.className) {
+      css[item.className] += 1;
     }
   })
 

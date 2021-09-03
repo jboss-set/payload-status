@@ -6,32 +6,44 @@ export const Link = ({url, className, text}) => <Button component="a" href={url}
 
 const defaultOption = <SelectOption key={0} value="Choose…" isPlaceholder={true} />;
 
-export const ToolbarSelect = ({data, onSelectCallback, initialSelection, typeAhead, maxHeight}) => {
+export const ToolbarSelect = ({data, onSelectCallback, initialSelection, maxHeight, typeAhead}) => {
   const [isOpen, setOpen] = useState(false);
   const [selected, setSelected] = useState(initialSelection);
+
+  const selectProps = {},
+        decorations = {};
 
   useEffect(() => {
     setSelected(initialSelection);
   },[data, initialSelection]);
 
-  const onSelect = (e, val, isPlaceholder) => {
+  selectProps.isOpen = isOpen;
+  selectProps.selections = selected;
+
+  selectProps.onSelect = (e, val, isPlaceholder) => {
     let value = isPlaceholder ? "" : val;
     setSelected(value);
     setOpen(!isOpen);
     onSelectCallback && onSelectCallback(value);
   }
 
-  const onToggle = () => {
+  selectProps.onToggle = () => {
     setOpen(!isOpen);
+  }
+
+  decorations.maxHeight = maxHeight;
+  if (typeAhead) {
+    decorations.variant = SelectVariant.typeahead;
+    decorations.placeholderText = "Choose…";
+  } else {
+    decorations.variant = SelectVariant.single;
   }
 
   const mapOver = data.map ? data : Object.keys(data);
 
-  const variant = typeAhead ? SelectVariant.typeahead : SelectVariant.single;
-
   return (
-    <Select variant={variant} onSelect={onSelect} onToggle={onToggle} isOpen={isOpen} selections={selected} maxHeight={maxHeight}>
-      {defaultOption}
+    <Select {...selectProps} {...decorations}>
+      {!typeAhead && defaultOption}
       {mapOver.map((item, index) => (
         <SelectOption key={index} value={item} />
       ))}

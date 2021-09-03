@@ -45,7 +45,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows}) => 
             {row.cells.map((cell, cellIndex) => {
               const decorations = cell.className ? {className: cell.className} : {};
               return <Td key={`${rowIndex}_${cellIndex}`} dataLabel={columns[cellIndex].title} {...decorations}>
-                {cell.title}
+                {cell.title}{cell.icon && cell.icon}
               </Td>
             })}
           </Tr>

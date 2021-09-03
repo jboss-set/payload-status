@@ -25,59 +25,69 @@ div.info {
 }
 
 .info-issues {
-    background-color: var(--pf-global--warning-color--100)
+    background-color: var(--pf-global--palette--orange-100)
 }
 
-.standalone .issue-type {
+.standalone .column-type {
     display: none;
 }
 
-td.issue-assignee {
+th.column-assignee, td.column-assignee {
     max-width: 130px;
 }
 
-td.issue-name {
+th.column-number, td.column-number {
+    min-width: 150px;
+}
+
+.standalone th.column-name, .standalone td.column-name {
     max-width: 800px;
 }
 
-td.issue-assignee, td.issue-name {
+.upgrades th.column-name, .upgrades td.column-name {
+    max-width: 720px;
+}
+
+td.column-assignee, td.column-name {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.row-upgrade {
-    background-color: var(--pf-global--palette--light-green-200);
+td.issue-success svg {
+    position: absolute;
+    top: 4px;
+    right: 4px;
 }
 
-td.issue-success, td.pr-merged {
-    background-color: var(--pf-global--palette--light-green-400);
+.row-upgrade {
+    border-top: 4px solid var(--pf-global--palette--black-500);
+}
+
+td.issue-success {
+    background-color: var(--pf-global--palette--green-50);
 }
 
 td.pr-clean {
-    background-color: var(--pf-global--palette--light-green-300);
+    background-color: var(--pf-global--palette--green-50);
 }
 
-td.pr-fail {
-    background-color: var(--pf-global--warning-color--100);
+td.pr-fail, td.pr-dnf {
+    background-color: var(--pf-global--palette--red-50);
 }
 
-td.pr-dnf {
-    background-color: var(--pf-global--palette--orange-400);
-}
-
-td.issue-success.issue-fail {
+td.issue-success.pr-fail {
     background: repeating-linear-gradient(
         45deg,
-        var(--pf-global--palette--light-green-400),
-        var(--pf-global--palette--light-green-400) 20px,
-        var(--pf-global--warning-color--100) 20px,
-        var(--pf-global--warning-color--100) 40px
+        var(--pf-global--palette--green-50),
+        var(--pf-global--palette--green-50) 20px,
+        var(--pf-global--palette--red-50) 20px,
+        var(--pf-global--palette--red-50) 40px
     );
 }
 
 td div.upstream-issues:nth-of-type(2n) {
-    background-color: rgba(3,3,3,0.15)
+    background-color: rgba(20,20,20,0.15)
 }
 
 .message-bar {

@@ -1,29 +1,31 @@
 import classnames from 'classnames';
 
+import CheckIcon from '@patternfly/react-icons/dist/js/icons/check-icon';
+
 const getKeyFromUrl = (url) => url.substr(url.lastIndexOf('/')+1);
 
 const Link = ({url, text}) => <a href={url} target="_blank" rel="noopener noreferrer">{text}</a>;
 const IssueLink = ({url}) => <Link url={url} text={getKeyFromUrl(url)}/>;
 
 export const standaloneColumns = [
-  { title: "Number", sortable: true },
+  { title: "Number", sortable: true, className: 'column-number' },
   { title: "Priority", sortable: true },
   { title: "Status", sortable: true },
-  { title: "Assignee", sortable: true, className: 'issue-assignee' },
-  { title: "Name", className: 'issue-name' },
-  { title: "Type", className: 'issue-type' },
+  { title: "Assignee", sortable: true, className: 'column-assignee' },
+  { title: "Name", className: 'column-name' },
+  { title: "Type", className: 'column-type' },
   { title: "Acks" },
   { title: "PR Status", sortable: true },
   { title: "Upstream" }
 ];
 
 export const upgradeColumns = [
-  { title: "Number" },
+  { title: "Number", className: 'column-number' },
   { title: "Priority" },
   { title: "Status" },
-  { title: "Assignee" },
-  { title: "Name", className: 'issue-name' },
-  { title: "Type", className: 'issue-type' },
+  { title: "Assignee", className: 'column-assignee' },
+  { title: "Name", className: 'column-name' },
+  { title: "Type", className: 'column-type' },
   { title: "Acks" },
   { title: "PR Status" },
   { title: "Upstream" }
@@ -104,6 +106,12 @@ function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks,
   let row = {},
       cells = [];
 
+  let ack = ackCell(acks),
+      pr = prCell(pullRequest),
+      upstream = upstreamCell(pullRequest);
+
+  statusChecks([ack, pr, upstream])
+
   cells = [
     makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
     makeCell(priority),
@@ -111,9 +119,9 @@ function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks,
     makeCell(assignee),
     makeCell(unescape(summary)),
     makeCell(shortName(rawType).toUpperCase()),
-    ackCell(acks),
-    prCell(pullRequest),
-    upstreamCell(pullRequest)
+    ack,
+    pr,
+    upstream
   ];
 
   cells.map((cell, i) => {
@@ -158,7 +166,7 @@ const getPRClassName = (status) => {
   switch(status) {
     case 'merged':
     case 'work branch':
-      return 'pr-merged'
+      return 'issue-success'
     case 'clean':
       return 'pr-clean';
     case 'failed to read':
@@ -185,7 +193,7 @@ export const getMergeStatus = (pullRequest) => {
   let mergeStatus = pullRequest.mergeStatus.toLowerCase(),
       merged = pullRequest.merged.replaceAll('_', ' ').toLowerCase(),
       status = merged !== 'unmerged' ? merged : mergeStatus;
-
+  console.log(mergeStatus, merged, status);
   if (status === 'unknown' && pullRequest.codebase === '') {
     status = 'failed to read';
   }
@@ -204,7 +212,7 @@ function prCell(prs) {
   let titles = [],
       sortKey = list[0].sortKey,
       className = '',
-      css = { 'pr-merged': 0, 'pr-clean': 0, 'pr-fail': 0, 'pr-dnf': 0 }
+      css = { 'issue-success': 0, 'pr-clean': 0, 'pr-fail': 0, 'pr-dnf': 0 }
 
   list.forEach((item, key) => {
     titles.push(<span key={key}>{item.title}<br/></span>);
@@ -256,3 +264,11 @@ const upstreamIssues = (pr) => {
 
   return makeCell(title, '', pr.upstreamPatchState === 'CLOSED' ? 'issue-success' : '');
 };
+
+const statusChecks = (cells) => {
+  for (let c of cells) {
+    if (c.className === 'issue-success') {
+      c.icon = <CheckIcon/>;
+    }
+  }
+}

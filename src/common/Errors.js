@@ -10,10 +10,10 @@ const errors = {
 }
 
 export const handleError = (error) => {
-  switch (error.message) {
-    case "Failed to fetch":
+  switch (error.message.toLowerCase()) {
+    case "failed to fetch":
       return errors["fetch-fail"];
-    case "Empty payload":
+    case "empty payload":
       return errors["empty-payload"];
     default:
      return error;

@@ -71,7 +71,7 @@ const PayloadOverview = () => {
           .then(json => {
             if (!json.length) {
               setData(prevState => ({...prevState, payload: null}));
-              setStatus({error: handleError("Empty Payload"), loading: false});
+              setStatus({error: handleError({ message: "Empty Payload" }), loading: false});
               return;
             }
             let issues = orderData(json),

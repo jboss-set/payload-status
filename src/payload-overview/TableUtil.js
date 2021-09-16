@@ -193,7 +193,6 @@ export const getMergeStatus = (pullRequest) => {
   let mergeStatus = pullRequest.mergeStatus.toLowerCase(),
       merged = pullRequest.merged.replaceAll('_', ' ').toLowerCase(),
       status = merged !== 'unmerged' ? merged : mergeStatus;
-  console.log(mergeStatus, merged, status);
   if (status === 'unknown' && pullRequest.codebase === '') {
     status = 'failed to read';
   }

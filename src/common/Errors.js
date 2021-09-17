@@ -11,7 +11,8 @@ const errors = {
 
 export const handleError = (error) => {
   switch (error.message.toLowerCase()) {
-    case "failed to fetch":
+    case "failed to fetch": // Chrome/Opera
+    case "networkerror when attempting to fetch resource.": // Firefox
       return errors["fetch-fail"];
     case "empty payload":
       return errors["empty-payload"];

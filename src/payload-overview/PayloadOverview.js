@@ -70,7 +70,7 @@ const PayloadOverview = () => {
           .then(handleResponse)
           .then(json => {
             if (!json.length) {
-              setData(prevState => ({...prevState, payload: null}));
+              setData(prevState => ({...prevState, payload: null, issues: null}));
               setStatus({error: handleError({ message: "Empty Payload" }), loading: false});
               return;
             }

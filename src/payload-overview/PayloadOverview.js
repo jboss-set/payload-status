@@ -5,10 +5,15 @@ import { orderData, tablify } from './TableUtil';
 import Stats from './Stats';
 import IssueTables from './IssueTables';
 import PayloadPicker from './PayloadPicker';
+import ComponentView from './ComponentView';
 import MessageBar from '../common/MessageBar';
 import { Spinner } from '@patternfly/react-core';
 import { handleError, handleResponse } from '../common/Errors';
 import { conf } from '../common/Conf';
+
+import { Tabs, Tab, TabTitleText, TabTitleIcon } from '@patternfly/react-core';
+import PackageIcon from '@patternfly/react-icons/dist/esm/icons/package-icon';
+import ModuleIcon from '@patternfly/react-icons/dist/esm/icons/module-icon';
 
 const fullPayloadName = (name, separator) => {
   let majorMinor = name.match(/(\d+\.\d+)\.\d+/)[1];
@@ -40,6 +45,8 @@ const PayloadOverview = () => {
       loading: false,
       error: null
   });
+
+  const [activeTabKey, setActiveTabKey] = useState(0);
 
   const setPayload = (payload) => {
     if (!payload) {
@@ -95,13 +102,24 @@ const PayloadOverview = () => {
       }
   },[data.payload, url]);
 
+  const handleTabClick = (event, tabIndex) => setActiveTabKey(tabIndex);
+
   return (
     <div className="payload-overview">
       <PayloadPicker onSelect={setPayload} data={payloadsData} />
       {status.loading && <Spinner />}
       {status.error && <MessageBar error={status.error} />}
-      {data.issues != null && <Stats data={data.issues} />}
-      {data.issues != null && <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} />}
+      {data.issues != null &&
+        <Tabs activeKey={activeTabKey} onSelect={handleTabClick} isBox>
+          <Tab eventKey={0} title={<><TabTitleIcon><PackageIcon /></TabTitleIcon> <TabTitleText>Payload</TabTitleText>  </>}>
+            <Stats data={data.issues} />
+            <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} />
+          </Tab>
+          <Tab eventKey={1} title={<><TabTitleIcon><ModuleIcon /></TabTitleIcon> <TabTitleText>Component Upgrade View</TabTitleText>  </>}>
+            <ComponentView data={data} />
+          </Tab>
+        </Tabs>
+      }
     </div>
   );
 };

@@ -1,6 +1,7 @@
 {
   "new": [
-    "Added typeahead to Upgrade Report"
+    "Added \"Back to Top\" button",
+    "Added Component Upgrade panel (proof-of-concept)"
   ],
   "known-issues": [
   ]

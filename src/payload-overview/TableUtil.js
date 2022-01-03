@@ -258,7 +258,7 @@ const upstreamIssues = (pr) => {
   let title =
     <>
       {"Issue: "}<IssueLink url={pr.upstreamIssueFromPRDesc}/><br/>
-      {pr.upstreamPullRequestFromPRDesc && "PR: " + <Link url={pr.upstreamPullRequestFromPRDesc} text={pr.upstreamPatchState}/>}
+      {pr.upstreamPullRequestFromPRDesc && <>PR: <Link url={pr.upstreamPullRequestFromPRDesc} text={pr.upstreamPatchState}/></>}
     </>;
 
   return makeCell(title, '', pr.upstreamPatchState === 'CLOSED' ? 'issue-success' : '');

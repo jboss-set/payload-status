@@ -435,7 +435,7 @@ const ComponentView = ({data}) => {
           titleMatch = title.match(titleRegex),
           versionMatch = version.match(versionRegex);
 
-    if (!titleMatch) return false;
+    if (!titleMatch || !versionMatch) return false;
 
     return titleMatch[1] === versionMatch[1];
   }

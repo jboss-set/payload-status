@@ -93,7 +93,8 @@ const UpgradeReport = () => {
         </ToolbarContent>
       </Toolbar>
       {status.error && <MessageBar error={status.error} />}
-      {data.upgrades && <ReportTable data={data.upgrades} />}
+      {data.upgrades?.length && <ReportTable data={data.upgrades} />}
+      {data.upgrades?.length === 0 && <span>No upgrades</span>}
     </div>
   )
 };

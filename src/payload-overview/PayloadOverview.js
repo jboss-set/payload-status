@@ -109,7 +109,7 @@ const PayloadOverview = () => {
       <PayloadPicker onSelect={setPayload} data={payloadsData} />
       {status.loading && <Spinner />}
       {status.error && <MessageBar error={status.error} />}
-      {data.issues != null &&
+      {data.issues &&
         <Tabs activeKey={activeTabKey} onSelect={handleTabClick} isBox>
           <Tab eventKey={0} title={<><TabTitleIcon><PackageIcon /></TabTitleIcon> <TabTitleText>Payload</TabTitleText>  </>}>
             <Stats data={data.issues} />

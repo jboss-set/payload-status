@@ -479,7 +479,7 @@ const ComponentView = ({data}) => {
 
   const makeRow = (row, rowIndex) => {
     const cell = row.cells[4];
-    const titleRegex = /.* [uU]pgrade (.*) from (.*) to (.*)/,
+    const titleRegex = /.*[uU]pgrade (.*) from (.*) to (.*)/,
           match = cell.title.match(titleRegex);
 
     return (

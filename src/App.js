@@ -26,7 +26,7 @@ const App = () => (
   <div className="App">
     <InfoDrawer pageContent={drawerContent} />
   </div>
-  <BackToTop isAlwaysVisible/>
+  <BackToTop isAlwaysVisible className="back-to-top"/>
   </>
 );
 

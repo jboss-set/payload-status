@@ -106,7 +106,7 @@ td div.upstream-issues:nth-of-type(2n) {
     var(--pf-c-select__toggle--before--BorderLeftColor);
 }
 
-.pf-c-back-to-top {
+.back-to-top.pf-c-back-to-top {
   z-index: 1000;
   position: fixed;
 }

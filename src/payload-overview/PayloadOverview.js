@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 
 import { orderData, tablify } from './TableUtil';
@@ -46,6 +46,10 @@ const PayloadOverview = () => {
       error: null
   });
 
+  const setErrorStatus = (error) => {
+    setStatus({error: handleError(error), loading: false});
+  }
+
   const [activeTabKey, setActiveTabKey] = useState(0);
 
   const setPayload = (payload) => {
@@ -59,6 +63,12 @@ const PayloadOverview = () => {
     setData(prevState => ({...prevState, payload: payload}));
   }
 
+  const tryBaseUrl = useCallback(() => {
+    fetch(url, { mode: 'no-cors' })
+      .then(handleResponse)
+      .catch(setErrorStatus);
+  },[url]);
+
   useEffect(() => {
     setStatus({loading: true});
     fetch(`${url}payloads/`)
@@ -67,8 +77,8 @@ const PayloadOverview = () => {
           setPayloadsData(prevState => ({...prevState, list: json}))
           setStatus({loading: false});
       })
-      .catch(error => setStatus({error: handleError(error), loading: false}));
-  },[url]);
+      .catch(tryBaseUrl);
+  },[url, tryBaseUrl]);
 
   useEffect(() => {
     if (data.payload) {
@@ -78,7 +88,7 @@ const PayloadOverview = () => {
           .then(json => {
             if (!json.length) {
               setData(prevState => ({...prevState, payload: null, issues: null}));
-              setStatus({error: handleError({ message: "Empty Payload" }), loading: false});
+              setErrorStatus({ message: "Empty Payload" });
               return;
             }
             let issues = orderData(json),
@@ -98,9 +108,9 @@ const PayloadOverview = () => {
             }));
             setStatus({loading: false});
           })
-          .catch(error => setStatus({error: handleError(error), loading: false}));
+          .catch(tryBaseUrl);
       }
-  },[data.payload, url]);
+  },[data.payload, url, tryBaseUrl]);
 
   const handleTabClick = (event, tabIndex) => setActiveTabKey(tabIndex);
 

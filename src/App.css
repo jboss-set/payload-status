@@ -91,7 +91,7 @@ td div.upstream-issues:nth-of-type(2n) {
 }
 
 .message-bar {
-    max-width: 300px;
+  width: fit-content;
 }
 
 /* override PatternFly styles, hack for webpack processing */

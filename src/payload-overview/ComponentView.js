@@ -403,6 +403,10 @@ const buildProjects = [
   "ymnk-jzlib"
 ]
 
+const ConditionalWrap = ({ condition, wrap, children }) => (
+  condition ? wrap(children) : children
+);
+
 const ComponentView = ({data}) => {
   const rows = data.upgrades.rows;
   const columns = ["Component", "Current", "New", "Link to Build Trigger"];
@@ -469,11 +473,7 @@ const ComponentView = ({data}) => {
     })
 
     return Array.from(candidates.keys(), key => {
-      if (candidates.get(key)) {
-        return <><span><b>{key}</b></span><br/></>
-      } else {
-        return <><span>{key}</span><br/></>
-      }
+      return <React.Fragment key={key}><span><ConditionalWrap condition={candidates.get(key)} wrap={children => <b>{children}</b>}>{key}</ConditionalWrap></span><br/></React.Fragment>
     });
   }
 

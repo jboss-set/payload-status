@@ -32,6 +32,7 @@ const processList = (list, short) => {
   for (let key in list) {
     let flatList = [];
     list[key].forEach(item => flatList.push(item));
+    if (!flatList.length) continue;
     flatList = flatList.sort(sortMicroVersions);
     if (short) {
       flatList = flatList.slice(0,2);

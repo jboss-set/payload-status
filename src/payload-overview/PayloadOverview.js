@@ -92,7 +92,7 @@ const PayloadOverview = () => {
               return;
             }
             let issues = orderData(json),
-                [standalone, upgrades] = tablify(issues);
+                [standalone, upgrades] = tablify(issues, data.payload);
             setData(prevState => (
                 {
                 ...prevState,

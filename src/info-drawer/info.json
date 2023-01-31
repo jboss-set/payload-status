@@ -1,7 +1,6 @@
 {
   "new": [
-    "Added \"Back to Top\" button",
-    "Added Component Upgrade panel (proof-of-concept)"
+    "Added a switch for \"dev ack readiness\""
   ],
   "known-issues": [
   ]

@@ -2,7 +2,9 @@ import React from 'react';
 import { SortByDirection } from '@patternfly/react-table';
 import { TableComposable, Thead, Tbody, Tr, Th, Td, Caption } from '@patternfly/react-table';
 
-const IssueTable = ({caption, className, columns, rows, sortBy, updateRows}) => {
+import classnames from 'classnames';
+
+const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devAckModeOn}) => {
 
   const onSort = (_event, index, direction) => {
     const sortedRows = rows.sort((a, b) => {
@@ -19,13 +21,13 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows}) => 
   }
 
   return (
-    <TableComposable className={className}>
+    <TableComposable className={classnames(className, !devAckModeOn ? 'mode-plain' : 'mode-dev-ack')}>
       <Caption>{caption}</Caption>
       <Thead>
         <Tr>
           {columns.map((column, columnIndex) => {
             const sortParams =
-              column.sortable
+              column.sortable && sortBy
                 ? {
                   sort: {
                     sortBy: sortBy,
@@ -41,7 +43,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows}) => 
       </Thead>
       <Tbody>
         {rows.map((row, rowIndex) => (
-          <Tr key={rowIndex}>
+          <Tr key={rowIndex} className={row.className}>
             {row.cells.map((cell, cellIndex) => {
               const decorations = cell.className ? {className: cell.className} : {};
               return <Td key={`${rowIndex}_${cellIndex}`} dataLabel={columns[cellIndex].title} {...decorations}>

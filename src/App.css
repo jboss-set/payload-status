@@ -28,10 +28,6 @@ div.info {
     background-color: var(--pf-global--palette--orange-100)
 }
 
-.standalone .column-type {
-    display: none;
-}
-
 th.column-assignee, td.column-assignee {
     max-width: 130px;
 }
@@ -97,4 +93,44 @@ td div.upstream-issues:nth-of-type(2n) {
 .back-to-top.pf-c-back-to-top {
   z-index: 1000;
   position: fixed;
+}
+
+tr.row-other td {
+  color: var(--pf-global--palette--black-600);
+}
+
+th.issue-violations, td.issue-violations {
+  max-width: 500px;
+}
+
+/* column hiding */
+.standalone .column-type {
+    display: none;
+}
+
+/* plain-mode */
+.standalone.mode-plain .column-release,
+.standalone.mode-plain .column-violations,
+.upgrades.mode-plain .column-release,
+.upgrades.mode-plain .column-violations {
+  display: none;
+}
+
+/* dev-ack mode */
+.standalone.mode-dev-ack .column-priority,
+.standalone.mode-dev-ack .column-status,
+.standalone.mode-dev-ack .column-assignee,
+.standalone.mode-dev-ack .column-name,
+.standalone.mode-dev-ack .column-acks,
+.upgrades.mode-dev-ack .column-priority,
+.upgrades.mode-dev-ack .column-status,
+.upgrades.mode-dev-ack .column-assignee,
+.upgrades.mode-dev-ack .column-name,
+.upgrades.mode-dev-ack .column-acks {
+  display: none;
+}
+
+.standalone.mode-dev-ack tr.row-other,
+.standalone.mode-dev-ack tr:has(td.issue-success.column-acks) /* already has dev ack */ {
+  display: none;
 }

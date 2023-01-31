@@ -1,3 +1,5 @@
+import React from 'react';
+
 import classnames from 'classnames';
 
 import CheckIcon from '@patternfly/react-icons/dist/js/icons/check-icon';
@@ -7,28 +9,18 @@ const getKeyFromUrl = (url) => url.substr(url.lastIndexOf('/')+1);
 const Link = ({url, text}) => <a href={url} target="_blank" rel="noopener noreferrer">{text}</a>;
 const IssueLink = ({url}) => <Link url={url} text={getKeyFromUrl(url)}/>;
 
-export const standaloneColumns = [
+export const columns = [
   { title: "Number", sortable: true, className: 'column-number' },
-  { title: "Priority", sortable: true },
-  { title: "Status", sortable: true },
+  { title: "Priority", sortable: true, className: 'column-priority' },
+  { title: "Status", sortable: true, className: 'column-status' },
   { title: "Assignee", sortable: true, className: 'column-assignee' },
   { title: "Name", className: 'column-name' },
   { title: "Type", className: 'column-type' },
-  { title: "Acks" },
-  { title: "PR Status", sortable: true },
-  { title: "Upstream" }
-];
-
-export const upgradeColumns = [
-  { title: "Number", className: 'column-number' },
-  { title: "Priority" },
-  { title: "Status" },
-  { title: "Assignee", className: 'column-assignee' },
-  { title: "Name", className: 'column-name' },
-  { title: "Type", className: 'column-type' },
-  { title: "Acks" },
-  { title: "PR Status" },
-  { title: "Upstream" }
+  { title: "Target Release", className: 'column-release' },
+  { title: "Acks", className: 'column-acks' },
+  { title: "PR Status", sortable: true, className: 'column-pr' },
+  { title: "Upstream", className: 'column-upstream' },
+  { title: "Violations", className: 'column-violations' }
 ];
 
 const shortName = (name) => {
@@ -41,132 +33,11 @@ const shortName = (name) => {
   }
 };
 
-const unescape = (text) => text.replaceAll("&quot;",'"');
-
-export function orderData(data) {
-  let result = [],
-      standalone = [],
-      bugs = {},
-      upgrades = data.filter(issue => issue.rawType.toLowerCase() === "component upgrade");
-
-  data.filter(issue => issue.rawType.toLowerCase() !== "component upgrade").forEach(item => {
-    bugs[getKeyFromUrl(item.url)] = item;
-  });
-
-  upgrades.forEach(upgrade => {
-    upgrade.nested = [];
-    if (upgrade.linkedIncorporatesIssues) {
-      upgrade.linkedIncorporatesIssues.forEach(inc => {
-        let name = getKeyFromUrl(inc),
-            issue = bugs[name];
-        if (issue) {
-          upgrade.nested.push(issue);
-          delete bugs[name];
-        }
-      });
-    }
-  });
-
-  for (let d in bugs) {
-    standalone.push(bugs[d]);
-  }
-
-  result.standalone = standalone;
-  result.upgrades = upgrades;
-
-  return result;
-};
-
-export const tablify = (data) => [toTableData(data.standalone, standaloneColumns, false), toTableData(data.upgrades, upgradeColumns, true)];
-
-// turn JSON into table data
-function toTableData(issues, columns, processNested) {
-  let result = [];
-
-  issues.forEach((issue) => {
-    let row = issueToRow(issue, columns);
-
-    result.push(row);
-
-    if (processNested) {
-      for (let i = 0; i < 5; i++) {
-        row.cells[i].className = classnames(row.cells[i].className, 'row-upgrade');
-      }
-
-      issue.nested.forEach((bug) => {
-        result.push(issueToRow(bug, columns));
-      })
-    }
-  });
-
-  return result;
-};
-
-function issueToRow({url, priority, rawStatus, assignee, summary, rawType, acks, pullRequest, ...rest}, columns) {
-  let row = {},
-      cells = [];
-
-  let ack = ackCell(acks),
-      pr = prCell(pullRequest),
-      upstream = upstreamCell(pullRequest);
-
-  statusChecks([ack, pr, upstream])
-
-  cells = [
-    makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),
-    makeCell(priority),
-    makeCell(shortName(rawStatus).toUpperCase()),
-    makeCell(assignee),
-    makeCell(unescape(summary)),
-    makeCell(shortName(rawType).toUpperCase()),
-    ack,
-    pr,
-    upstream
-  ];
-
-  cells.map((cell, i) => {
-    if (columns[i].sortable) {
-      cell.sortKey = cell.sortKey ? cell.sortKey : cell.title;
-    }
-    cell.className = classnames(cell.className, columns[i].className);
-    return cell;
-  });
-
-  row.cells = cells;
-  return row;
-};
-
-function makeCell(title, sortKey, className) {
-  let cell = { title: title };
-  if (sortKey) {
-    cell.sortKey = sortKey;
-  }
-  if (className) {
-    cell.className = className;
-  }
-  return cell;
-};
-
-function ackCell(acks) {
-  let flags = [];
-  for (let flag in acks) {
-    if (acks[flag] !== 'ACCEPTED') {
-      flags.push(flag + (acks[flag] === 'SET' ? '?' : '-'));
-    }
-  }
-
-  if (!flags.length) {
-    return makeCell('All Clear', 'all', 'issue-success');
-  }
-
-  return makeCell(flags.join(' '));
-};
-
 const getPRClassName = (status) => {
   switch(status) {
     case 'merged':
     case 'work branch':
-      return 'issue-success'
+      return ISSUE_SUCCESS
     case 'clean':
       return 'pr-clean';
     case 'failed to read':
@@ -199,7 +70,139 @@ export const getMergeStatus = (pullRequest) => {
   return status;
 };
 
-function prCell(prs) {
+const unescape = (text) => text.replaceAll("&quot;",'"');
+
+const ISSUE_SUCCESS = 'issue-success';
+
+export function orderData(data) {
+  let result = {},
+      standalone = [],
+      bugs = {},
+      upgrades = data.filter(issue => issue.rawType.toLowerCase() === "component upgrade");
+
+  data.filter(issue => issue.rawType.toLowerCase() !== "component upgrade").forEach(item => {
+    bugs[getKeyFromUrl(item.url)] = item;
+  });
+
+  upgrades.forEach(upgrade => {
+    upgrade.nested = [];
+    if (upgrade.linkedIncorporatesIssues) {
+      upgrade.linkedIncorporatesIssues.forEach(inc => {
+        let name = getKeyFromUrl(inc),
+            issue = bugs[name];
+        if (issue) {
+          upgrade.nested.push(issue);
+          delete bugs[name];
+        }
+      });
+    }
+  });
+
+  for (let d in bugs) {
+    standalone.push(bugs[d]);
+  }
+
+  result.standalone = standalone;
+  result.upgrades = upgrades;
+
+  return result;
+};
+
+export const tablify = (data, payload) =>
+  [toTableData(data.standalone, payload, false), toTableData(data.upgrades, payload, true)];
+
+// turn JSON into table data
+const toTableData = (issues, payload, processNested) => {
+  let result = [];
+
+  issues.forEach((issue) => {
+    let row = issueToRow(issue, payload);
+
+    result.push(row);
+
+    if (processNested) {
+      for (let i = 0; i < 5; i++) {
+        row.cells[i].className = classnames(row.cells[i].className, 'row-upgrade');
+      }
+
+      issue.nested.forEach((bug) => {
+        result.push(issueToRow(bug, payload));
+      })
+    }
+  });
+
+  return result;
+};
+
+const issueToRow = ({url, priority, rawStatus, assignee, summary, rawType, acks, pullRequest, streamStatus, violations},
+    payload) => {
+  let row = {},
+      cells = [
+    makeCell(<IssueLink url={url} />, Number.parseInt(url.substr(url.lastIndexOf('-')+1))),  // number
+    makeCell(priority),                                       // priority
+    makeCell(shortName(rawStatus).toUpperCase()),             // status
+    makeCell(assignee),                                       // assignee
+    makeCell(unescape(summary)),                              // name
+    makeCell(shortName(rawType).toUpperCase()),               // type
+    makeReleaseCell(streamStatus, payload),                   // target release
+    makeAckCell(acks),                                        // acks
+    makePrCell(pullRequest),                                  // pr status
+    makeUpstreamCell(pullRequest),                            // upstream
+    makeViolationsCell(violations)                            // violations
+  ];
+
+  cells.map((cell, i) => {
+    if (columns[i].sortable) {
+      cell.sortKey = cell.sortKey ? cell.sortKey : cell.title;
+    }
+    cell.className = classnames(cell.className, columns[i].className);
+    return cell;
+  });
+
+  row.cells = cells;
+  row.className = rawType === 'BUG' ? 'row-bug' : (rawType === 'COMPONENT UPGRADE' ? 'row-comp' : 'row-other');
+  return row;
+};
+
+const makeCell = (title, sortKey, className) => {
+  let cell = { title: title };
+  if (sortKey) {
+    cell.sortKey = sortKey;
+  }
+  if (className) {
+    cell.className = className;
+    if (className === ISSUE_SUCCESS) {
+      cell.icon = <CheckIcon />
+    }
+  }
+  return cell;
+};
+
+const makeReleaseCell = (status, payload) => {
+  if (status === undefined) {
+    return makeCell('N/A');
+  }
+  let target = payload.substr(0,3) + ".z.GA";
+
+  return makeCell(Object.keys(status).join(","), null, !!status[target] ? ISSUE_SUCCESS : '');
+}
+
+const makeAckCell = (acks) => {
+  let flags = [];
+  for (let flag in acks) {
+    if (acks[flag] !== 'ACCEPTED') {
+      flags.push(flag + (acks[flag] === 'SET' ? '?' : '-'));
+    }
+  }
+
+  if (!flags.length) {
+    return makeCell('All Clear', 'all', ISSUE_SUCCESS);
+  }
+
+  return makeCell(flags.join(' '));
+};
+
+const makePrCell = (prs) => {
   if (!prs || prs.length === 0) return makeCell('No PR');
 
   let list = prs.map((item) => {
@@ -211,7 +214,7 @@ function prCell(prs) {
   let titles = [],
       sortKey = list[0].sortKey,
       className = '',
-      css = { 'issue-success': 0, 'pr-clean': 0, 'pr-fail': 0, 'pr-dnf': 0 }
+      css = { [ISSUE_SUCCESS]: 0, 'pr-clean': 0, 'pr-fail': 0, 'pr-dnf': 0 }
 
   list.forEach((item, key) => {
     titles.push(<span key={key}>{item.title}<br/></span>);
@@ -226,7 +229,7 @@ function prCell(prs) {
   return makeCell(titles, sortKey, className);
 };
 
-function upstreamCell(prs) {
+const makeUpstreamCell = (prs) => {
   if (!prs || prs.length === 0) return makeCell("");
 
   let list = prs.map(upstreamIssues);
@@ -234,7 +237,7 @@ function upstreamCell(prs) {
   let titles = [],
       sortKey = list[0].sortKey,
       className = '',
-      css = { 'issue-success': 0 }
+      css = { [ISSUE_SUCCESS]: 0 }
 
   list.forEach((item, key) => {
     titles.push(<div className="upstream-issues" key={key}>{item.title}</div>);
@@ -244,8 +247,8 @@ function upstreamCell(prs) {
     }
   })
 
-  if (css['issue-success'] > 0) {
-    className = 'issue-success';
+  if (css[[ISSUE_SUCCESS]] > 0) {
+    className = ISSUE_SUCCESS;
   }
 
   return makeCell(titles, sortKey, className);
@@ -253,7 +256,7 @@ function upstreamCell(prs) {
 
 const upstreamIssues = (pr) => {
   if (!pr.noUpstreamRequired && !pr.upstreamIssueFromPRDesc) return makeCell("Missing", 'missing');
-  else if (pr.noUpstreamRequired) return makeCell("Not required", 'not-required', 'issue-success');
+  else if (pr.noUpstreamRequired) return makeCell("Not required", 'not-required', ISSUE_SUCCESS);
 
   let title =
     <>
@@ -261,13 +264,16 @@ const upstreamIssues = (pr) => {
       {pr.upstreamPullRequestFromPRDesc && <>PR: <Link url={pr.upstreamPullRequestFromPRDesc} text={pr.upstreamPatchState}/></>}
     </>;
 
-  return makeCell(title, '', pr.upstreamPatchState === 'CLOSED' ? 'issue-success' : '');
+  return makeCell(title, '', pr.upstreamPatchState === 'CLOSED' ? ISSUE_SUCCESS : '');
 };
 
-const statusChecks = (cells) => {
-  for (let c of cells) {
-    if (c.className === 'issue-success') {
-      c.icon = <CheckIcon/>;
-    }
+const makeViolationsCell = (violations) => {
+  if (violations === undefined) {
+    return makeCell('N/A');
   }
+  let text = violations.map((v,idx) => (
+      <React.Fragment key={idx}><span>({v.level.toLowerCase()}): {v.message}</span><br /></React.Fragment>
+    ));
+
+  return makeCell(violations.length ? text : "No violations", '', violations.length ? '' : ISSUE_SUCCESS);
 }

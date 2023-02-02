@@ -1,6 +1,7 @@
 {
   "new": [
-    "Added a switch for \"dev ack readiness\""
+    "Added a switch for \"dev ack readiness\" (hides issues that are already acked)",
+    "Added an input for showing new issues"
   ],
   "known-issues": [
   ]

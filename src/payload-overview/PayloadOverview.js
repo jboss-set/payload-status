@@ -25,6 +25,8 @@ const payloadDataUrl = (url, payload) => `${url}payload/${fullPayloadName(payloa
 const payloadPageUrl = (url, payload) =>
   `${url.replace('/api/','/')}streampayload/${fullPayloadName(payload,'/payload/')}`;
 
+const newPayloadIssuesUrl = (url, payload, date) => `${url}new-issues/${payload}/${date}`;
+
 const PayloadOverview = () => {
   const url = conf.url;
   const history = useHistory();
@@ -38,6 +40,8 @@ const PayloadOverview = () => {
       upgradesTotal: 0,
       standalone: {},
       upgrades: {},
+      newIssues: [],
+      newSince: '',
       payload: payloadKey
   });
 
@@ -63,8 +67,19 @@ const PayloadOverview = () => {
     setData(prevState => ({...prevState, payload: payload}));
   }
 
+  const setNewSince = (newSince) => {
+    if (!newSince) {
+      setData(prevState => ({...prevState, newSince: ''}))
+      return;
+    }
+    setData(prevState => ({...prevState, newSince: newSince}));
+  }
+
+  // TODO setNewIssuesMethod, pass it to tables
+  // set only date, then useEffect takes care of it (?)
+
   const tryBaseUrl = useCallback(() => {
-    fetch(url, { mode: 'no-cors' })
+    fetch(url.replace('/rest/api','/'), { mode: 'no-cors' })
       .then(handleResponse)
       .catch(setErrorStatus);
   },[url]);
@@ -82,35 +97,50 @@ const PayloadOverview = () => {
 
   useEffect(() => {
     if (data.payload) {
-        setStatus({loading: true});
-        fetch(payloadDataUrl(url, data.payload))
-          .then(handleResponse)
-          .then(json => {
-            if (!json.length) {
-              setData(prevState => ({...prevState, payload: null, issues: null}));
-              setErrorStatus({ message: "Empty Payload" });
-              return;
-            }
-            let issues = orderData(json),
-                [standalone, upgrades] = tablify(issues, data.payload);
-            setData(prevState => (
-                {
-                ...prevState,
-                issues: issues,
-                upgradesTotal: issues.upgrades.length,
-                standalone: {
-                  rows: standalone,
-                  sortBy: {}
-                },
-                upgrades: {
-                  rows: upgrades
-                }
-            }));
-            setStatus({loading: false});
-          })
-          .catch(tryBaseUrl);
-      }
+      setStatus({loading: true});
+      fetch(payloadDataUrl(url, data.payload))
+        .then(handleResponse)
+        .then(json => {
+          if (!json.length) {
+            setData(prevState => ({...prevState, payload: null, issues: null}));
+            setErrorStatus({ message: "Empty Payload" });
+            return;
+          }
+          let issues = orderData(json),
+              [standalone, upgrades] = tablify(issues, data.payload);
+          setData(prevState => ({
+              ...prevState,
+              issues: issues,
+              upgradesTotal: issues.upgrades.length,
+              standalone: {
+                rows: standalone,
+                sortBy: {}
+              },
+              upgrades: {
+                rows: upgrades
+              }
+          }));
+          setStatus({loading: false});
+        })
+        .catch(error => {
+          console.log(error);
+          tryBaseUrl()
+        });
+    }
   },[data.payload, url, tryBaseUrl]);
+
+  useEffect(() => {
+    if (data.newSince) {
+      setStatus({loading: true});
+      fetch(newPayloadIssuesUrl(url, data.payload, data.newSince))
+        .then(handleResponse)
+        .then(json => {
+            setData(prevState => ({...prevState, newIssues: json}))
+            setStatus({loading: false});
+        })
+        .catch(tryBaseUrl);
+    }
+  },[data.payload, data.newSince, url, tryBaseUrl]);
 
   const handleTabClick = (event, tabIndex) => setActiveTabKey(tabIndex);
 
@@ -123,7 +153,7 @@ const PayloadOverview = () => {
         <Tabs activeKey={activeTabKey} onSelect={handleTabClick} isBox>
           <Tab eventKey={0} title={<><TabTitleIcon><PackageIcon /></TabTitleIcon> <TabTitleText>Payload</TabTitleText>  </>}>
             <Stats data={data.issues} />
-            <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} />
+            <IssueTables link={payloadPageUrl(url, data.payload)} data={data} setRows={setData} setNewSince={setNewSince} />
           </Tab>
           <Tab eventKey={1} title={<><TabTitleIcon><ModuleIcon /></TabTitleIcon> <TabTitleText>Component Upgrade View</TabTitleText>  </>}>
             <ComponentView data={data} />

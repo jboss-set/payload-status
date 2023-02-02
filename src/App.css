@@ -28,6 +28,10 @@ div.info {
     background-color: var(--pf-global--palette--orange-100)
 }
 
+.dev-ack-switch {
+  width: 280px;
+}
+
 th.column-assignee, td.column-assignee {
     max-width: 130px;
 }
@@ -50,7 +54,7 @@ td.column-assignee, td.column-name {
     white-space: nowrap;
 }
 
-td.issue-success svg {
+td.issue-success svg, td.column-number svg {
     position: absolute;
     top: 4px;
     right: 4px;
@@ -132,5 +136,9 @@ th.issue-violations, td.issue-violations {
 
 .standalone.mode-dev-ack tr.row-other,
 .standalone.mode-dev-ack tr:has(td.issue-success.column-acks) /* already has dev ack */ {
+  display: none;
+}
+
+.new-only .row-old {
   display: none;
 }

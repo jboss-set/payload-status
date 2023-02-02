@@ -4,7 +4,7 @@ import { TableComposable, Thead, Tbody, Tr, Th, Td, Caption } from '@patternfly/
 
 import classnames from 'classnames';
 
-const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devAckModeOn}) => {
+const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devAckModeOn, newIssuesOnly}) => {
 
   const onSort = (_event, index, direction) => {
     const sortedRows = rows.sort((a, b) => {
@@ -21,7 +21,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devA
   }
 
   return (
-    <TableComposable className={classnames(className, !devAckModeOn ? 'mode-plain' : 'mode-dev-ack')}>
+    <TableComposable className={classnames(className, !devAckModeOn ? 'mode-plain' : 'mode-dev-ack', newIssuesOnly ? 'new-only' : '')}>
       <Caption>{caption}</Caption>
       <Thead>
         <Tr>
@@ -43,7 +43,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devA
       </Thead>
       <Tbody>
         {rows.map((row, rowIndex) => (
-          <Tr key={rowIndex} className={row.className}>
+          <Tr key={rowIndex} className={`${row.className} ${row.isNew ? 'row-new' : 'row-old'}`}>
             {row.cells.map((cell, cellIndex) => {
               const decorations = cell.className ? {className: cell.className} : {};
               return <Td key={`${rowIndex}_${cellIndex}`} dataLabel={columns[cellIndex].title} {...decorations}>

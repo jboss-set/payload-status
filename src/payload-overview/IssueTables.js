@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 import IssueTable from './IssueTable';
-import { columns } from './TableUtil';
+import { columns, markNewIssues } from './TableUtil';
 import { Link } from '../common/Util';
-import { Switch, Title } from '@patternfly/react-core';
+import { Checkbox, DatePicker, Switch, Title } from '@patternfly/react-core';
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 
-const IssueTables = ({link,data,setRows}) => {
+const IssueTables = ({link,data,setRows,setNewSince}) => {
 
   const [isDevAckMode, setDevAckMode] = useState(false);
+  const [isNewIssuesOnly, setNewIssuesOnly] = useState(false);
 
   const updateStandaloneRows = (standalone) => {
     setRows(prevState => ({
@@ -20,17 +21,39 @@ const IssueTables = ({link,data,setRows}) => {
     }))
   };
 
+  const dateValidator = (date) => date > new Date() ? 'this is a future date' : ''
+
   const toolbarItems = (
-    <ToolbarItem className="mode-switch">
-      <Switch
-        id="dev-ack-switch"
-        label="Dev Ack Readiness display"
-        labelOff="Basic display"
-        isChecked={isDevAckMode}
-        onChange={setDevAckMode}
-      />
-    </ToolbarItem>
+    <>
+      <ToolbarItem className="mode-switch">
+        <Switch
+          id="dev-ack-switch"
+          className="dev-ack-switch"
+          label="Dev Ack Readiness display"
+          labelOff="Basic display"
+          isChecked={isDevAckMode}
+          onChange={setDevAckMode}
+        />
+      </ToolbarItem>
+      <ToolbarItem variant="separator" />
+      <ToolbarItem>
+        <DatePicker value={data.newSince}
+          validators={[dateValidator]}
+          popoverProps={{position: 'right'}}
+          appendTo={() => document.body}
+          onChange={setNewSince}
+          weekStart={1} />
+      </ToolbarItem>
+      <ToolbarItem>
+        <Checkbox id="new-issues-only" label="Show only new issues" isChecked={isNewIssuesOnly} onChange={setNewIssuesOnly} />
+      </ToolbarItem>
+    </>
   );
+
+  if (data.newIssues.length) {
+    markNewIssues(data.standalone.rows, data.newIssues);
+    markNewIssues(data.upgrades.rows, data.newIssues);
+  }
 
   return (
     <div>
@@ -49,6 +72,7 @@ const IssueTables = ({link,data,setRows}) => {
         sortBy={data.standalone.sortBy}
         updateRows={updateStandaloneRows}
         devAckModeOn={isDevAckMode}
+        newIssuesOnly={isNewIssuesOnly}
       />
       <IssueTable
         caption={`${data.upgradesTotal} Component upgrades, ${data.upgrades.rows.length} issues total`}
@@ -56,6 +80,7 @@ const IssueTables = ({link,data,setRows}) => {
         columns={columns}
         rows={data.upgrades.rows}
         devAckModeOn={isDevAckMode}
+        newIssuesOnly={isNewIssuesOnly}
       />
     </div>
   )

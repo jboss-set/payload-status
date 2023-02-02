@@ -3,6 +3,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import CheckIcon from '@patternfly/react-icons/dist/js/icons/check-icon';
+import FlagIcon from '@patternfly/react-icons/dist/js/icons/flag-icon';
 
 const getKeyFromUrl = (url) => url.substr(url.lastIndexOf('/')+1);
 
@@ -107,6 +108,14 @@ export function orderData(data) {
 
   return result;
 };
+
+export const markNewIssues = (rows, newIssues) => {
+  rows.forEach((row) => {
+    let isNew = newIssues.includes(row.cells[0].title.props.url);
+    row.isNew = isNew;
+    row.cells[0].icon = isNew ? <FlagIcon /> : null;
+  });
+}
 
 export const tablify = (data, payload) =>
   [toTableData(data.standalone, payload, false), toTableData(data.upgrades, payload, true)];

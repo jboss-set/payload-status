@@ -39,28 +39,35 @@ const processList = (list, short) => {
     }
     result.push(flatList);
   }
-  result = result.sort(sortMinorVersions).flat();
+  result = result.sort(sortMajorMinorVersions).flat();
   if (short) {
     result = result.slice(0,4);
   }
   return result;
 }
 
-const minorMatcher = /\d+\.(\d+)\.\d+/;
-const microMatcher = /\d+\.\d+\.(\d+)/;
+const majorMinorMatcher = /(\d+)\.(\d+)[.\s]/;
+const microMatcher      = /\d+\.\d+[.\s](\d+)/;
 
-const sortMinorVersions = (a,b) => {
-  let aa = a[0].match(minorMatcher)[1],
-      bb = b[0].match(minorMatcher)[1];
+const sortMajorMinorVersions = (a,b) => {
+  let aa = a[0].match(majorMinorMatcher),
+      bb = b[0].match(majorMinorMatcher);
 
-  return bb - aa;
+  return aa[1] === bb[1] ? bb[2] - aa[2] : bb[1] - aa[1];
 }
 
 const sortMicroVersions = (a,b) => {
-  let aa = a.match(microMatcher)[1],
-      bb = b.match(microMatcher)[1];
+  let amatch = a.match(microMatcher),
+      bmatch = b.match(microMatcher),
+      aa = amatch ? amatch[1] : a,
+      bb = bmatch ? bmatch[1] : b;
 
-  return bb - aa;
+  let result = bb - aa;
+  if (isNaN(result)) {
+    return bb > aa ? 1 : -1;
+  }
+
+  return result;
 }
 
 export default PayloadPicker;

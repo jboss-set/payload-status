@@ -16,7 +16,7 @@ import PackageIcon from '@patternfly/react-icons/dist/esm/icons/package-icon';
 import ModuleIcon from '@patternfly/react-icons/dist/esm/icons/module-icon';
 
 const fullPayloadName = (name, separator) => {
-  let majorMinor = name.match(/(\d+\.\d+)\.\d+/)[1];
+  let majorMinor = name.match(/(\d+\.\d+)[.\s]/)[1];
   return `jboss-eap-${majorMinor}.z${separator}${name}`;
 };
 

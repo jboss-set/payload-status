@@ -21,11 +21,11 @@ div.info {
 }
 
 .info-news {
-    background-color: var(--pf-global--palette--green-100)
+    background-color: var(--pf-v5-global--palette--green-100)
 }
 
 .info-issues {
-    background-color: var(--pf-global--palette--orange-100)
+    background-color: var(--pf-v5-global--palette--orange-100)
 }
 
 .dev-ack-switch {
@@ -61,28 +61,28 @@ td.issue-success svg, td.column-number svg {
 }
 
 .row-upgrade {
-    border-top: 4px solid var(--pf-global--palette--black-500);
+    border-top: 4px solid var(--pf-v5-global--palette--black-500);
 }
 
 td.issue-success {
-    background-color: var(--pf-global--palette--green-50);
+    background-color: var(--pf-v5-global--palette--green-50);
 }
 
 td.pr-clean {
-    background-color: var(--pf-global--palette--green-50);
+    background-color: var(--pf-v5-global--palette--green-50);
 }
 
 td.pr-fail, td.pr-dnf {
-    background-color: var(--pf-global--palette--red-50);
+    background-color: var(--pf-v5-global--palette--red-50);
 }
 
 td.issue-success.pr-fail {
     background: repeating-linear-gradient(
         45deg,
-        var(--pf-global--palette--green-50),
-        var(--pf-global--palette--green-50) 20px,
-        var(--pf-global--palette--red-50) 20px,
-        var(--pf-global--palette--red-50) 40px
+        var(--pf-v5-global--palette--green-50),
+        var(--pf-v5-global--palette--green-50) 20px,
+        var(--pf-v5-global--palette--red-50) 20px,
+        var(--pf-v5-global--palette--red-50) 40px
     );
 }
 
@@ -100,7 +100,7 @@ td div.upstream-issues:nth-of-type(2n) {
 }
 
 tr.row-other td {
-  color: var(--pf-global--palette--black-600);
+  color: var(--pf-v5-global--palette--black-600);
 }
 
 th.issue-violations, td.issue-violations {

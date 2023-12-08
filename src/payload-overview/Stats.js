@@ -14,7 +14,7 @@ const colors = {
 
 const getColor = (name) => {
   let color = colors[name] || "black-800";
-  return `var(--pf-global--palette--${color})`;
+  return `var(--pf-v5-global--palette--${color})`;
 }
 
 const prTypes = {

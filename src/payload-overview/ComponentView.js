@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Link } from '../common/Util';
-import { TableComposable, Thead, Tbody, Tr, Th, Td } from '@patternfly/react-table';
+//import { Link } from '../common/Util';
+import { Table, Thead, Tbody, Tr, Th, Td } from '@patternfly/react-table';
 
 const buildProjects = [
   "A-MQ-artemis-wildfly-integration",
@@ -495,7 +495,7 @@ const ComponentView = ({data}) => {
 
 
   return (
-    <TableComposable className={className} variant="compact">
+    <Table className={className} variant="compact">
       <Thead>
         <Tr>
           {columns.map((column, columnIndex) => {
@@ -510,7 +510,7 @@ const ComponentView = ({data}) => {
           </Tr>
         ))}
       </Tbody>
-    </TableComposable>
+    </Table>
   );
 }
 

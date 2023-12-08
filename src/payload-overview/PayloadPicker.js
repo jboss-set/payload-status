@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
 
-import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
-import { Checkbox } from '@patternfly/react-core';
+import { Toolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
+import { Switch } from '@patternfly/react-core';
 import { ToolbarSelect } from '../common/Util';
 
 const PayloadPicker = ({onSelect, data}) => {
@@ -16,10 +16,11 @@ const PayloadPicker = ({onSelect, data}) => {
     <>
       <ToolbarItem variant="label">Payload Overview</ToolbarItem>
       <ToolbarItem>
-        <ToolbarSelect data={payloadList} onSelectCallback={onSelect} initialSelection={payloadKey} maxHeight="400px" />
+        <ToolbarSelect id="payload-select" data={payloadList} onSelectCallback={onSelect} initialSelection={payloadKey} maxHeight="400px" />
       </ToolbarItem>
-      <ToolbarItem>
-        <Checkbox label="Latest only" aria-label="latest only" id="latest-check" isChecked={isLatestOnly} onChange={setLatestOnly} />
+      <ToolbarItem alignSelf="center">
+        <Switch label="Latest only" labelOff="All payloads" aria-label="latest only" id="latest-check"
+          isChecked={isLatestOnly} onChange={(_event, val) => setLatestOnly(val)} />
       </ToolbarItem>
     </>
   );

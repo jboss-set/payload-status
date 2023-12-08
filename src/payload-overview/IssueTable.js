@@ -1,6 +1,6 @@
 import React from 'react';
 import { SortByDirection } from '@patternfly/react-table';
-import { TableComposable, Thead, Tbody, Tr, Th, Td, Caption } from '@patternfly/react-table';
+import { Table, Thead, Tbody, Tr, Th, Td, Caption } from '@patternfly/react-table';
 
 import classnames from 'classnames';
 
@@ -21,7 +21,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devA
   }
 
   return (
-    <TableComposable className={classnames(className, !devAckModeOn ? 'mode-plain' : 'mode-dev-ack', newIssuesOnly ? 'new-only' : '')}>
+    <Table className={classnames(className, !devAckModeOn ? 'mode-plain' : 'mode-dev-ack', newIssuesOnly ? 'new-only' : '')}>
       <Caption>{caption}</Caption>
       <Thead>
         <Tr>
@@ -53,7 +53,7 @@ const IssueTable = ({caption, className, columns, rows, sortBy, updateRows, devA
           </Tr>
         ))}
       </Tbody>
-    </TableComposable>
+    </Table>
   );
 }
 

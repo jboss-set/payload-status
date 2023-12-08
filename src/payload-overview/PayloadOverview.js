@@ -67,16 +67,13 @@ const PayloadOverview = () => {
     setData(prevState => ({...prevState, payload: payload}));
   }
 
-  const setNewSince = (newSince) => {
+  const setNewSince = (_event, newSince) => {
     if (!newSince) {
       setData(prevState => ({...prevState, newSince: ''}))
       return;
     }
     setData(prevState => ({...prevState, newSince: newSince}));
   }
-
-  // TODO setNewIssuesMethod, pass it to tables
-  // set only date, then useEffect takes care of it (?)
 
   const tryBaseUrl = useCallback(() => {
     fetch(url.replace('/rest/api','/'), { mode: 'no-cors' })

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import IssueTable from './IssueTable';
 import { columns, markNewIssues } from './TableUtil';
 import { Link } from '../common/Util';
-import { Checkbox, DatePicker, Switch, Title } from '@patternfly/react-core';
+import { DatePicker, Switch, Title } from '@patternfly/react-core';
 import { Toolbar , ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 
 const IssueTables = ({link,data,setRows,setNewSince}) => {
@@ -25,14 +25,14 @@ const IssueTables = ({link,data,setRows,setNewSince}) => {
 
   const toolbarItems = (
     <>
-      <ToolbarItem className="mode-switch">
+      <ToolbarItem className="mode-switch" alignSelf="center">
         <Switch
           id="dev-ack-switch"
           className="dev-ack-switch"
           label="Dev Ack Readiness display"
           labelOff="Basic display"
           isChecked={isDevAckMode}
-          onChange={setDevAckMode}
+          onChange={(_event, val) => setDevAckMode(val)}
         />
       </ToolbarItem>
       <ToolbarItem variant="separator" />
@@ -44,8 +44,8 @@ const IssueTables = ({link,data,setRows,setNewSince}) => {
           onChange={setNewSince}
           weekStart={1} />
       </ToolbarItem>
-      <ToolbarItem>
-        <Checkbox id="new-issues-only" label="Show only new issues" isChecked={isNewIssuesOnly} onChange={setNewIssuesOnly} />
+      <ToolbarItem alignSelf="center">
+        <Switch id="new-issues-only" label="New issues only" labelOff="All issues" isChecked={isNewIssuesOnly} onChange={(_event, val) => setNewIssuesOnly(val)} />
       </ToolbarItem>
     </>
   );

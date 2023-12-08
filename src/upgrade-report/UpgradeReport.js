@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Table, TableHeader, TableBody, TableVariant  } from '@patternfly/react-table';
+import { Table, Thead, Tbody, Tr, Th, Td, TableVariant } from '@patternfly/react-table';
 import { Toolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 import { Spinner, Button } from '@patternfly/react-core';
 import TimesIcon from '@patternfly/react-icons/dist/js/icons/times-icon';
@@ -27,9 +27,21 @@ const compareURL = (url, repo, tag1, tag2) => `${url}upgrades/${repo}/${tag1}/${
 const tablify = (upgrades) => upgrades.map(u => [u.componentId, u.oldVersion, u.newVersion]);
 
 const ReportTable = ({data}) => (
-  <Table aria-label="Simple Table" cells={["Component", "Old", "New"]} rows={data} variant={TableVariant.compact}>
-    <TableHeader />
-    <TableBody />
+  <Table aria-label="Simple Table" variant={TableVariant.compact}>
+    <Thead>
+      <Tr>
+        <Th>Component</Th>
+        <Th>Old</Th>
+        <Th>New</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      {data.map(row => (
+      <Tr key={row[0]}>
+        <Td>{row[0]}</Td><Td>{row[1]}</Td><Td>{row[2]}</Td>
+      </Tr>
+      ))}
+    </Tbody>
   </Table>
 );
 
@@ -85,7 +97,7 @@ const UpgradeReport = () => {
         <ToolbarContent>
           <ToolbarItem variant="label">Upgrade Report</ToolbarItem>
           <ToolbarItem>
-            <ToolbarSelect data={repos} onSelectCallback={loadTags} />
+            <ToolbarSelect id="repo-select" data={repos} onSelectCallback={loadTags} />
           </ToolbarItem>
           <UpgradeSelects reportCallback={loadReport} repos={repos} data={data} />
           {data.upgrades && <ToolbarItem><Button variant="secondary" onClick={unload}>Clear <TimesIcon/></Button></ToolbarItem>}
